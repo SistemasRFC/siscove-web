@@ -179,15 +179,22 @@ td{
 }
 
 /*Card*/
+body {
+    background-color: #f2f2f2;
+    height: fit-content;
+}
 .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
-    max-width: 800px;
+    max-width: 95%;
     margin: auto;
     margin-top: 15px;
     font-family: arial;
-    background-color: #f2f2f2;
-    padding: 20px 20px;
+    padding: 20px;
     padding-bottom: 40px;
+}
+.card-login {
+    max-width: 25%;
+    margin-top: 10%;
 }
 /*Textos*/
 .cabecalho {
@@ -205,9 +212,13 @@ td{
 
 /*Input*/
 input {
-    width: 100%;
-    padding: 5px 5px;
+    width: 50%;
+    padding: 5px;
     margin: 4px 0;
+}
+
+input[type="checkbox"] {
+    width: 5%;
 }
 
 /*Botões*/

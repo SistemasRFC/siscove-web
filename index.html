@@ -6,36 +6,28 @@
         <header-component></header-component>
     </head>
     <body>
-    <div>        
-        <div>
-            <!--FORMULARIO DE LOGIN-->
-            <div id="login">
-                    <div style="text-align:center"><h1>Login</h1>
-                    <p>
-                        <h2>
-                        <label for="nome_login">Seu nome</label>
-                        <input id="nomeUsuario" name="nomeUsuario" required="required" type="text" placeholder="ex. contato@htmlcsspro.com"/>
-                    </p>
-                    <p>
-                        <label for="txtSenha">Seu e-mail</label>
-                        <input id="txtSenha" required="required" type="password" placeholder="ex.senha" />
-                    </p>
-                    <p>
-                        <input type="checkbox" name="manterlogado" id="manterlogado" value="" />
-                        <label for="manterlogado">Manter-me logando</label>
-                    </p>
-                    <p>
-                        <button id="btnLogar">Logar</button>
-
-                    </p>
-                    <p class="link">
-                        Ainda não tem conta?
-                        <a href="Cadastre_se/Cadastro.html">Cadastre-se</a>
-                        </h2>
-                    </div>                   
-                    </p>
-            </div>  
+        <div class="card card-body card-login">
+            <h5 style="text-align:center">LOGIN</h5>
+            <h1 style="text-align:center" class="color-primary">SISCOVE</h1>
+            <div>
+                <label class="mb-0" for="nomeUsuario">Usuário</label>
+                <input id="nomeUsuario" name="nomeUsuario" type="text" class="form-control" placeholder="Login"/>
+            </div>
+            <div>
+                <label class="mb-0" for="txtSenha">Senha</label>
+                <input id="txtSenha" type="password" class="form-control" placeholder="Senha" />
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" name="manterlogado" id="manterlogado" class="custom-control-input" />
+                <label class="custom-control-label" for="manterlogado">Manter-me logado</label>
+            </div>
+            <div>
+                <button id="btnLogar" class="btn btn-primary btn-user btn-block">Logar</button>
+            </div>
+            <div>
+                Ainda não tem conta?
+                <a href="#">Cadastre-se</a>
+            </div>
         </div>
-    </div>
- </body>
+    </body>
 </html>
