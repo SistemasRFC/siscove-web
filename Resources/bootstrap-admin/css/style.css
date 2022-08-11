@@ -1,0 +1,369 @@
+.color-primary {
+    color: #015ab2 !important;
+}
+
+.color-primary-dark {
+    color: #016f9b !important;
+}
+
+.bg-gradient-primary {
+    background-color: #33b0dd;
+    background-image: linear-gradient(180deg, #0d8ac4 20%, #0c427c 90%);
+    background-size: cover;
+}
+
+.loading{
+    background:url('../../Resources/images/loading.gif') no-repeat right center;
+    background-size:25px 25px;
+}
+
+.TabelaCabecalho{
+    font-family: 'Times New Roman',Times,serif;
+    font-size: 16px;
+    background-repeat: repeat-x;
+    background-position: center;
+    border-right-style: solid;
+    border-left-style: solid;
+    border-bottom-style: solid;
+    border-top-style: solid;
+    border-right-width: 1px;
+    border-left-width: 1px;
+    border-bottom-width: 1px;
+    border-top-width: 1px;
+    border-right-color: black;
+    border-left-color: black;
+    border-bottom-color: black;
+    border-top-color: black;
+}
+.TabelaChecklist{
+    font-family: 'Times New Roman',Times,serif;
+    font-size: 16px;
+    background-repeat: repeat-x;
+    background-position: center;
+}
+
+.TDTitulo{
+    font-family: 'Times New Roman',Times,serif;
+    font-size: 16px;
+    vertical-align: middle;
+    font-weight:bold;
+}
+
+.TDTituloCabecalho{
+    font-family: 'Times New Roman',Times,serif;
+    font-size: 24px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.TDSUBTituloCabecalho{
+
+    font-family: 'Times New Roman',Times,serif;
+    font-size: 18px;
+    text-align: left;
+    vertical-align: middle;
+    background-color: #B5B5B5;
+}
+.TabelaConteudo{
+    font-family: 'Times New Roman',Times,serif;
+    font-size: 16px;
+    background-repeat: repeat-x;
+    background-position: center;
+}
+
+.colunaEsquerda{
+    border-top: 1px solid black; 
+    border-left: 1px solid black; 
+    text-align: center;
+}
+
+.colunaMeio{
+    border-top: 1px solid black; 
+    border-left: 1px solid black; 
+    text-align: center;
+}
+
+.colunaDireita{
+    border-top: 1px solid black; 
+    border-right: 1px solid black; 
+    border-left: 1px solid black; 
+    text-align: center;
+}
+
+.trcor:hover{
+    background-color: #B5B5B5;
+}
+
+a:link, a:visited{
+    text-decoration: none
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active{
+    text-decoration: none;
+}
+
+td{
+    font-size: .9em;
+}
+
+.label{
+    font-size: 11px;
+    font-family: Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    color:#000000;
+}
+
+.labelFont20{
+    font-size: 20px;
+    font-family: Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    color:#000000;
+}
+.labelFont12{
+    font-size: 12px;
+    font-family: Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    color:#000000;
+}
+
+.labelFont13{
+    font-size: 13px;
+    font-family: Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    color:#000000;
+}
+
+.labelFont14{
+    font-size: 14px;
+    font-family: Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    color:#000000;
+}
+
+.divDefault{
+    border: 1px solid #a4bed4;
+}
+
+.inputFont12{
+    font-size: 12px;
+    font-family: Verdana, sans-serif;margin: 0;
+    padding: 0;
+    text-align: left;
+}
+
+.inputFont14{
+    font-size: 14px;
+    font-family: Verdana, sans-serif;margin: 0;
+    padding: 0;
+    height: 25px;
+    text-align: left;
+}
+
+.disabledTable {
+    pointer-events: none;
+    opacity: 100;
+}
+
+/*Card*/
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+    max-width: 800px;
+    margin: auto;
+    margin-top: 15px;
+    font-family: arial;
+    background-color: #f2f2f2;
+    padding: 20px 20px;
+    padding-bottom: 40px;
+}
+/*Textos*/
+.cabecalho {
+    margin-top: 5px;
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.titulo {
+    padding: 5px;
+    padding-top: 10px;
+    font-size: 16px;
+}
+
+/*Input*/
+input {
+    width: 100%;
+    padding: 5px 5px;
+    margin: 4px 0;
+}
+
+/*Botões*/
+.button {
+    border: none;
+    padding: 10px;
+    color: white;
+    background-color: #2E2EFE;
+    text-align: center;
+    cursor: pointer;
+    width: 200px;
+    font-size: 18px;
+}
+
+.button:hover {
+    opacity: 0.7;
+}
+
+.button-novo {
+    border: none;
+    padding: 10px;
+    color: white;
+    background-color: teal;
+    text-align: center;
+    cursor: pointer;
+    width: 200px;
+    font-size: 18px;
+}
+
+.button-novo:hover {
+    opacity: 0.7;
+}
+
+.button-salvar {
+    border: none;
+    padding: 10px;
+    color: white;
+    background-color: darkgreen;
+    text-align: center;
+    cursor: pointer;
+    width: 200px;
+    font-size: 18px;
+}
+
+.button-salvar:hover {
+    opacity: 0.7;
+}
+
+.button-cancelar {
+    border: none;
+    padding: 10px;
+    color: white;
+    background-color: red;
+    text-align: center;
+    cursor: pointer;
+    width: 200px;
+    font-size: 18px;
+}
+
+.button-cancelar:hover {
+    opacity: 0.7;
+}
+
+
+/*Modal*/
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 150px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-header {
+    padding: 2px 16px;
+    background-color: MediumAquamarine;
+    color: white;
+}
+
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/*Gráfico Knob*/
+#knobContainer {
+    position: relative;
+}
+.inputField {
+    left: 100px;
+    top: 180px;
+    width: 200px;
+    height: 40px;
+    color: black;
+    font-size: 26px;
+    position: absolute;
+    background: transparent;
+    text-align: center;
+    border: none;
+}
+.inputField2 {
+    left: 60px;
+    top: 60px;
+    width: 180px;
+    height: 50px;
+    color: black;
+    font-size: 20px;
+    position: absolute;
+    background: transparent;
+    text-align: center;
+    border: none;
+}
+.inputField3 {
+    left: 60px;
+    top: 190px;
+    width: 180px;
+    height: 50px;
+    color: black;
+    font-size: 20px;
+    position: absolute;
+    background: transparent;
+    text-align: center;
+    border: none;
+}
+text.jqx-knob-label {
+    font-weight: bold;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 20px;
+}
+.inputField .jqx-input-content {
+    background: transparent;
+    font-size: 30px;
+    color: black;
+}
+#knob2 {
+    position: absolute !important;
+    top: 50px;
+    left: 50px;
+}
+#knob3 {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+}
