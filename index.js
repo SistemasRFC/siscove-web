@@ -3,9 +3,9 @@ $(function(){
         swal("Aguarde!");
         $.ajax({
             type: "POST",
-            url: "http://localhost:8080/usuario/validar",
+            url: "http://localhost:8080/login/validar",
             data: JSON.stringify({
-                nomeLogin: $("#nomeUsuario").val(),
+                nmeUsuario: $("#nomeUsuario").val(),
                 txtSenha: $("#txtSenha").val()
             }),
             contentType: "application/json; charset=utf-8",
