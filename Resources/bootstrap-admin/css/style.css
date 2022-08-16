@@ -9,8 +9,12 @@
 
 .bg-gradient-primary {
     background-color: #33b0dd;
-    background-image: linear-gradient(180deg, #0d8ac4 20%, #0c427c 90%);
+    background-image: linear-gradient(50deg, #7c0c0c 40%, #0d8ac4 80%);
     background-size: cover;
+}
+
+.sidebar {
+    min-height: 100%;
 }
 
 .loading{
