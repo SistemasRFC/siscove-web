@@ -1,5 +1,6 @@
 .color-primary {
-    color: #015ab2 !important;
+    color:#015ab2 !important;
+    
 }
 
 .color-primary-dark {
@@ -91,7 +92,7 @@
 }
 
 .trcor:hover{
-    background-color: #B5B5B5;
+    background-color: #b5b5b5;
 }
 
 a:link, a:visited{
@@ -180,28 +181,40 @@ td{
 
 /*Card*/
 body {
-    background-color: #f2f2f2;
+    background-color: rgb(255, 255, 255);
     height: fit-content;
 }
 .card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
-    max-width: 95%;
+    box-shadow: 0 4px 8px 0 rgba(0 0 0 / 30%);
     margin: auto;
-    margin-top: 15px;
+    max-width: 95%;
+    margin-top: 2rem;
     font-family: arial;
-    padding: 20px;
-    padding-bottom: 40px;
+   
+}
+.card-header {
+    background-color:#015ab2;
+    color: white;
+    text-align: center;
+
 }
 .card-login {
-    max-width: 25%;
-    margin-top: 10%;
+    max-width: 21rem;
+    margin-top: 5rem;
+
 }
+.card-footer {
+    background-color: white;
+}
+
 /*Textos*/
 .cabecalho {
     margin-top: 5px;
     font-size: 22px;
     font-weight: bold;
     text-align: center;
+    
+    
 }
 
 .titulo {
