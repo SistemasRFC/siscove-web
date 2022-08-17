@@ -1,0 +1,108 @@
+<script src="js/cadUsuario.js"></script>
+
+<div class="modal fade" id="usuarioModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 55%" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Novo Usuario</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="codUsuario">Codigo Usuario</label>
+                            <input id="codUsuario" name="codUsuario" type="hidden"/>
+                        </div> 
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="nmeUsuario">Nome Usuario</label>
+                            <input id="nmeUsuario" name="nomeUsuario" type="text"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="codPerfilW">Codigo Perfil</label>
+                            <input id="codPerfilW" name="codPerfilW" type="text"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="indAtivo">Ind Ativo</label>
+                            <input id="indAtivo" name="indAtivo" type="checkbox"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="nmeUsuarioCompleto">Nome Usuario Completo</label>
+                            <input id="nmeUsuarioCompleto" name="nmeUsuarioCompleto" type="text"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="nroTelCelular">Numero Telefone Celular</label>
+                            <input id="nroTelCelular" name="nroTelCelular" type="text"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="txtEmail">Email</label>
+                            <input id="txtEmail" name="txtEmail" type="text"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="codDeposito">Codigo Deposito</label>
+                            <input id="codDeposito" name="codDeposito" type="text"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="codPerfilW">Codigo Perfil</label>
+                            <input id="codPerfilW" name="codPerfilW" type="text"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="vlrPorcentagemServico">Valor Porcentagem Serviço</label>
+                            <input id="vlrPorcentagemServico" name="vlrPorcentagemServico" type="number"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="vlrPorcentagemVenda">Valor Porcentagem Venda</label>
+                            <input id="vlrPorcentagemVenda"name="vlrPorcentagemVenda" type="number"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="vlrPorcentagemGerencia">Valor Porcentagem Gerencia </label>
+                            <input id="vlrPorcentagemGerencia" name="vlrPorcentagemGerencia" type="number"/>
+                        </div>
+                    </div>
+                </div>
+            <div class="modal-footer">
+                <button class='btn btn-secondary btn-icon-split' data-dismiss="modal" aria-label="Close">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-times"></i>
+                    </span>
+                    <span class="text">Cancelar</span>
+                </button>
+                <button id="btnReiniciarSenha" class='btn btn-info btn-icon-split'>
+                    <span class="icon text-white-50">
+                        <i class="fas fa-redo-alt"></i>
+                    </span>
+                    <span class="text">Reiniciar Senha</span>
+                </button>
+                <button id="btnSalvar" class='btn btn-success btn-icon-split'>
+                    <span class="icon text-white-50">
+                        <i class="fas fa-check"></i>
+                    </span>
+                    <span class="text">Salvar</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
