@@ -1,1 +1,5 @@
-$("#modalUsuario").load("cadUsuario.html")
+
+
+$(document).ready(function(){
+    $("#modalUsuario").load("cadUsuario.html")
+});
