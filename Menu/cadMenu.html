@@ -1,0 +1,43 @@
+<script src="cadMenu.js"></script>
+
+<div class="modal fade" id="menuModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 55%" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Menu</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label class="mb-0" for="codMenuW">Código</label>
+                <input id="codMenuW" name="codMenuW" type="text" class="form-control" placeholder="Menu"/>
+                <label class="mb-0" for="dscMenuW">Descrição</label>
+                <input id="dscMenuW" type="text" class="form-control" placeholder="Descrição" />
+                <label class="mb-0" for="nmeController">Controller</label> 
+                <input id="nmeController" type="text" class="form-control" placeholder="Nome" />
+                <label class="mb-0" for="indMenuAtivoW">Idicador Ativo</label>
+                <input id="indMenuAtivoW" type="text" class="form-control" placeholder="Indicador Ativo" />
+                <label class="mb-0" for="codMenuPaiW">Codigo</label>
+                <input id="codMenuPaiW" type="text" class="form-control" placeholder="Menu" />
+                <label class="mb-0" for="nmeMethod">Metodo</label>
+                <input id="nmeMethod" type="text" class="form control" placeholder="Nome"/>
+            </div>
+        
+            <div class="modal-footer">
+                <button class='btn btn-secondary btn-icon-split' data-dismiss="modal" aria-label="Close">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-times"></i>
+                    </span>
+                    <span class="text">Cancelar</span>
+                </button>
+                <button id="btnSalvar" class='btn btn-success btn-icon-split'>
+                    <span class="icon text-white-50">
+                        <i class="fas fa-check"></i>
+                    </span>
+                    <span class="text">Salvar</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
