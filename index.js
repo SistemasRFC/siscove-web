@@ -8,19 +8,24 @@ $(function(){
                 nmeUsuario: $("#nomeUsuario").val(),
                 txtSenha: $("#txtSenha").val()
             }),
+            beforeSend: function (xhr){ 
+                xhr.setRequestHeader('Authorization', "getToken");
+            },
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function(data){
                 console.log(data);
+                localStorage.setItem("token", data.objeto.txtToken);
+                //localStorage.getItem("token");
                 if (data.retorno){
                     swal("", "Usuário confirmado!!!", "success");
                     window.location.href='MenuPrincipal/menuPrincipal.html'
                 }else{
-                    swal("", "Usuário não confirmado!!!", "error"); 
+                    swal("", data.mensagem, "error"); 
                 }
             },
             error: function(err) {
-                    swal("", "Usuário não confirmado!!!", "error"); 
+                    swal("", "Erro ao consultar usuário!", "error"); 
                 }
             });
         });
