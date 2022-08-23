@@ -10,19 +10,21 @@
                 </button>
             </div>
             <div class="modal-body">
-                <label class="mb-0" for="codMenuW">Código</label>
-                <input id="codMenuW" name="codMenuW" type="text" class="form-control" placeholder="Menu"/>
+                <input id="codMenuW" name="codMenuW" type="hidden" />
                 <label class="mb-0" for="dscMenuW">Descrição</label>
-                <input id="dscMenuW" type="text" class="form-control" placeholder="Descrição" />
+                <input id="dscMenuW" type="text" class="form-control"/>
                 <label class="mb-0" for="nmeController">Controller</label> 
-                <input id="nmeController" type="text" class="form-control" placeholder="Nome" />
-                <label class="mb-0" for="indMenuAtivoW">Idicador Ativo</label>
-                <input id="indMenuAtivoW" type="text" class="form-control" placeholder="Indicador Ativo" />
-                <label class="mb-0" for="codMenuPaiW">Codigo</label>
-                <input id="codMenuPaiW" type="text" class="form-control" placeholder="Menu" />
-                <label class="mb-0" for="nmeMethod">Metodo</label>
-                <input id="nmeMethod" type="text" class="form control" placeholder="Nome"/>
+                <input id="nmeController" type="text" class="form-control"/>
+                <label class="mb-0" for="codMenuPaiW">Código</label>
+                <input id="codMenuPaiW" type="text" class="form-control"/>
+                <label class="mb-0" for="nmeMethod">Método</label>
+                <input id="nmeMethod" type="text" class="form-control"/>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" name="indMenuAtivoW" id="indMenuAtivoW" class="custom-control-input"/>
+                    <label class="custom-control-label" for="indMenuAtivoW">Ativo</label>
+                </div>
             </div>
+        
         
             <div class="modal-footer">
                 <button class='btn btn-secondary btn-icon-split' data-dismiss="modal" aria-label="Close">
