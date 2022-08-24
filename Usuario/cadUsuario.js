@@ -1,5 +1,6 @@
 $(document).ready(function () {
     getListaPerfil();
+    getListaDeposito();
 
     $("#btnSalvar").click(function () {
 
@@ -15,7 +16,7 @@ $(document).ready(function () {
             swal('', 'Por favor preencha o Email !', 'warning');
             return false;
         }
-        if ($("#codPerfil").val() == '') {
+        if ($("#codPerfilW").val() == '') {
             swal('', 'Por favor preencha o Perfil !', 'warning');
             return false;
         }
@@ -31,21 +32,55 @@ $(document).ready(function () {
             swal('', 'Por favor preencha o Senha !', 'warning');
             return false;
         }
-        if ($("#codPerfil").val() == '') {
+        if ($("#txtSenhaW").val() == '') {
             swal('', 'Por favor preencha o Perfil !', 'warning');
             return false;
         }
-        if ($("#vlrPorcentagemServico").val() == '') {
+        if ($("#vlrPorcentagemGerencia").val() == '') {
             swal('', 'Por favor preencha a Porcentagem do Serviço !', 'warning');
             return false;
         }
-        if ($("#vlrPorcentagemGerencia").val() == '') {
+        if ($("#vlrPorcentagemVenda").val() == '') {
             swal('', 'Por favor a Porcentagem da Gerencia !', 'warning');
             return false;
         }
-        if ($("#vlrPorcentagemVenda").val() == '') {
+        if ($("#vlrPorcentagemServico").val() == '') {
             swal('', 'Por favor preencha a Porcentagem da Venda !', 'warning');
             return false;
+        }
+        var ativo="N";
+        if ($("#indAtivo").is(":checked")) {
+            ativo = 'S';
+        }
+        var dados = JSON.stringify({
+            nmeUsuario: $("#nmeUsuario").val(),
+            nroTelCelular: $("#nroTelCelular").val(),
+            txtEmail: $("#txtEmail").val(),
+            codPerfilW: $("#codPerfilW").val(),
+            codDeposito: $("#codDeposito").val(),
+            nmeUsuarioCompleto: $("#nmeUsuarioCompleto").val(),
+            txtSenhaW: $("#txtSenhaW").val(),
+            vlrPorcentagemGerencia: $("#vlrPorcentagemGerencia").val(),
+            vlrPorcentagemVenda: $("#vlrPorcentagemVenda").val(),
+            vlrPorcentagemServico: $("#vlrPorcentagemServico").val(),
+            indAtivo: ativo
+        })
+
+        if ($("#codUsuario").val() > 0){
+            dados = JSON.stringify({
+                nmeUsuario: $("#nmeUsuario").val(),
+                nroTelCelular: $("#nroTelCelular").val(),
+                txtEmail: $("#txtEmail").val(),
+                codPerfilW: $("#codPerfilW").val(),
+                codDeposito: $("#codDeposito").val(),
+                nmeUsuarioCompleto: $("#nmeUsuarioCompleto").val(),
+                txtSenhaW: $("#txtSenhaW").val(),
+                vlrPorcentagemGerencia: $("#vlrPorcentagemGerencia").val(),
+                vlrPorcentagemVenda: $("#vlrPorcentagemVenda").val(),
+                vlrPorcentagemServico: $("#vlrPorcentagemServico").val(),
+                indAtivo: ativo,
+                codUsuario: $("#codUsuario").val()
+            })
         }
         $.ajax({
             type: "POST",
@@ -53,19 +88,7 @@ $(document).ready(function () {
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
             },
-            data: JSON.stringify({
-                nmeUsuario: $("#nmeUsuario").val(),
-                nroTelCelular: $("#nroTelCelular").val(),
-                txtEmail: $("#txtEmail").val(),
-                codDeposito: $("#codDeposito").val(),
-                nmeUsuarioCompleto: $("#nmeUsuarioCompleto").val(),
-                codPerfilW: $("#codPerfil").val(),
-                txtSenhaW: $("#txtSenhaW").val(),
-                vlrPorcentagemGerencia: $("#vlrPorcentagemGerencia").val(),
-                vlrPorcentagemVenda: $("#vlrPorcentagemVenda").val(),
-                vlrPorcentagemServico: $("#vlrPorcentagemServico").val(),
-                indAtivo: ativo
-            }),
+            data: dados,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
@@ -92,7 +115,7 @@ function getListaPerfil() {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },
         success: function (data) {
-            montaComboTipoDespesa(data.objeto);
+            montaComboPerfil(data.objeto);
         },
         error: (err) => {
             swal("", "Despesas não confirmada!!!", "error");
@@ -102,12 +125,43 @@ function getListaPerfil() {
 
 
 
-function montaComboTipoDespesa(dados) {
+function montaComboPerfil(dados) {
     var tabela = '';
     for (var i in dados) {
 
         tabela += '<option value="' + dados[i].codPerfilW + '">' + dados[i].dscPerfilW + ' </option>';
     }
     $("#codPerfilW").html(tabela);
+
+}
+
+
+function getListaDeposito() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/deposito/listar",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
+        },
+        success: function (data) {
+            if (data.retorno){
+                montaComboDeposito(data.objeto);
+            } else{
+                swal("", data.mensagem, "error"); 
+            }
+        },
+        error: (err) => {
+            swal("", "Despesas não confirmada!!!", "error");
+        }
+    });
+}
+
+function montaComboDeposito(dados) {
+    var tabela = '';
+    for (var i in dados) {
+
+        tabela += '<option value="' + dados[i].codDeposito + '">' + dados[i].dscDeposito + ' </option>';
+    }
+    $("#codDeposito").html(tabela);
 
 }
