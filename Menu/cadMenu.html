@@ -1,4 +1,4 @@
-<script src="cadMenu.js"></script>
+<script src="cadMenu.js?1"></script>
 
 <div class="modal fade" id="menuModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="max-width: 55%" role="document">
@@ -13,12 +13,12 @@
                 <input id="codMenuW" name="codMenuW" type="hidden" />
                 <label class="mb-0" for="dscMenuW">Descrição</label>
                 <input id="dscMenuW" type="text" class="form-control"/>
-                <label class="mb-0" for="nmeController">Controller</label> 
+                <label class="mb-0" for="nmeController">Rota</label> 
                 <input id="nmeController" type="text" class="form-control"/>
-                <label class="mb-0" for="codMenuPaiW">Código</label>
-                <input id="codMenuPaiW" type="text" class="form-control"/>
-                <label class="mb-0" for="nmeMethod">Método</label>
-                <input id="nmeMethod" type="text" class="form-control"/>
+                <label class="mb-0" for="codMenuPaiW">Menu pai</label>
+                <div class="col-sm-6 px-0">
+                    <div id="comboMenuPai"></div>
+                </div>
                 <div class="custom-control custom-checkbox">
                     <input type="checkbox" name="indMenuAtivoW" id="indMenuAtivoW" class="custom-control-input"/>
                     <label class="custom-control-label" for="indMenuAtivoW">Ativo</label>
@@ -28,14 +28,14 @@
         
             <div class="modal-footer">
                 <button class='btn btn-secondary btn-icon-split' data-dismiss="modal" aria-label="Close">
-                    <span class="icon text-white-50">
-                        <i class="fas fa-times"></i>
+                    <span class="icon">
+                        <i class="fas fa-times mt-1"></i>
                     </span>
                     <span class="text">Cancelar</span>
                 </button>
                 <button id="btnSalvar" class='btn btn-success btn-icon-split'>
-                    <span class="icon text-white-50">
-                        <i class="fas fa-check"></i>
+                    <span class="icon">
+                        <i class="fas fa-check mt-1"></i>
                     </span>
                     <span class="text">Salvar</span>
                 </button>

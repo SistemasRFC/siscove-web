@@ -10,7 +10,7 @@ class Header extends HTMLElement {
     
                 <li class="pt-2">
                     <span class="mr-2 d-none d-lg-inline text-gray-700" id="usuSessao"></span>
-                    <a href="../index.php" title="Sair">
+                    <a href="../index.html" title="Sair">
                         <i class="icon fas fa-sign-out-alt text-gray-500"></i>
                     </a>
                 </li>
