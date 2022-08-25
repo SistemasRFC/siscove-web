@@ -17,6 +17,8 @@ class Header extends HTMLElement {
             </ul>
         </nav>`;
     }
+
+    
 }
 
 customElements.define('header-component', Header);

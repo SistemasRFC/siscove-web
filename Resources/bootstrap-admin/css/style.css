@@ -8,8 +8,8 @@
 }
 
 .bg-gradient-primary {
-    background-color: #33b0dd;
-    background-image: linear-gradient(50deg, #7c0c0c 40%, #0d8ac4 80%);
+    background-color: #eee;
+    background-image: linear-gradient(140deg, #000 50%, #ddd 95%);
     background-size: cover;
 }
 
@@ -183,11 +183,29 @@ td{
     opacity: 100;
 }
 
-/*Card*/
-body {
+content {
     background-color: rgb(255, 255, 255);
-    height: fit-content;
+    display: grid;
+    grid-template-columns: 13.999rem auto; 
+    grid-template-rows: 4.5rem auto; 
+    grid-template-areas: 
+    'nav head'
+    'nav body';
+    height: 100%;
+    width: 100%;
+    margin: auto;
 }
+navegacao-component {
+    grid-area: nav;
+}
+header-component {
+    grid-area: head;
+}
+#wrapper {
+    grid-area: body;
+}
+
+/*Card*/
 .card {
     box-shadow: 0 4px 8px 0 rgba(0 0 0 / 30%);
     margin: auto;
@@ -205,7 +223,7 @@ body {
 .card-login {
     max-width: 21rem;
     margin-top: 5rem;
-
+    display: block;
 }
 .card-footer {
     background-color: white;

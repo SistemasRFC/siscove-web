@@ -1,135 +1,10 @@
-function CarregaMenu() {
-    ExecutaDispatch('MenuPrincipal', 'CarregaMenuNew', '', MontaMenu);
-}
+var PATH_RESOURCES = '';
+var API = 'http://localhost:8080';
+var PATH_RAIZ = 'http://localhost/siscove-web/';
+//var PATH_RAIZ = 'http://104.131.106.165/sago/';
+var ALIAS = 'siscove/';
 
-function MontaMenu(menu) {
-    $("#usuSessao").html(menu[1][0].NME_USUARIO_COMPLETO);
-    var DadosMenu = '';
-    if (menu[0]) {
-        DadosMenu = menu[1];
-        var html = "";
-        for (var i in DadosMenu) {
-            if (DadosMenu[i].COD_MENU_PAI_W == 0) {
-                html += "<li class='nav-item'>"
-                html += "    <a href='' class='nav-link collapsed' id='menu'" + DadosMenu[i].COD_MENU_W + "' data-toggle='collapse' data-target='#collapse" + DadosMenu[i].COD_MENU_W + "' aria-expanded='true' aria-controls='collapse" + DadosMenu[i].COD_MENU_W + "'>";
-                html += "        <i class='far fa-circle'></i>";
-                html += "        <span><b>" + DadosMenu[i].DSC_MENU_W + "</b></span>";
-                html += "    </a>";
-                html += "    <div id='collapse" + DadosMenu[i].COD_MENU_W + "' class='collapse' aria-labelledby='heading" + DadosMenu[i].COD_MENU_W + "' data-parent='#accordionSidebar'>";
-                html += "        <div class='bg-white py-2 collapse-inner rounded'>";
-                for (var j in DadosMenu) {
-                    if (DadosMenu[j].COD_MENU_PAI_W == DadosMenu[i].COD_MENU_W) {
-                        html += "   <a class='collapse-item pl-1 pr-1' href='" + PATH_RAIZ + "Dispatch.php?controller=" + DadosMenu[j].NME_CONTROLLER + "&method=" + DadosMenu[j].NME_METHOD + "' style='white-space: pre-wrap;'>" + DadosMenu[j].DSC_MENU_W + "</a>";
-                    }
-                }
-                html += "        </div>";
-                html += "    </div>";
-                html += "</li>";
-            }
-        }
-
-        $('#CriaNovoMenu').html(html);
-    }
-}
-
-function CriarDivAutoComplete(nmeInput, url, method, dataFields, displayMember, valueMember, callback, width) {
-    if ($("#divAutoComplete").length) {
-        $("#divAutoComplete").jqxWindow("destroy");
-    }
-    $("#teste").html("");
-    $("#teste").html('<div id="divAutoComplete"><div id="windowHeader" style="display: none;"></div><div style="overflow: hidden;" id="windowContent"><div id="listaPesquisa"></div></div> ');
-    var largura = $("#" + nmeInput).width();
-    if (width != undefined) {
-        largura = width;
-    }
-    $("#divAutoComplete").jqxWindow({
-        height: 250,
-        width: largura,
-        showCloseButton: false,
-        maxWidth: 1200,
-        position: { x: $("#" + nmeInput).offset().left, y: $("#" + nmeInput).offset().top + 25 },
-        animationType: 'fade',
-        showAnimationDuration: 500,
-        closeAnimationDuration: 500,
-        theme: 'darkcyan',
-        isModal: false,
-        autoOpen: false
-    });
-    $("#divAutoComplete").jqxWindow("open");
-    var dados = dataFields.split('|');
-    var lista = new Array();
-    for (i = 0; i < dados.length; i++) {
-        var data = new Object();
-        var campos = dados[i].split(';');
-        data.name = campos[1];
-        lista.push(data);
-    }
-    var url = url;
-    var source =
-    {
-        datatype: "json",
-        datafields: lista,
-        type: "POST",
-        id: valueMember,
-        url: url,
-        data:
-        {
-            method: method,
-            term: $("#" + nmeInput).val()
-        }
-
-    };
-    var dataAdapter = new $.jqx.dataAdapter(source);
-    // Create a jqxListBox
-    $("#listaPesquisa").jqxListBox({
-        source: dataAdapter,
-        displayMember: displayMember,
-        valueMember: valueMember,
-        width: largura - 5,
-        height: 240
-    });
-    $("#listaPesquisa").on('keyup', function (event) {
-        if (event.keyCode == 13) {
-            SelecionaItem($("#listaPesquisa").jqxListBox('getSelectedItem'), dataAdapter, dataFields, callback);
-        }
-    });
-    $("#listaPesquisa").on('select', function (event) {
-
-        if (event.args.type == 'mouse') {
-            SelecionaItem(event.args.item, dataAdapter, dataFields, callback);
-        }
-    });
-}
-
-function SelecionaItem(event, dataAdapter, dataFields, callback) {
-    var item = event;
-    if (item) {
-        var x = []
-        $.each(dataAdapter.records, function (i, n) {
-            x.push(n);
-        });
-        for (j = 0; j < x.length; j++) {
-            var dados = dataFields.split('|');
-            for (i = 0; i < dados.length; i++) {
-                if (item.originalItem.id == x[j]['id']) {
-
-                    var campos = dados[i].split(';');
-                    if (campos[0] != '') {
-                        $("#" + campos[0]).val(x[j][campos[1]]);
-                        if ($("#divAutoComplete").length) {
-                            $("#divAutoComplete").jqxWindow("destroy");
-                        }
-                    }
-                }
-            }
-        }
-        if (callback != null) {
-            eval(callback);
-        }
-    }
-}
-
-function CriarSelectPuro(nmeCombo, arrDados, valor, disabled) {
+function CriarSelect(nmeCombo, arrDados, valor, disabled) {
     if (disabled == undefined) {
         disabled = false;
     }
@@ -150,106 +25,7 @@ function CriarSelectPuro(nmeCombo, arrDados, valor, disabled) {
     $("#td" + nmeCombo).html(select);
 }
 
-function CriarComboDispatch(nmeCombo, arrDados, valor) {
-    $("#td" + nmeCombo).html('');
-    var select = '<select id="' + nmeCombo + '" class="persist input" style="background-color: white;">';
-    for (i = 0; i < arrDados[1].length; i++) {
-        if (arrDados[1][i]['ID'] == valor) {
-            select += '<option value="' + arrDados[1][i]['ID'] + '" selected>' + arrDados[1][i]['DSC'] + '</option>';
-        } else {
-            select += '<option value="' + arrDados[1][i]['ID'] + '">' + arrDados[1][i]['DSC'] + '</option>';
-        }
-    }
-    select += '</select>';
-    $("#td" + nmeCombo).html(select);
-    $("#" + nmeCombo).jqxDropDownList({ dropDownHeight: '150px' });
-}
-
-function CriarComboDispatchComTamanho(nmeCombo, arrDados, valor, tamanho, disabled) {
-    if (disabled == undefined) {
-        disabled = false;
-    }
-    $("#td" + nmeCombo).html('');
-    var select = '<select id="' + nmeCombo + '" class="persist input" style="background-color: white;">';
-    for (i = 0; i < arrDados[1].length; i++) {
-        if (arrDados[1][i]['ID'] == valor) {
-            select += '<option value="' + arrDados[1][i]['ID'] + '" selected>' + arrDados[1][i]['DSC'] + '</option>';
-        } else {
-            select += '<option value="' + arrDados[1][i]['ID'] + '">' + arrDados[1][i]['DSC'] + '</option>';
-        }
-    }
-    select += '</select>';
-    $("#td" + nmeCombo).html(select);
-    $("#" + nmeCombo).jqxDropDownList({ dropDownHeight: tamanho + 'px', width: tamanho + 'px', disabled: disabled });
-}
-
-function ExecutaDispatch(Controller, Method, Parametros, Callback, MensagemAguarde, MensagemRetorno) {
-    if (MensagemAguarde != undefined) {
-        swal({
-            title: MensagemAguarde,
-            imageUrl: PATH_RAIZ + "Resources/images/preload.gif",
-            showConfirmButton: false
-        });
-    }
-    var obj = new Object();
-    Object.defineProperty(obj, 'method', {
-        __proto__: null,
-        enumerable: true,
-        configurable: true,
-        value: Method
-    });
-    Object.defineProperty(obj, 'controller', {
-        __proto__: null,
-        enumerable: true,
-        configurable: true,
-        value: Controller
-    });
-    if (Parametros != undefined) {
-        var dados = Parametros.split('|');
-        for (i = 0; i < dados.length; i++) {
-            var campos = dados[i].split(';');
-            Object.defineProperty(obj, campos[0], {
-                __proto__: null,
-                enumerable: true,
-                configurable: true,
-                value: campos[1]
-            });
-        }
-    }
-    $.post(PATH_RAIZ + "Dispatch.php",
-        obj,
-        function (retorno) {
-            retorno = eval('(' + retorno + ')');
-            if (retorno[0] == true) {
-                if (MensagemRetorno != undefined) {
-                    $(".jquery-waiting-base-container").fadeOut({ modo: "fast" });
-                    swal({
-                        title: "Sucesso!",
-                        text: MensagemRetorno,
-                        showConfirmButton: false,
-                        type: "success"
-                    });
-                    setTimeout(function () {
-                        swal.close();
-                    }, 2000);
-                }
-                if (Callback != undefined) {
-                    Callback(retorno);
-                }
-            } else {
-                $(".jquery-waiting-base-container").fadeOut({ modo: "fast" });
-                swal({
-                    title: "Erro ao executar!",
-                    text: "Erro: " + retorno[1],
-                    type: "error",
-                    confirmButtonText: "Fechar"
-                });
-            }
-        }
-    );
-}
-
-function ExecutaDispatchUpload(Controller, Method, Parametros, Callback, MensagemAguarde, MensagemRetorno) {
+function ExecutaAjax(tipo, url, Parametros, Callback, MensagemAguarde, MensagemRetorno) {
     if (MensagemAguarde != undefined) {
         swal({
             title: MensagemAguarde,
@@ -258,17 +34,16 @@ function ExecutaDispatchUpload(Controller, Method, Parametros, Callback, Mensage
         });
     }
     $.ajax({
-        url: PATH_RAIZ + 'Dispatch.php?controller=' + Controller + '&method=' + Method,
-        type: 'POST',
-        // Form data
+        type: tipo,
+        url: API + url,
         data: Parametros,
-        //Options to tell JQuery not to process data or worry about content-type
-        cache: false,
-        contentType: false,
-        processData: false,
-        success: function (data) {
-            data = eval('(' + data + ')');
-            if (data[0] == true) {
+        beforeSend: function (xhr){ 
+            xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
+        },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(data){
+            if (data.retorno){
                 if (MensagemRetorno != undefined) {
                     $(".jquery-waiting-base-container").fadeOut({ modo: "fast" });
                     swal({
@@ -282,88 +57,66 @@ function ExecutaDispatchUpload(Controller, Method, Parametros, Callback, Mensage
                     }, 2000);
                 }
                 if (Callback != undefined) {
-                    Callback(data);
+                    Callback(data.objeto);
                 }
             } else {
-                $(".jquery-waiting-base-container").fadeOut({ modo: "fast" });
-                swal({
-                    title: "Erro!",
-                    text: "Erro ao fazer upload do arquivo!",
-                    type: "error",
-                    confirmButtonText: "Fechar"
-                });
+                swal("Aviso!", data.mensagem, "error"); 
             }
+        },
+        error: function(err) {
+            console.log(err);
+            swal("Erro!", "Não foi possível concluir a requisição", "error"); 
         }
     });
 }
 
-
-
-function ExecutaDispatchValor(Controller, Method, Parametros, Callback, Valor, Disabled, MensagemAguarde, MensagemRetorno) {
-    if (MensagemAguarde != undefined) {
-        swal({
-            title: MensagemAguarde,
-            imageUrl: PATH_RAIZ + "Resources/images/preload.gif",
-            showConfirmButton: false
-        });
-    }
-    var obj = new Object();
-    Object.defineProperty(obj, 'method', {
-        __proto__: null,
-        enumerable: true,
-        configurable: true,
-        value: Method
-    });
-    Object.defineProperty(obj, 'controller', {
-        __proto__: null,
-        enumerable: true,
-        configurable: true,
-        value: Controller
-    });
-    if (Parametros != undefined) {
-        var dados = Parametros.split('|');
-        for (i = 0; i < dados.length; i++) {
-            var campos = dados[i].split(';');
-            Object.defineProperty(obj, campos[0], {
-                __proto__: null,
-                enumerable: true,
-                configurable: true,
-                value: campos[1]
-            });
-        }
-    }
-    $.post(PATH_RAIZ + 'Dispatch.php',
-        obj,
-        function (retorno) {
-            retorno = eval('(' + retorno + ')');
-            if (retorno[0] == true) {
-                if (MensagemRetorno != undefined) {
-                    $(".jquery-waiting-base-container").fadeOut({ modo: "fast" });
-                    swal({
-                        title: "Sucesso!",
-                        text: MensagemRetorno,
-                        showConfirmButton: false,
-                        type: "success"
-                    });
-                    setTimeout(function () {
-                        swal.close();
-                    }, 2000);
-                }
-                if (Callback != undefined) {
-                    Callback(retorno, Valor, Disabled);
-                }
-            } else {
-                $(".jquery-waiting-base-container").fadeOut({ modo: "fast" });
-                swal({
-                    title: "Erro ao executar!",
-                    text: "Erro: " + retorno[1],
-                    type: "error",
-                    confirmButtonText: "Fechar"
-                });
-            }
-        }
-    );
-}
+// function ExecutaDispatchUpload(Controller, Method, Parametros, Callback, MensagemAguarde, MensagemRetorno) {
+//     if (MensagemAguarde != undefined) {
+//         swal({
+//             title: MensagemAguarde,
+//             imageUrl: PATH_RAIZ + "Resources/images/preload.gif",
+//             showConfirmButton: false
+//         });
+//     }
+//     $.ajax({
+//         url: PATH_RAIZ + 'Dispatch.php?controller=' + Controller + '&method=' + Method,
+//         type: 'POST',
+//         // Form data
+//         data: Parametros,
+//         //Options to tell JQuery not to process data or worry about content-type
+//         cache: false,
+//         contentType: false,
+//         processData: false,
+//         success: function (data) {
+//             data = eval('(' + data + ')');
+//             if (data[0] == true) {
+//                 if (MensagemRetorno != undefined) {
+//                     $(".jquery-waiting-base-container").fadeOut({ modo: "fast" });
+//                     swal({
+//                         title: "Sucesso!",
+//                         text: MensagemRetorno,
+//                         showConfirmButton: false,
+//                         type: "success"
+//                     });
+//                     setTimeout(function () {
+//                         swal.close();
+//                     }, 2000);
+//                 }
+//                 if (Callback != undefined) {
+//                     Callback(data);
+//                 }
+//             } else {
+//                 $(".jquery-waiting-base-container").fadeOut({ modo: "fast" });
+//                 swal({
+//                     title: "Erro!",
+//                     text: "Erro ao fazer upload do arquivo!",
+//                     type: "error",
+//                     confirmButtonText: "Fechar"
+//                 });
+//             }
+//         }
+//     });
+// }
 
 function retornaParametros() {
     var name;
@@ -459,11 +212,6 @@ function LimparCampos() {
     });
 }
 
-
-function RedirecionaController(Controller, Method) {
-    $(location).attr('href', PATH_RAIZ + 'Dispatch.php?controller=' + Controller + '&method=' + Method);
-}
-
 function Download(Controller, Method, Parametros) {
     var obj = new Object();
     Object.defineProperty(obj, 'method', {
@@ -510,8 +258,6 @@ function Download(Controller, Method, Parametros) {
 }
 
 function number_format(number, decimals, dec_point, thousands_sep) {
-    // *     example: number_format(1234.56, 2, ',', ' ');
-    // *     return: '1 234,56'
     number = (number + '').replace(',', '').replace(' ', '');
     var n = !isFinite(+number) ? 0 : +number,
         prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
@@ -522,7 +268,7 @@ function number_format(number, decimals, dec_point, thousands_sep) {
             var k = Math.pow(10, prec);
             return '' + Math.round(n * k) / k;
         };
-    // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+
     s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
     if (s[0].length > 3) {
         s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
@@ -586,7 +332,7 @@ function CriarGraficoBarras(nmeCampo, dados) {
                         padding: 5,
                         // Include a dollar sign in the ticks
                         callback: function (value, index, values) {
-                            return number_format(value) + ' USTIBB';
+                            return number_format(value) + ' Pontos';
                         }
                     },
                     gridLines: {
@@ -616,7 +362,7 @@ function CriarGraficoBarras(nmeCampo, dados) {
                 callbacks: {
                     label: function (tooltipItem, chart) {
                         var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                        return datasetLabel + number_format(tooltipItem.yLabel, 1, ',', '.') + ' USTIBB';
+                        return datasetLabel + number_format(tooltipItem.yLabel, 1, ',', '.') + ' Pontos';
                     }
                 }
             },
@@ -719,7 +465,7 @@ function CriarGraficoArea(nmeCampo, dados) {
             callbacks: {
               label: function(tooltipItem, chart) {
                 var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                return datasetLabel + number_format(tooltipItem.yLabel, 1, ',', '.') + ' USTIBB';
+                return datasetLabel + number_format(tooltipItem.yLabel, 1, ',', '.') + ' Pontos';
               }
             }
           }
