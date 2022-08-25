@@ -11,12 +11,14 @@ class Header extends HTMLElement {
                 <li class="pt-2">
                     <span class="mr-2 d-none d-lg-inline text-gray-700" id="usuSessao"></span>
                     <a href="../index.php" title="Sair">
-                        <i class="icon fas fa-sign-out-alt text-gray-500"></i>
+                        <i class="fas fa-sign-out-alt text-gray-900"></i>
                     </a>
                 </li>
             </ul>
         </nav>`;
     }
+
+    
 }
 
 customElements.define('header-component', Header);
