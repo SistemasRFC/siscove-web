@@ -1,7 +1,27 @@
 $(function() {
+    $("#btnSalvar").click(function(){
+        $("#codMenuW").val();
+        $("#dscMenuW").val();
+        $("#nmeController").val();
+        $("#codMenuPaiW").val();
+        $("#indMenuAtivoW").val();
+        
+        $.ajax({
+        
+            type: "POST",
+            url: "http://localhost:8080/menu/salvar",
+            data: JSON.stringify({
+            codMenuW: $("#codMenuW").val(),
+            dscMenuW: $("#dscMenuW").val(),
+            nmeController: $("#nmeController")val(),
+            codMenuPaiW: $("#codMenuPaiW").val(),
+            indMenuAtivoW: $("#indMenuAtivoW").val(),
+        }),
 
+    });
     
 });
+
 
 function criarComboMenuPai() {
     $.ajax({
