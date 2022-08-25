@@ -3,69 +3,70 @@
 <head>
     <title>Cadastro-Usuario</title>
     <meta charset="UTF-8">
-    <!-- CSS -->
-    <link rel="stylesheet" href="../Resources/bootstrap-admin/css/sb-admin-2.min.css">
-    </link>
-    <link href="../Resources/bootstrap-admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="../Resources/bootstrap-admin/css/style.css" rel="stylesheet" type="text/css">
-    <script src="../Resources/swal/dist/sweetalert.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../Resources/swal/dist/sweetalert.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css">
-    
-    <!-- JS -->
-    <script src="../Resources/jquery/jquery-3.6.0.min.js"></script>
-    <script src="../Resources/swal/sweetalert.min.js"></script>
-    <script src="../Shared/header-component.js"></script>
-    <script src="../Shared/navegacao-component.js"></script>
-    <script src="../Shared/FuncoesGerais.js"></script>
-    <script src="Usuario.js"></script>
-    <!-- bootstrap -->
-    <script src="../Resources/bootstrap-admin/vendor/jquery/jquery.min.js"></script>
-    <script src="../Resources/bootstrap-admin/vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="../Resources/bootstrap-admin/js/sb-admin-2.min.js"></script>
-    <script src="../Resources/bootstrap-admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../Resources/bootstrap-admin/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../Resources/swal/dist/sweetalert.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+
+        <!-- JS -->      
+        <script src="../Resources/bootstrap-admin/vendor/jquery/jquery.min.js"></script>
+        <script src="../Resources/bootstrap-admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+        <script src="../Resources/bootstrap-admin/js/sb-admin-2.min.js"></script>
+        <script src="../Resources/swal/sweetalert.min.js"></script>
+        <script src="../Resources/swal/dist/sweetalert.min.js"></script>
+        <script src="../Resources/jquery/jquery-3.6.0.min.js"></script>
+        <script src="../Shared/header-component.js" ></script>
+        <script src="../Shared/FuncoesGerais.js" ></script>
+        <script src="../Shared/navegacao-component.js" ></script>
+        <script src="Usuario.js"></script>
+        <!-- bootstrap -->
+        <script src="../Resources/bootstrap-admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="../Resources/bootstrap-admin/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!-- chart -->
+        <script src="../Resources/bootstrap-admin/vendor/chart.js/Chart.min.js"></script>
+        <script src="../Resources/bootstrap-admin/vendor/chart.js/Chart.bundle.min.js"></script>
+        <!-- datatables -->
+        <script src="../Resources/bootstrap-admin/vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="../Resources/bootstrap-admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+        <!-- CSS -->
+        <link rel="stylesheet" href="../Resources/bootstrap-admin/css/sb-admin-2.min.css"></link>
+        <link href="../Resources/bootstrap-admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="../Resources/swal/dist/sweetalert.css">
+        <link href="../Resources/bootstrap-admin/css/style.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
-    <div id="wrapper">
+    <content>
         <navegacao-component></navegacao-component>
-        <div id="content-wrapper" class="d-flex flex-column">
-            <div id="content">
-                <header-component></header-component>
-                <div class="container-fluid">
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Cadastro</h1>
-                    </div>
+        <header-component></header-component>
+        <div id="wrapper">
+            <div id="content-wrapper" class="d-flex flex-column">
+                <div id="content">
+                    <div class="container-fluid">
+                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                            <h1 class="h3 mb-0 text-gray-800">Cadastro</h1>
+                        </div>
 
-                    <div class="row">
+                        <div class="row">
 
-                        <div class="col-xl-12 col-lg-12">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-persian-dark">Usuario </h6>
-                                </div>
-                                <div class="card-body">
-                                    <button class="btn btn-primary" data-toggle="modal" data-target="#usuarioModal">Novo</button>
-                                    
-                                    <br></br>
-                                    <table border="2" align="left" width="80%" height="100"  class="table table-striped table-bordered" >
-                                        <thead>
-                                            <tr align="center">
-                                                <th width="25%">Nome </th>
-                                                <th width="25%">Perfil</th>
-                                                <th width="25%">Login</th>
-                                                <th width="25%">Ind Ativo</th>
-                                                <th width="25%">Açoes</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="tabelaPerfil"></tbody>
-                                    </table>
+                            <div class="col-xl-12 col-lg-12">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                        <h6 class="m-0 font-weight-bold text-persian-dark">Usuario </h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <button class="btn btn-primary" id="btnNovo">Novo</button>
+                                        
+                                        <br></br>
+                                        <table border="2" align="left" width="80%" height="100"  class="table table-striped table-bordered" >
+                                            <thead>
+                                                <tr align="center">
+                                                    <th width="25%">Nome </th>
+                                                    <th width="25%">Perfil</th>
+                                                    <th width="25%">Login</th>
+                                                    <th width="25%">Ind Ativo</th>
+                                                    <th width="25%">Açoes</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tabelaPerfil"></tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -73,11 +74,11 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div id="modalUsuario"></div>
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+        <div id="modalUsuario"></div>
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+    </content>
 </body>
 
 </html>

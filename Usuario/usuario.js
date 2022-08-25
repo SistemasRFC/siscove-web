@@ -3,10 +3,14 @@
 $(document).ready(function () {
     $("#modalUsuario").load("cadUsuario.html")
     getListaPerfil();
+
+    $("#btnNovo").click(function(){
+        limparCampos();
+        $("#usuarioModal").modal("show");
+    })
 });
 
 var dadosRetorno;
-
 
 function getListaPerfil() {
     $.ajax({
@@ -37,7 +41,7 @@ function montaTabela(dados) {
         tabela += "    <a href='javascript:deleteRegistro(" + dados[i].codUsuario + ")'>";
         tabela += "        <i class='fas  fa-trash'></i>";
         tabela += "    </a>";
-        tabela += "    <a href='javascript:alteraRegistro(" + dados[i].codUsuario + ")'>";
+        tabela += "    <a href='javascript:preencherCampos(" + i + ")'>";
         tabela += "        <i class='fas  fa-pen'></i>";
         tabela += "    </a>";
         tabela += "</td>";
@@ -48,35 +52,35 @@ function montaTabela(dados) {
 
 }
 
-
-function alteraRegistro(index) {
+function preencherCampos(index) {
     var dados = dadosRetorno[index];
-    console.log(dados);
-    $("#nmPerfil").val(dados.nmPerfil);
-    if (dados.inAtivo == 'S') {
-        $("#inAtivo").prop('checked', true);
+    $("#nmeUsuario").val(dados.nmeUsuario);
+    if (dados.indAtivo == 'S') {
+        $("#indAtivo").prop('checked', true);
     } else {
-        $("#inAtivo").prop('checked', false);
+        $("#indAtivo").prop('checked', false);
     }
-    $("#idPerfil").val(dados.idPerfil)
+    $("#nroTelCelular").val(dados.nroTelCelular);
+    $("#txtEmail").val(dados.txtEmail);
+    $("#codPerfilW").val(dados.codPerfilW);
+    $("#nmeUsuarioCompleto").val(dados.nmeUsuarioCompleto);
+    $("#vlrPorcentagemGerencia").val(dados.vlrPorcentagemGerencia);
+    $("#vlrPorcentagemVenda").val(dados.vlrPorcentagemVenda);
+    $("#vlrPorcentagemServico").val(dados.vlrPorcentagemServico);
+    $("#codUsuario").val(dados.codUsuario);
+    $("#usuarioModal").modal("show");
 }
 
 function limparCampos() {
-    $("#nmPerfil").val("");
+    $("#nmeUsuario").val("");
     $("#nroTelCelular").val(),
-    $("#txtEmail").val(),
-    $("#codPerfilW").val(),
-    $("#codDeposito").val(),
-    $("#nmeUsuarioCompleto").val(),
-
-
-    $("#inAtivo").val("");
-
-
-
-
-
-
-
-    $("#idPerfil").val(0);
+        $("#txtEmail").val(),
+        $("#codPerfilW").val(),
+        $("#codDeposito").val(),
+        $("#nmeUsuarioCompleto").val(),
+        $("#vlrPorcentagemGerencia").val(),
+        $("#vlrPorcentagemVenda").val(),
+        $("#vlrPorcentagemServico").val(),
+        $("#indAtivo").val("");
+    $("#codUsuario").val(0);
 }

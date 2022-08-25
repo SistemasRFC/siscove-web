@@ -51,5 +51,5 @@ function MontaMenu(menu) {
 }
 
 $(document).ready(function(){
-    ExecutaAjax('GET', '/menu/listar/ativos', '', MontaMenu);
+    //ExecutaAjax('GET', '/menu/listar/ativos', '', MontaMenu);
 });
