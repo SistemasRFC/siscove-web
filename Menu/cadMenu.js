@@ -1,22 +1,34 @@
 $(function() {
     $("#btnSalvar").click(function(){
-        $("#codMenuW").val();
-        $("#dscMenuW").val();
-        $("#nmeController").val();
-        $("#codMenuPaiW").val();
-        $("#indMenuAtivoW").val();
-        
-        $.ajax({
-        
+        var ativo = "N"
+        if($("#indMenuAtivoW").is(":checked")){
+            ativo = "S"
+        }
+        $.ajax({ 
             type: "POST",
             url: "http://localhost:8080/menu/salvar",
             data: JSON.stringify({
-            codMenuW: $("#codMenuW").val(),
-            dscMenuW: $("#dscMenuW").val(),
-            nmeController: $("#nmeController")val(),
-            codMenuPaiW: $("#codMenuPaiW").val(),
-            indMenuAtivoW: $("#indMenuAtivoW").val(),
-        }),
+                dscMenuW: $("#dscMenuW").val(),
+                nmeController: $("#nmeController").val(),
+                codMenuPaiW: $("#codMenuPaiW").val(),
+                indMenuAtivoW: ativo,
+            }),
+            beforeSend: function (xhr){
+                xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
+            },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(data){
+                if (data.retorno){
+
+                }else{
+                    swal("", data.mensagem, "sucesso");
+                }
+            },
+            success:function(err) {
+                swal("", "Sucesso ao consultar menu!", "sucesses");
+            }
+        });
 
     });
     
