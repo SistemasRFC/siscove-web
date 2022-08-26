@@ -1,10 +1,9 @@
 
-
 $(document).ready(function () {
     $("#modalUsuario").load("cadUsuario.html")
-    getListaPerfil();
+    getListaUsuario();
 
-    $("#btnNovo").click(function(){
+    $("#btnNovo").click(function () {
         limparCampos();
         $("#usuarioModal").modal("show");
     })
@@ -12,7 +11,7 @@ $(document).ready(function () {
 
 var dadosRetorno;
 
-function getListaPerfil() {
+function getListaUsuario() {
     $.ajax({
         type: "GET",
         url: "http://localhost:8080/usuario/listar",
@@ -34,12 +33,10 @@ function montaTabela(dados) {
     for (var i in dados) {
         tabela += "<tr>";
         tabela += "<td width='25%'>" + dados[i].nmeUsuario + "</td>";
-        tabela += "<td width='25%'>" + dados[i].codPerfilW + "</td>";
+        tabela += "<td width='25%'>" + dados[i].perfilDto.dscPerfilW + "</td>";
         tabela += "<td width='25%'>" + dados[i].nmeUsuarioCompleto + "</td>";
         tabela += "<td width='25%'>" + dados[i].indAtivo + "</td>";
         tabela += "<td width='25%'  style='text-align:center;'>";
-        tabela += "    <a href='javascript:deleteRegistro(" + dados[i].codUsuario + ")'>";
-        tabela += "        <i class='fas  fa-trash'></i>";
         tabela += "    </a>";
         tabela += "    <a href='javascript:preencherCampos(" + i + ")'>";
         tabela += "        <i class='fas  fa-pen'></i>";
@@ -47,7 +44,7 @@ function montaTabela(dados) {
         tabela += "</td>";
         tabela += "</tr>";
     }
-    $("#tabelaPerfil").html(tabela);
+    $("#corpoTabela").html(tabela);
     $("#tabelaPerfil").DataTable();
 
 }
@@ -73,14 +70,14 @@ function preencherCampos(index) {
 
 function limparCampos() {
     $("#nmeUsuario").val("");
-    $("#nroTelCelular").val(),
-        $("#txtEmail").val(),
-        $("#codPerfilW").val(),
-        $("#codDeposito").val(),
-        $("#nmeUsuarioCompleto").val(),
-        $("#vlrPorcentagemGerencia").val(),
-        $("#vlrPorcentagemVenda").val(),
-        $("#vlrPorcentagemServico").val(),
-        $("#indAtivo").val("");
-    $("#codUsuario").val(0);
+    $("#nroTelCelular").val(""),
+        $("#txtEmail").val(""),
+        $("#codPerfilW").val(""),
+        $("#codDeposito").val(""),
+        $("#nmeUsuarioCompleto").val(""),
+        $("#vlrPorcentagemGerencia").val(""),
+        $("#vlrPorcentagemVenda").val(""),
+        $("#vlrPorcentagemServico").val(""),
+        $("#indAtivo").val(""),
+        $("#codUsuario").val(0);
 }

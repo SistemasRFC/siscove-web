@@ -8,7 +8,7 @@ var dadosRetorno;
 $("#btnSalvar").click(function () {
 
     if ($("#nmeUsuario").val() == '') {
-        swal('', 'Por favor preencha o Nome Usuario Completo !', 'warning');
+        swal('', 'Por favor preencha o Login !', 'warning');
         return false;
     }
     if ($("#nroTelCelular").val() == '') {
@@ -28,7 +28,7 @@ $("#btnSalvar").click(function () {
         return false;
     }
     if ($("#nmeUsuarioCompleto").val() == '') {
-        swal('', 'Por favor preencha o Login !', 'warning');
+        swal('', 'Por favor preencha o Nome Usuario Completo !', 'warning');
         return false;
     }
     if ($("#txtSenhaW").val() == '') {
@@ -84,7 +84,7 @@ $("#btnSalvar").click(function () {
             indAtivo: ativo,
             codUsuario: $("#codUsuario").val()
         })
-    } 
+    }
 
     $.ajax({
         type: "POST",
