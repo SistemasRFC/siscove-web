@@ -1,0 +1,99 @@
+<script src="cadUsuario.js"></script>
+
+<div class="modal fade" id="usuarioModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 55%" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Novo Usuario</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input id="codUsuario" name="codUsuario" type="hidden" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label for="nmeUsuarioCompleto">Nome Completo</label>
+                        <input id="nmeUsuarioCompleto" name="nmeUsuarioCompleto" type="text" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="nroTelCelular">Telefone</label>
+                        <input id="nroTelCelular" name="nroTelCelular" type="text" class="form-control" />
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="txtEmail">Email</label>
+                        <input id="txtEmail" name="txtEmail" type="text" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="codPerfilW">Perfil</label>
+                        <select id="codPerfilW" class="form-control">
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="codDeposito">Deposito</label>
+                        <select id="codDeposito" class="form-control">
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="nmeUsuario">Login</label>
+                        <input id="nmeUsuario" name="nomeUsuario" type="text" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label for="vlrPorcentagemServico">Valor Porcentagem Serviço</label>
+                        <input id="vlrPorcentagemServico" name="vlrPorcentagemServico" type="text"
+                            class="form-control" />
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="vlrPorcentagemGerencia">Valor Porcentagem Gerencia </label>
+                        <input id="vlrPorcentagemGerencia" name="vlrPorcentagemGerencia" type="text"
+                            class="form-control" />
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="vlrPorcentagemVenda">Valor Porcentagem Venda</label>
+                        <input id="vlrPorcentagemVenda" name="vlrPorcentagemVenda" type="text" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" name="indAtivo" id="indAtivo" class="custom-control-input" />
+                            <label class="custom-control-label" for="indAtivo">Ativo</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class='btn btn-secondary btn-icon-split' data-dismiss="modal" aria-label="Close">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-times"></i>
+                        </span>
+                        <span class="text">Cancelar</span>
+                    </button>
+                    <button id="btnReiniciarSenha" class='btn btn-info btn-icon-split'>
+                        <span class="icon text-white-50">
+                            <i class="fas fa-redo-alt"></i>
+                        </span>
+                        <span class="text">Reiniciar Senha</span>
+                    </button>
+                    <button id="btnSalvar" class='btn btn-success btn-icon-split'>
+                        <span class="icon text-white-50">
+                            <i class="fas fa-check"></i>
+                        </span>
+                        <span class="text">Salvar</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
