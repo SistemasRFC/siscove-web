@@ -123,7 +123,7 @@ function getListaPerfil() {
             montaComboPerfil(data.objeto);
         },
         error: (err) => {
-            swal("", "Despesas não confirmada!!!", "error");
+            swal("", "Perfil não confirmado!!!", "error");
         }
     });
 }
@@ -156,7 +156,7 @@ function getListaDeposito() {
             }
         },
         error: (err) => {
-            swal("", "Despesas não confirmada!!!", "error");
+            swal("", "Deposito não confirmado!!!", "error");
         }
     });
 }
