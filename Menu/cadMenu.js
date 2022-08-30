@@ -13,20 +13,39 @@ $(function() {
                 codMenuPaiW: $("#codMenuPaiW").val(),
                 indMenuAtivoW: ativo,
             }),
+
+            if ($("#codUsuario").val() > 0) {
+                dados = JSON.stringify({
+                    dscMenuW: $("dscMenuW").val(),
+                    nmeController: $("#nmeController").val(),
+                    codMenuPaiW: $("#codMenuPaiW").val(),
+                    indAtivo: ativo,
+                    codUsuario: $("#codUsuario").val()
+                })
+            }
+            
+          
+        
+        
+          
+
             beforeSend: function (xhr){
                 xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
             },
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            success: function(data){
-                if (data.retorno){
-
-                }else{
-                    swal("", data.mensagem, "sucesso");
+            success: function (data) {
+                console.log(data);
+                if (data.retorno) {
+                    swal("", "Menu salvo!", "success");
+                    getListarMenu();
+                } else {
+                    swal("", "Menu não salvo!", "error");
                 }
             },
-            success:function(err) {
-                swal("", "Sucesso ao consultar menu!", "sucesses");
+            error: function (err) {
+                swal("", "Erro ao salvar o Menu!", "error");
+            
             }
         });
 

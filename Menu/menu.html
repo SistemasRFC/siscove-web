@@ -23,7 +23,7 @@
         <script src="../Resources/bootstrap-admin/vendor/datatables/jquery.dataTables.min.js"></script>
         <script src="../Resources/bootstrap-admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
         <!-- CSS -->
-        <link rel="stylesheet" href="../Resources/bootstrap-admin/css/sb-admin-2.min.css"></link>
+        <link rel="stylesheet" href="../Resources/bootstrap-admin/css/sb-admin-2.css"></link>
         <link href="../Resources/bootstrap-admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" type="text/css" href="../Resources/swal/dist/sweetalert.css">
         <link href="../Resources/bootstrap-admin/css/style.css" rel="stylesheet" type="text/css">
@@ -51,18 +51,7 @@
                                             <button id="btnNovo" class="btn btn-primary" data-toggle="modal" data-target="#menuModal">NOVO</button>
                                             
                                             <br></br>
-                                            <table class="table table-hover table-striped table-bordered table-white"
-                                                id="tabelaPerfil">
-                                                <thead>
-                                                    <tr align="center">
-                                                        <th width="25%">Usuario</th>
-                                                        <th width="25%">Código </th>
-                                                        <th width="25%">Ativo</th>
-                                                        <th width="25%">Editar</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="corpoTabela"></tbody>
-                                            </table>
+                                            <div id="divTabelaMenu"></div>
                                         </div>
                                     </div>
                                 </div>

@@ -31,39 +31,52 @@ function getListarMenu() {
 
 function montaTabela(dados) {
     var tabela = '';
+        tabela += "<table class='table table-hover table-striped table-bordered table-white'";
+        tabela += "    id='tabelaMenu'>";
+        tabela += "    <thead>";
+        tabela += "        <tr align='center'>";
+        tabela += "            <th width='25%'>Menu</th>";
+        tabela += "            <th width='25%'>MenuPai</th>";
+        tabela += "            <th width='25%'>Rota</th>";
+        tabela += "            <th width='25%'>Ativo</th>";
+        tabela += "            <th width='25%'>Editar</th>";
+        tabela += "        </tr>";
+        tabela += "    </thead>";
+        tabela += "    <tbody>";
     for (var i in dados) {
         var simNao = dados[i].indMenuAtivoW=='S'?'Sim':'Não' ;
-        tabela += "<tr>";    
-        tabela += "<td width='25%'>" + dados[i].dscMenuW + "</td>";
-        tabela += "<td width='25%'>" + dados[i].dscMenuPai + "</td>";
-        tabela += "<td width='25%'>" + simNao + "</td>";
-        tabela += "<td width='25%'  style='text-align:center;'>";
-        tabela += "    <a href='javascript:preencherCampos(" + i + ")'>";
-        tabela += "        <i class='fas  fa-pen'></i>";
-        tabela += "    </a>";
-        tabela += "</td>";
-        tabela += "</tr>";
+        tabela += "     <tr>";    
+        tabela += "     <td width='25%'>" + dados[i].dscMenuW + "</td>";
+        tabela += "     <td width='25%'>" + dados[i].dscMenuPai + "</td>";
+        tabela += "     <td width='25%'>" + dados [i].nmeController + "</td>";
+        tabela += "     <td width='25%'>" + simNao + "</td>";
+        tabela += "     <td width='25%'  style='text-align:center;'>";
+        tabela += "         <a href='javascript:preencherCampos(" + i + ")'>";
+        tabela += "             <i class='fas  fa-pen'></i>";
+        tabela += "         </a>";
+        tabela += "     </td>";
+        tabela += "     </tr>";
     }
-    $("#corpoTabela").html(tabela);
-    $("#tabelaPerfil").DataTable();
+    tabela += "</tbody>";
+    tabela += "</table>";
+    $("#divTabelaMenu").html(tabela);
+    $("#tabelaMenu").DataTable();
 
 }
 
 function preencherCampos(index) {
     var dados = dadosRetorno[index];
-    $("#nmeController").val(dados.nmeController);
+    
     if (dados.indAtivo == 'S') {
         $("#indMenuAtivoW").prop('checked', true);
     } else {
         $("#indMenuAtivoW").prop('checked', false);
     }
-    $("#nroTelCelular").val(dados.nroTelCelular);
-    $("#txtEmail").val(dados.txtEmail);
+
     $("#codMenuW").val(dados.codMenuW);
-    $("#nmeControllerCompleto").val(dados.nmeControllerCompleto);
-    $("#vlrPorcentagemGerencia").val(dados.vlrPorcentagemGerencia);
-    $("#vlrPorcentagemVenda").val(dados.vlrPorcentagemVenda);
-    $("#vlrPorcentagemServico").val(dados.vlrPorcentagemServico);
+    $("#dscMenuW").val(dados.dscMenuW);
+    $("#dscMenuPai").val(dados.dscMenuPai);
+    $("#nmeController").val(dados.nmeController);
     $("#menuModal").modal("show");
 }
 
