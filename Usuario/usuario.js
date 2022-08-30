@@ -91,7 +91,7 @@ function preencherCampos(index) {
     }
     $("#nroTelCelular").val(dados.nroTelCelular);
     $("#txtEmail").val(dados.txtEmail);
-    $("#perfilDto").val(dados.perfilDto);
+    $("#codPerfilW").val(dados.perfilDto.codPerfilW);
     $("#nmeUsuarioCompleto").val(dados.nmeUsuarioCompleto);
     $("#vlrPorcentagemGerencia").val(dados.vlrPorcentagemGerencia);
     $("#vlrPorcentagemVenda").val(dados.vlrPorcentagemVenda);
@@ -104,7 +104,7 @@ function limparCampos() {
     $("#nmeUsuario").val("");
     $("#nroTelCelular").val(""),
         $("#txtEmail").val(""),
-        $("#perfilDto").val(""),
+        $("#codPerfilW").val(""),
         $("#codDeposito").val(""),
         $("#nmeUsuarioCompleto").val(""),
         $("#vlrPorcentagemGerencia").val(""),
