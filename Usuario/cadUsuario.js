@@ -58,8 +58,10 @@ $("#btnSalvar").click(function () {
     var dados = JSON.stringify({
         nmeUsuario: $("#nmeUsuario").val(),
         nroTelCelular: $("#nroTelCelular").val(),
-        txtEmail: $("#txtEmail").val(),
-        codPerfilW: $("#codPerfilW").val(),
+        txtEmail: $("#txtEmail").val(),            
+        perfilDto: {
+            codPerfilW:$("#codPerfilW").val()
+        },
         codDeposito: $("#codDeposito").val(),
         nmeUsuarioCompleto: $("#nmeUsuarioCompleto").val(),
         txtSenhaW: $("#txtSenhaW").val(),
@@ -74,7 +76,9 @@ $("#btnSalvar").click(function () {
             nmeUsuario: $("#nmeUsuario").val(),
             nroTelCelular: $("#nroTelCelular").val(),
             txtEmail: $("#txtEmail").val(),
-            codPerfilW: $("#codPerfilW").val(),
+            perfilDto: {
+                codPerfilW:$("#codPerfilW").val()
+            },
             codDeposito: $("#codDeposito").val(),
             nmeUsuarioCompleto: $("#nmeUsuarioCompleto").val(),
             txtSenhaW: $("#txtSenhaW").val(),
@@ -99,6 +103,7 @@ $("#btnSalvar").click(function () {
             console.log(data);
             if (data.retorno) {
                 swal("", "Usuário confirmado!!!", "success");
+                getListaUsuario();
             } else {
                 swal("", "Usuário não confirmado!!!", "error");
             }
@@ -109,7 +114,10 @@ $("#btnSalvar").click(function () {
     });
 });
 
+$("#btnReiniciarSenha").click(function () {
+    reniciarSenha($("#codUsuario").val())
 
+})
 
 
 function getListaPerfil() {
@@ -170,3 +178,6 @@ function montaComboDeposito(dados) {
     $("#codDeposito").html(tabela);
 
 }
+
+
+

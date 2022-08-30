@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
     $("#modalUsuario").load("cadUsuario.html")
     getListaUsuario();
@@ -27,9 +26,36 @@ function getListaUsuario() {
         }
     });
 }
+function reniciarSenha(codUsuario) {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/usuario/reniciar/senha/" + codUsuario,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
+        },
+        success: function (data) {
+            swal("", "Senha Alterada!!!", "success");
+        },
+        error: (err) => {
+            swal("", "Erro ao Tentar Alterar a Senha!!!", "error");
+        }
+    });
+}
 
 function montaTabela(dados) {
     var tabela = '';
+    tabela += '<table class="table table-hover table-striped table-bordered table-white" id="tabelaPerfil">';
+    tabela += '<thead>';
+    tabela += '    <tr align="center">';
+    tabela += '        <td width="25%">Login </td>';
+    tabela += '        <td width="25%">Perfil</td>';
+    tabela += '        <td width="25%">Nome</td>';
+    tabela += '        <td width="25%">Ativo</td>';
+    tabela += '        <td width="25%">Açoes</td> ';                                                  
+    tabela += '    </tr>';
+    tabela += '</thead>';
+    tabela += '<tbody id="corpoTabela">';
+
     for (var i in dados) {
         tabela += "<tr>";
         tabela += "<td width='25%'>" + dados[i].nmeUsuario + "</td>";
@@ -41,10 +67,16 @@ function montaTabela(dados) {
         tabela += "    <a href='javascript:preencherCampos(" + i + ")'>";
         tabela += "        <i class='fas  fa-pen'></i>";
         tabela += "    </a>";
+        tabela += "    </a>";
+        tabela += "    <a href='javascript:reniciarSenha(" + dados[i].codUsuario + ")'>";
+        tabela += "        <i class='fas fa-redo-alt'></i>";
+        tabela += "    </a>";
         tabela += "</td>";
         tabela += "</tr>";
     }
-    $("#corpoTabela").html(tabela);
+    tabela += '</tbody>';
+    tabela += '</table>';
+    $("#tabelaUsuario").html(tabela);
     $("#tabelaPerfil").DataTable();
 
 }
