@@ -1,34 +1,31 @@
 $(function() {
     $("#btnSalvar").click(function(){
+        console.log("SALVAR ", $("#codMenuW").val())
+        console.log("SALVAR dsc", $("#dscMenuW").val())
         var ativo = "N"
         if($("#indMenuAtivoW").is(":checked")){
             ativo = "S"
         }
-        $.ajax({ 
-            type: "POST",
-            url: "http://localhost:8080/menu/salvar",
-            data: JSON.stringify({
+        var dados = JSON.stringify({
+            dscMenuW: $("#dscMenuW").val(),
+            nmeController: $("#nmeController").val(),
+            codMenuPaiW: $("#codMenuPaiW").val(),
+            indMenuAtivoW: ativo,
+        });
+
+        if ($("#codMenuW").val() > 0) {
+            dados = JSON.stringify({
                 dscMenuW: $("#dscMenuW").val(),
                 nmeController: $("#nmeController").val(),
                 codMenuPaiW: $("#codMenuPaiW").val(),
                 indMenuAtivoW: ativo,
-            }),
-
-            if ($("#codUsuario").val() > 0) {
-                dados = JSON.stringify({
-                    dscMenuW: $("dscMenuW").val(),
-                    nmeController: $("#nmeController").val(),
-                    codMenuPaiW: $("#codMenuPaiW").val(),
-                    indAtivo: ativo,
-                    codUsuario: $("#codUsuario").val()
-                })
-            }
-            
-          
-        
-        
-          
-
+                codMenuW: $("#codMenuW").val()
+            });
+        }
+        $.ajax({ 
+            type: "POST",
+            url: "http://localhost:8080/menu/salvar",
+            data: dados,
             beforeSend: function (xhr){
                 xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
             },
@@ -39,6 +36,7 @@ $(function() {
                 if (data.retorno) {
                     swal("", "Menu salvo!", "success");
                     getListarMenu();
+                    $("#menuModal").modal("hide");
                 } else {
                     swal("", "Menu não salvo!", "error");
                 }
@@ -78,6 +76,7 @@ function criarComboMenuPai() {
 
 function montarComboMenuPai(obj) {
     var html = "<select id='codMenuPaiW' class='form-control dropdown-toggle'>";
+    html += "<option value='0'>Selecione</option>"
     if(obj.length>0) {
         for(var i in obj) {
             html += "<option value="+obj[i].codMenuW+">"+obj[i].dscMenuW+"</option>"

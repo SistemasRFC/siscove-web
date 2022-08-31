@@ -7,7 +7,8 @@ $(document).ready(function(){
 
 $(function(){
     $("#btnNovo").click(function(){
-
+        limparCampos();
+        $("#menuModal").modal("show");
 
     })
 })
@@ -66,6 +67,7 @@ function montaTabela(dados) {
 
 function preencherCampos(index) {
     var dados = dadosRetorno[index];
+    console.log("preencherCampos ", dados);
     
     if (dados.indAtivo == 'S') {
         $("#indMenuAtivoW").prop('checked', true);
@@ -75,9 +77,17 @@ function preencherCampos(index) {
 
     $("#codMenuW").val(dados.codMenuW);
     $("#dscMenuW").val(dados.dscMenuW);
-    $("#dscMenuPai").val(dados.dscMenuPai);
+    $("#codMenuPaiW").val(dados.codMenuPaiW);
     $("#nmeController").val(dados.nmeController);
     $("#menuModal").modal("show");
+}
+
+function limparCampos() {
+    $("#dscMenuW").val("");
+    $("#nmeController").val(""),
+    $("#codMenuPaiW").val(0),
+    $("#indMenuAtivoW").val(false),
+    $("#codMenuW").val(0);
 }
 
 
