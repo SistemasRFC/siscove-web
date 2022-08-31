@@ -36,8 +36,8 @@ function montaTabela(dados) {
         tabela += "    id='tabelaMenu'>";
         tabela += "    <thead>";
         tabela += "        <tr align='center'>";
-        tabela += "            <th width='25%'>Menu</th>";
-        tabela += "            <th width='25%'>MenuPai</th>";
+        tabela += "            <th width='25%'>Descrição</th>";
+        tabela += "            <th width='25%'>Menu Pai</th>";
         tabela += "            <th width='25%'>Rota</th>";
         tabela += "            <th width='25%'>Ativo</th>";
         tabela += "            <th width='25%'>Editar</th>";
