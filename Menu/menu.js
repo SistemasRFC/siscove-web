@@ -86,7 +86,7 @@ function limparCampos() {
     $("#dscMenuW").val("");
     $("#nmeController").val(""),
     $("#codMenuPaiW").val(0),
-    $("#indMenuAtivoW").val(false),
+    $("#indMenuArivoW").prop("checked", false),
     $("#codMenuW").val(0);
 }
 
