@@ -1,10 +1,10 @@
-<script src="cadPerfis.js"></script>
+<script src="cadPerfil.js"></script>
 
 <div class="modal fade" id="perfilModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" style="max-width: 55%" role="document">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-dark">
                 <h5 class="modal-title" id="exampleModalLabel">Novo Perfil</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
@@ -17,10 +17,10 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-6">
-                        <label for="codPerfilW">Perfil</label>
-                        <select id="codPerfilW" class="form-control">
-                        </select>
+                    <div class="col-sm-12">
+                        <label for="dscPerfilW">Perfil</label>
+                        <input id="dscPerfilW" name="dscPerfilW" class="text" style="width:100%" />
+                    </input>
                     </div>
                     <div class="col-sm-12">
                         <div class="custom-control custom-checkbox">
@@ -35,12 +35,6 @@
                             <i class="fas fa-times"></i>
                         </span>
                         <span class="text">Cancelar</span>
-                    </button>
-                    <button id="btnReiniciarSenha" class='btn btn-info btn-icon-split'>
-                        <span class="icon text-white-50">
-                            <i class="fas fa-redo-alt"></i>
-                        </span>
-                        <span class="text">Reiniciar Senha</span>
                     </button>
                     <button id="btnSalvar" class='btn btn-success btn-icon-split'>
                         <span class="icon text-white-50">

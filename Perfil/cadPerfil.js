@@ -1,7 +1,3 @@
-$(document).ready(function () {
-    getListaPerfil();
-});
-
 var dadosRetorno;
 
 $("#btnSalvar").click(function () {
@@ -11,11 +7,11 @@ $("#btnSalvar").click(function () {
         return false;
     }
     if ($("#dscPerfilW").val() == '') {
-        swal('', 'Por favor preencha a descrição !', 'warning');
+        swal('', 'Por favor preencha a Descrição !', 'warning');
         return false;
     }
-   
-    
+
+     
     var ativo = "N";
     if ($("#indAtivo").is(":checked")) {
         ativo = 'S';
@@ -28,9 +24,8 @@ $("#btnSalvar").click(function () {
     if ($("#codPerfil").val() > 0) {
         dados = JSON.stringify({
             dscPerfilW: $("#dscPerfilW").val(),
-            codPerfilW: $("#codPerfilW").val(),
             indAtivo: ativo,
-            codUsuario: $("#codPerfilW").val()
+            codPerfilW: $("#codPerfilW").val()
         })
     }
 
