@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>MENU PRINCIPAL</title>
+        <title>SISCOVE - Menu</title>
         <meta charset="UTF-8">
         <!-- JS -->      
         <script src="../Resources/bootstrap-admin/vendor/jquery/jquery.min.js"></script>
@@ -12,7 +12,7 @@
         <script src="../Shared/header-component.js" ></script>
         <script src="../Shared/FuncoesGerais.js" ></script>
         <script src="../Shared/navegacao-component.js" ></script>
-        <script src="./menuPrincipal.js"></script>
+        <script src="./menu.js"></script>
         <!-- bootstrap -->
         <script src="../Resources/bootstrap-admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="../Resources/bootstrap-admin/vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -28,7 +28,7 @@
         <link rel="stylesheet" type="text/css" href="../Resources/swal/dist/sweetalert.css">
         <link href="../Resources/bootstrap-admin/css/style.css" rel="stylesheet" type="text/css">
     </head>
-    <body id="page-top">
+    <body>
         <content>
             <navegacao-component></navegacao-component>
             <header-component></header-component>
@@ -37,19 +37,21 @@
                     <div id="content">
                         <div class="container-fluid">
                             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                <h1 class="h3 my-2 text-gray-800">Início</h1>
+                                <h1 class="h3 mb-0 text-gray-800">Cadastro</h1>
                             </div>
 
                             <div class="row">
-                                <div class="col-xl-12 col-md-12">
-                                    <div class="card shadow mt-0">
-                                        <div class="card-header bg-dark d-flex align-items-center">
-                                            <div class="font-weight-bold text-uppercase mb-1">Vendas em aberto</div>
-                                            <i class="ml-auto fa-regular fa-note-sticky fa-2x"></i>
+                                <div class="col-xl-12 col-lg-12">
+                                    <div class="card shadow mb-4">
+                                        <div class="card-header bg-dark py-3 d-flex flex-row align-items-center justify-content-between">
+                                            <h6 class="m-0 font-weight-bold text-persian-dark">MENU</h6>
                                         </div>
                                         <div class="card-body">
-                                            <div class="row no-gutters align-items-center">
-                                            </div>
+                                            <div id="modalMenu"></div>
+                                            <button id="btnNovo" class="btn btn-primary" data-toggle="modal" data-target="#menuModal">NOVO</button>
+                                            
+                                            <br></br>
+                                            <div id="divTabelaMenu"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -64,55 +66,3 @@
         </content>
     </body>
 </html>
-
-<!-- <div class="row">
-
-    <div class="col-xl-6 col-md-6 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Meu Projeto</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">-</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-project-diagram fa-3x text-gray-400"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-xl-6 col-md-6 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Pontuação O.F. atual</div>
-                        
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">0 USTIBB</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-coins fa-3x text-gray-400"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>    
-
-<div class="row">
-
-    <div class="col-xl-12 col-lg-12">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-persian-dark">VISÃO GERAL DOS GANHOS <span class="badge bg-primary text-gray-100"> Anual</span></h6>
-            </div>
-            <div class="card-body">
-                <div class="chart-area">
-                    !-- <canvas id="areaChart"></canvas> --
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
