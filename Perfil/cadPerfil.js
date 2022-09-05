@@ -2,16 +2,11 @@ var dadosRetorno;
 
 $("#btnSalvar").click(function () {
 
-    if ($("#codPerfilW").val() == '') {
-        swal('', 'Por favor preencha o Perfil !', 'warning');
-        return false;
-    }
     if ($("#dscPerfilW").val() == '') {
         swal('', 'Por favor preencha a Descrição !', 'warning');
         return false;
     }
 
-     
     var ativo = "N";
     if ($("#indAtivo").is(":checked")) {
         ativo = 'S';
@@ -39,15 +34,22 @@ $("#btnSalvar").click(function () {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
-            console.log(data);
             if (data.retorno) {
-                swal("", "Perfil confirmado!!!", "success");
+                swal({
+                    title: "",
+                    text: "Perfil salvo!",
+                    type: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+                getListarPerfil();
+                $("#perfilModal").modal("hide");
             } else {
-                swal("", "Perfil não confirmado!!!", "error");
+                swal("", "Perfil não salvo!!!", "error");
             }
         },
         error: function (err) {
-            swal("", "Perfil não confirmado!!!", "error");
+            swal("", "Erro ao salvar Perfil!!!", "error");
         }
     });
 });

@@ -67,7 +67,6 @@ function montaTabela(dados) {
 
 function preencherCampos(index) {
     var dados = dadosRetorno[index];
-    console.log("preencherCampos ", dados);
     
     if (dados.indAtivo == 'S') {
         $("#indMenuAtivoW").prop('checked', true);

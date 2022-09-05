@@ -1,7 +1,5 @@
 $(function() {
     $("#btnSalvar").click(function(){
-        console.log("SALVAR ", $("#codMenuW").val())
-        console.log("SALVAR dsc", $("#dscMenuW").val())
         var ativo = "N"
         if($("#indMenuAtivoW").is(":checked")){
             ativo = "S"
@@ -32,9 +30,14 @@ $(function() {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
-                console.log(data);
                 if (data.retorno) {
-                    swal("", "Menu salvo!", "success");
+                    swal({
+                        title: "",
+                        text: "Menu salvo!",
+                        type: "success",
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
                     getListarMenu();
                     $("#menuModal").modal("hide");
                 } else {

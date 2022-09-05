@@ -33,12 +33,12 @@ function getListarPerfil() {
 function montaTabela(dados) {
     var tabela = '';
         tabela += "<table class='table table-hover table-striped table-bordered table-white'";
-        tabela += "    id='tabelaMenu'>";
+        tabela += "    id='tabelaPerfil'>";
         tabela += "    <thead>";
         tabela += "        <tr align='center'>";
         tabela += "            <th width='70%'>Descrição</th>";         
         tabela += "            <th width='20%'>Ativo</th>";        
-        tabela += "            <th width='10%'>Ações</th>";
+        tabela += "            <th width='10%'>Editar</th>";
         tabela += "        </tr>";
         tabela += "    </thead>";
         tabela += "    <tbody>";
@@ -63,7 +63,6 @@ function montaTabela(dados) {
 
 function preencherCampos(index) {
     var dados = dadosRetorno[index];
-    console.log("preencherCampos ", dados);
     
     if (dados.indAtivo == 'S') {
         $("#indAtivo").prop('checked', true);
@@ -81,3 +80,4 @@ function limparCampos() {
     $("#indAtivo").prop("checked", false),
     $("#codPerfilW").val(0);
 }
+
