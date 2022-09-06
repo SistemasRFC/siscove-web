@@ -67,7 +67,6 @@ function montaTabela(dados) {
 
 function preencherCampos(index) {
     var dados = dadosRetorno[index];
-    console.log("preencherCampos ", dados);
     
     if (dados.indAtivo == 'S') {
         $("#indMenuAtivoW").prop('checked', true);
@@ -86,7 +85,7 @@ function limparCampos() {
     $("#dscMenuW").val("");
     $("#nmeController").val(""),
     $("#codMenuPaiW").val(0),
-    $("#indMenuAtivoW").val(false),
+    $("#indMenuAtivoW").prop("checked", false),
     $("#codMenuW").val(0);
 }
 
