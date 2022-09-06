@@ -1,51 +1,81 @@
 $(document).ready(function () {
     getListaPerfil();
+    
 
     $("#btnPassar").click(function () {
-        var itens = $("#codMenuW option:selected");
-        var options = $("#codMenuPerfil").html();
+        var itens = $("#codMenuDesvinculados option:selected");
+        var options = $("#codMenuVinculados").html();
         for (var i in itens) {
             if (itens[i].value != undefined) {
                 options += "<option value='" + itens[i].value + "'>" + itens[i].text + "</option>";
-                $("#codMenuW option[value=" + itens[i].value + "]").remove();
+                $("#codMenuDesvinculados option[value=" + itens[i].value + "]").remove();
             }
         }
-        $("#codMenuPerfil").html(options);
+        $("#codMenuVinculados").html(options);
     })
 
     $("#btnPassarTodos").click(function () {
-        var options = $("#codMenuPerfil").html();
-        $('#codMenuW').find('option').each(function () {
+        var options = $("#codMenuVinculados").html();
+        $('#codMenuDesvinculados').find('option').each(function () {
             options += "<option value='" + $(this).val() + "'>" + $(this).text() + "</option>";
-            $("#codMenuW option[value=" + $(this).val() + "]").remove();
+            $("#codMenuDesvinculados option[value=" + $(this).val() + "]").remove();
         });
-        $("#codMenuPerfil").html(options);
+        $("#codMenuVinculados").html(options);
     })
     $("#btnRemover").click(function () {
-        var itens = $("#codMenuPerfil option:selected");
-        var options = $("#codMenuW").html();
+        var itens = $("#codMenuVinculados option:selected");
+        var options = $("#codMenuDesvinculados").html();
         for (var i in itens) {
             if (itens[i].value != undefined) {
                 options += "<option value='" + itens[i].value + "'>" + itens[i].text + "</option>";
-                $("#codMenuPerfil option[value=" + itens[i].value + "]").remove();
+                $("#codMenuVinculados option[value=" + itens[i].value + "]").remove();
             }
         }
-        $("#codMenuW").html(options);
+        $("#codMenuDesvinculados").html(options);
     })
     $("#btnRemoverTodos").click(function () {
-        var options = $("#codMenuW").html();
-        $('#codMenuPerfil').find('option').each(function () {
+        var options = $("#codMenuDesvinculados").html();
+        $('#codMenuVinculados').find('option').each(function () {
             options += "<option value='" + $(this).val() + "'>" + $(this).text() + "</option>";
-            $("#codMenuPerfil option[value=" + $(this).val() + "]").remove();
+            $("#codMenuVinculados option[value=" + $(this).val() + "]").remove();
         });
-        $("#codMenuW").html(options);
+        $("#codMenuDesvinculados").html(options);
     })
     $("#btnSalvar").click(function(){
         var listados=[];
+        swal({
+            title: "Aguarde, salvando permissões",
+            imageUrl: "../Resources/images/preload.gif",
+            showConfirmButton: false
+            });
         $('#codMenuVinculados').find('option').each(function () {
-            listados.push({codigoMenu: $(this).val()})
+            listados.push(parseInt($(this).val()));
         });
-        console.log(listados);
+
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/menuperfil/vincular",
+            data: JSON.stringify({
+                codPerfilW: parseInt($("#codPerfilW").val()),
+                listaMenus: listados}),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
+            },
+            success: function (data) {
+                swal({
+                    title: "",
+                    text: "Permissões salvas!",
+                    type: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            },
+            error: (err) => {
+                swal("", "Perfil não confirmado!!!", "error");
+            }
+        });        
     })
 })
 
@@ -69,6 +99,7 @@ function getListaPerfil() {
 
 function montaComboPerfil(dados) {
     var tabela = '';
+    tabela += '<option value="">Selecione </option>';
     for (var i in dados) {
 
         tabela += '<option value="' + dados[i].codPerfilW + '">' + dados[i].dscPerfilW + ' </option>';
