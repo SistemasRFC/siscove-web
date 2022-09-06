@@ -1,22 +1,22 @@
 var dadosRetorno;
 
 $(document).ready(function(){
-    $("#modalPerfil").load("./cadPerfil.html");
-    getListarPerfil();
+    $("#modalDeposito").load("./cadDeposito.html");
+    getListaDeposito();
 });
 
 $(function(){
     $("#btnNovo").click(function(){
         limparCampos();
-        $("#perfilModal").modal("show");
+        $("#depositoModal").modal("show");
 
     })
 })
 
-function getListarPerfil() {
+function getListaDeposito() {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/perfil/listar",
+        url: "http://localhost:8080/deposito/listar",
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },
@@ -25,7 +25,7 @@ function getListarPerfil() {
             montaTabela(data.objeto);
         },
         error: (err) => {
-            swal("", "Perfil não confirmado!!!", "error");
+            swal("", "Deposito não confirmado!!!", "error");
         }
     });
 }
@@ -33,19 +33,20 @@ function getListarPerfil() {
 function montaTabela(dados) {
     var tabela = '';
         tabela += "<table class='table table-hover table-striped table-bordered table-white'";
-        tabela += "    id='tabelaPerfil'>";
+        tabela += "    id='tabelaDeposito'>";
         tabela += "    <thead>";
         tabela += "        <tr align='center'>";
         tabela += "            <th width='70%'>Descrição</th>";         
-        tabela += "            <th width='20%'>Ativo</th>";        
-        tabela += "            <th width='10%'>Editar</th>";
+        tabela += "            <th width='40%'>Ativo</th>"; 
+        tabela += "            <th width='20%'>Editar</th>";       
+        tabela += "            <th width='10%'>Cliente</th>";
         tabela += "        </tr>";
         tabela += "    </thead>";
         tabela += "    <tbody>";
     for (var i in dados) {
         var simNao = dados[i].indAtivo=='S'?'Sim':'Não' ;
         tabela += "     <tr>";    
-        tabela += "     <td width='70%'>" + dados[i].dscPerfilW+ "</td>";
+        tabela += "     <td width='70%'>" + dados[i].dscDeposito+ "</td>";
         tabela += "     <td width='20%'>" + simNao + "</td>";
         tabela += "     <td width='10%'  style='text-align:center;'>";
         tabela += "         <a href='javascript:preencherCampos(" + i + ")'>";
@@ -57,7 +58,7 @@ function montaTabela(dados) {
     tabela += "</tbody>";
     tabela += "</table>";
     $("#divTabela").html(tabela);
-    $("#tabelaPerfil").DataTable();
+    $("#tabelaDeposito").DataTable();
 
 }
 
@@ -70,14 +71,15 @@ function preencherCampos(index) {
         $("#indAtivo").prop('checked', false);
     }
 
-    $("#codPerfilW").val(dados.codPerfilW);
-    $("#dscPerfilW").val(dados.dscPerfilW);
-    $("#perfilModal").modal("show");
+    $("#codDeposito").val(dados.codDeposito);
+    $("#dscDeposito").val(dados.dscDeposito);
+    $("#codClienteFinal").val(dados.codClienteFinal)
+    $("#depositoModal").modal("show");
 }
 
 function limparCampos() {
-    $("#dscPerfilW").val("");
+    $("#dscDeposito").val("");
+    $("#codClienteFinal").val(0);
     $("#indAtivo").prop("checked", false),
-    $("#codPerfilW").val(0);
+    $("#codDeposito").val(0);
 }
-
