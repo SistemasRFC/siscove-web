@@ -1,0 +1,48 @@
+<script src="cadPerfil.js"></script>
+
+<div class="modal fade" id="perfilModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 55%" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark">
+                <h5 class="modal-title" id="exampleModalLabel">Novo Perfil</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input id="codPerfilW" name="codPerfilW" type="hidden" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label for="dscPerfilW">Perfil</label>
+                        <input id="dscPerfilW" name="dscPerfilW" class="text" style="width:100%" />
+                    </input>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" name="indAtivo" id="indAtivo" class="custom-control-input" />
+                            <label class="custom-control-label" for="indAtivo">Ativo</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class='btn btn-secondary btn-icon-split' data-dismiss="modal" aria-label="Close">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-times"></i>
+                        </span>
+                        <span class="text">Cancelar</span>
+                    </button>
+                    <button id="btnSalvar" class='btn btn-success btn-icon-split'>
+                        <span class="icon text-white-50">
+                            <i class="fas fa-check"></i>
+                        </span>
+                        <span class="text">Salvar</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
