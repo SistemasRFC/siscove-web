@@ -318,7 +318,11 @@ input[type="checkbox"] {
 .button-cancelar:hover {
     opacity: 0.7;
 }
-
+.btn-permisao{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 /*Modal*/
 .modal-header {
