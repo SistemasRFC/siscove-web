@@ -63,7 +63,6 @@ function montaTabela(dados) {
         tabela += "<td width='25%'>" + dados[i].nmeUsuarioCompleto + "</td>";
         tabela += "<td width='25%'>" + dados[i].indAtivo + "</td>";
         tabela += "<td width='25%'  style='text-align:center;'>";
-        tabela += "    </a>";
         tabela += "    <a href='javascript:preencherCampos(" + i + ")'>";
         tabela += "        <i class='fas  fa-pen'></i>";
         tabela += "    </a>";
