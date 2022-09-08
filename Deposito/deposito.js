@@ -36,18 +36,19 @@ function montaTabela(dados) {
         tabela += "    id='tabelaDeposito'>";
         tabela += "    <thead>";
         tabela += "        <tr align='center'>";
-        tabela += "            <th width='70%'>Descrição</th>";         
-        tabela += "            <th width='40%'>Ativo</th>"; 
-        tabela += "            <th width='20%'>Editar</th>";       
-        tabela += "            <th width='10%'>Cliente</th>";
+        tabela += "            <th width='70%'>Cliente</th>";         
+        tabela += "            <th width='40%'>Cliente Final</th>"; 
+        tabela += "            <th width='20%'>Ativo</th>";       
+        tabela += "            <th width='10%'>Editar</th>";
         tabela += "        </tr>";
         tabela += "    </thead>";
         tabela += "    <tbody>";
     for (var i in dados) {
-        var simNao = dados[i].indAtivo=='S'?'Sim':'Não' ;
-        tabela += "     <tr>";    
-        tabela += "     <td width='70%'>" + dados[i].dscDeposito+ "</td>";
-        tabela += "     <td width='20%'>" + simNao + "</td>";
+        var simNao = dados[i].indAtivo=='S'?'Sim':'Não';
+        tabela += "     <tr>";
+        tabela += "     <td width='10'>" + dados[i].dscDeposito+ "</td>";    
+        tabela += "     <td width='70%'>" + dados[i].dscClienteFinal+ "</td>";
+        tabela += "     <td width='40%'>" + simNao + "</td>";
         tabela += "     <td width='10%'  style='text-align:center;'>";
         tabela += "         <a href='javascript:preencherCampos(" + i + ")'>";
         tabela += "             <i class='fas  fa-pen'></i>";
