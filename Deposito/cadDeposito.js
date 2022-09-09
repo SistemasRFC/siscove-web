@@ -53,3 +53,25 @@ $("#btnSalvar").click(function () {
         }
     });
 });
+
+function criarComboClienteFinal() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/clienteFinal/listar/ativos",
+        beforeSend: function (xhr){ 
+            xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
+        },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(data){
+            if (data.retorno){
+                montarComboClienteFinal(data.objeto)
+            }else{
+                swal("", data.mensagem, "error"); 
+            }
+        },
+        error: function(err) {
+            swal("", "Erro ao consultar clienteFinal!", "error"); 
+        }
+    });
+}
