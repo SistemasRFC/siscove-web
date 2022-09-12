@@ -42,7 +42,7 @@ $("#btnSalvar").click(function () {
                     timer: 2000,
                     showConfirmButton: false
                 });
-                getListarPerfil();
+                getListarDeposito();
                 $("#depositoModal").modal("hide");
             } else {
                 swal("", "Deposito não salvo!", "error");
@@ -71,7 +71,23 @@ function criarComboClienteFinal() {
             }
         },
         error: function(err) {
-            swal("", "Erro ao consultar clienteFinal!", "error"); 
+            swal("", "Erro ao consultar cliente final!", "error"); 
         }
     });
 }
+
+function montarComboClienteFinal(obj) {
+    var html = "<select id='codClienteFinal' class='form-control dropdown-toggle'>";
+    html += "<option value='0'>Selecione</option>"
+    if(obj.length>0) {
+        for(var i in obj) {
+            html += "<option value="+obj[i].codClienteFinal+">"+obj[i].nmeClienteFinal+"</option>"
+        }
+    }
+    html += "</select>";
+    $("#comboClienteFinal").html(html);
+}
+
+$(document).ready(function(){
+    criarComboClienteFinal()
+});
