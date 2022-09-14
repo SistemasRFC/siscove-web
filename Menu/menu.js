@@ -69,7 +69,7 @@ function preencherCampos(index) {
     var dados = dadosRetorno[index];
     console.log("preencherCampos ", dados);
     
-    if (dados.indAtivo == 'S') {
+    if (dados.indMenuAtivoW == 'S') {
         $("#indMenuAtivoW").prop('checked', true);
     } else {
         $("#indMenuAtivoW").prop('checked', false);
