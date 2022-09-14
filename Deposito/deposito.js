@@ -36,7 +36,7 @@ function montaTabela(dados) {
         tabela += "    id='tabelaDeposito'>";
         tabela += "    <thead>";
         tabela += "        <tr align='center'>";
-        tabela += "            <th width='70%'>Cliente</th>";         
+        tabela += "            <th width='70%'>Depósito</th>";         
         tabela += "            <th width='40%'>Cliente Final</th>"; 
         tabela += "            <th width='20%'>Ativo</th>";       
         tabela += "            <th width='10%'>Editar</th>";

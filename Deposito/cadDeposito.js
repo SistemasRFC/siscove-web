@@ -14,14 +14,21 @@ $("#btnSalvar").click(function () {
     var dados = JSON.stringify({
         dscDeposito: $("#dscDeposito").val(),
         indAtivo: ativo,
+        codClienteFinal: $("#codClienteFinal").val()
     })
 
     if ($("#codDeposito").val() > 0) {
-        dados = JSON.stringify({
+        dados = JSON.stringify({ 
             dscDeposito: $("#dscDeposito").val(),
             indAtivo: ativo,
-            codDeposito: $("#codDeposito").val()
+            codDeposito: $("#codDeposito").val(),
+            codClienteFinal: $("#codClienteFinal").val()
         })
+    }
+
+    if ($("#codClienteFinal").val() == '') {
+        swal('', 'Por favor preencha o Cliente Final!', 'warning');
+        return false;
     }
 
     $.ajax({
@@ -42,7 +49,7 @@ $("#btnSalvar").click(function () {
                     timer: 2000,
                     showConfirmButton: false
                 });
-                getListarDeposito();
+                getListaDeposito();
                 $("#depositoModal").modal("hide");
             } else {
                 swal("", "Deposito não salvo!", "error");
@@ -91,3 +98,4 @@ function montarComboClienteFinal(obj) {
 $(document).ready(function(){
     criarComboClienteFinal()
 });
+
