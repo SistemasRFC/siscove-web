@@ -1,0 +1,45 @@
+<script src="cadProduto.js"></script>
+
+<div class="modal fade" id="menuModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 55%" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark">
+                <h5 class="modal-title" id="exampleModalLabel">Produto</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <i class="fas fa-times color-white"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input id="codTelaProduto" name="codTelaProduto" type="hidden" />
+                <label class="mb-0" for="dscTipoProduto">Descrição</label>
+                <input id="dscTipoProduto" type="text" class="form-control"/>
+                <label class="mb-0" for="n">Rota</label>     
+                <input id="codClienteFinal" type="text" class="form-control" placeholder="/exemplo/exemplo.html"/>
+                <label class="mb-0" for="codClienteFinal">Cliente Final</label>
+                <div class="col-sm-6 px-0">
+                    <div id="comboClienteFinal"></div>
+                </div>
+                <div class="custom-control custom-checkbox mt-2">
+                    <input type="checkbox" name="indAtivo" id="indAtivo" class="custom-control-input"/>
+                    <label class="custom-control-label" for="indAtivo">Ativo</label>
+                </div>
+            </div>
+        
+        
+            <div class="modal-footer">
+                <button class='btn btn-secondary btn-icon-split' data-dismiss="modal" aria-label="Close">
+                    <span class="icon">
+                        <i class="fas fa-times mt-1"></i>
+                    </span>
+                    <span class="text">Cancelar</span>
+                </button>
+                <button id="btnSalvar" class='btn btn-success btn-icon-split'>
+                    <span class="icon">
+                        <i class="fas fa-check mt-1"></i>
+                    </span>
+                    <span class="text">Salvar</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
