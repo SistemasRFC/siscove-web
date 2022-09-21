@@ -1,19 +1,19 @@
 var dadosRetorno;
 
 $(document).ready(function(){
-    $("#modalProduto").load("./cadProduto.html");
-    getListarProduto();
+    $("#modalTipoProduto").load("./cadTipoProduto.html");
+    getListarTipoProduto();
 });
 
 $(function(){
     $("#btnNovo").click(function(){
         limparCampos();
-        $("#produtoModal").modal("show");
+        $("#tipoProdutoModal").modal("show");
 
     })
 })
 
-function getListarProduto() {
+function getListarTipoProduto() {
     $.ajax({
         type: "GET",
         url: "http://localhost:8080/produto/listar",
@@ -37,8 +37,7 @@ function montaTabela(dados) {
         tabela += "    <thead>";
         tabela += "        <tr align='center'>";
         tabela += "            <th width='25%'>Descrição</th>";
-        tabela += "            <th width='25%'>Cliente Final</th>";
-        tabela += "            <th width='25%'>Rota</th>";
+        tabela += "            <th width='25%'>Cliente Final</th>"; 
         tabela += "            <th width='25%'>Ativo</th>";
         tabela += "            <th width='25%'>Editar</th>";
         tabela += "        </tr>";
@@ -60,8 +59,8 @@ function montaTabela(dados) {
     }
     tabela += "</tbody>";
     tabela += "</table>";
-    $("#divTabelaProduto").html(tabela);
-    $("#tabelaProduto").DataTable();
+    $("#divTabelaTipoProduto").html(tabela);
+    $("#tabelaTipoProduto").DataTable();
 
 }
 
@@ -74,10 +73,10 @@ function preencherCampos(index) {
         $("#indAtivo").prop('checked', false);
     }
 
-    $("#codTipoProduto").val(dados.codMenuW);
-    $("#dscTipoProduto").val(dados.dscMenuW);
-    $("#codClienteFinal").val(dados.codMenuPaiW);
-    $("#produtoModal").modal("show");
+    $("#codTipoProduto").val(dados.codTipoProduto);
+    $("#dscTipoProduto").val(dados.dscTipoProduto);
+    $("#codClienteFinal").val(dados.codClienteFinal);
+    $("#tipoProdutoModal").modal("show");
 }
 
 function limparCampos() {

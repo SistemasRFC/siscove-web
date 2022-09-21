@@ -5,17 +5,17 @@ $(function() {
             ativo = "S"
         }
         var dados = JSON.stringify({
-            dscTipoProduto: $("#dscTelaProduto").val(),
+            dscTipoProduto: $("#dscTipoProduto").val(),
             codClienteFinal: $("#codClienteFinal").val(),
             indAtivo: ativo,
         });
 
-        if ($("#codTelaProduto").val() > 0) {
+        if ($("#codTipoProduto").val() > 0) {
             dados = JSON.stringify({
-                dscTelaProduto: $("#dscTelaProduto").val(),
+                dscTipoProduto: $("#dscTipoProduto").val(),
                 codClienteFinal: $("#codClienteFinal").val(),
                 indAtivo: ativo,
-                codTelaProduto: $("#codTelaProduto").val()
+                codTipoProduto: $("#codTipoProduto").val()
             });
         }
         $.ajax({ 
@@ -80,7 +80,7 @@ function montarComboClienteFinal(obj) {
     html += "<option value='0'>Selecione</option>"
     if(obj.length>0) {
         for(var i in obj) {
-            html += "<option value="+obj[i].codClienteFinal+">"+obj[i].dscTelaProduto+"</option>"
+            html += "<option value="+obj[i].codClienteFinal+">"+obj[i].dscTipoProduto+"</option>"
         }
     }
     html += "</select>";
