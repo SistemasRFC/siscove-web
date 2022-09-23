@@ -7,8 +7,8 @@ $(document).ready(function(){
 
 $(function(){
     $("#btnNovo").click(function(){
-        limparCampos();
         $("#tipoProdutoModal").modal("show");
+        limparCampos();
 
     })
 })
@@ -36,21 +36,18 @@ function montaTabela(dados) {
         tabela += "    id='tabelaProduto'>";
         tabela += "    <thead>";
         tabela += "        <tr align='center'>";
-        tabela += "            <th width='25%'>Descrição</th>";
-        tabela += "            <th width='25%'>Cliente Final</th>"; 
-        tabela += "            <th width='25%'>Ativo</th>";
-        tabela += "            <th width='25%'>Editar</th>";
+        tabela += "            <th width='20%'>Descrição</th>";
+        tabela += "            <th width='5%'>Ativo</th>"; 
+        tabela += "            <th width='1%'>Editar</th>";
         tabela += "        </tr>";
         tabela += "    </thead>";
         tabela += "    <tbody>";
     for (var i in dados) {
         var simNao = dados[i].indAtivo=='S'?'Sim':'Não' ;
-        tabela += "     <tr>";    
-        tabela += "     <td width='25%'>" + dados[i].dscTipoProduto + "</td>";
-        tabela += "     <td width='25%'>" + dados[i].dscTipoProduto + "</td>";
-        tabela += "     <td width='25%'>" + dados [i].dscClienteFinal + "</td>";
-        tabela += "     <td width='25%'>" + simNao + "</td>";
-        tabela += "     <td width='25%'  style='text-align:center;'>";
+        tabela += "     <tr>";   
+        tabela += "     <td width='10%'>" + dados[i].dscTipoProduto + "</td>";
+        tabela += "     <td width='5%'>" + simNao + "</td>";
+        tabela += "     <td width='1%'  style='text-align:center;'>";
         tabela += "         <a href='javascript:preencherCampos(" + i + ")'>";
         tabela += "             <i class='fas  fa-pen'></i>";
         tabela += "         </a>";
@@ -75,7 +72,6 @@ function preencherCampos(index) {
 
     $("#codTipoProduto").val(dados.codTipoProduto);
     $("#dscTipoProduto").val(dados.dscTipoProduto);
-    $("#codClienteFinal").val(dados.codClienteFinal);
     $("#tipoProdutoModal").modal("show");
 }
 
