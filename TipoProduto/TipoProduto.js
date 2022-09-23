@@ -16,7 +16,7 @@ $(function(){
 function getListarTipoProduto() {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/produto/listar",
+        url: "http://localhost:8080/tipo/produto/listar",
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },
