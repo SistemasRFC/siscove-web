@@ -1,13 +1,11 @@
 $(document).ready(function () {
     $("#divProdutosServicos").load("cadProdutosServicos.html")
-});
-$(function () {
-    $("#btnNovo").click(function () {
-        $("#produtosServicosModal").modal("show");
 
+    $("#btnNovo").click(function () {
+        limparCampos();
+        $("#produtosServicosModal").modal("show");
     })
-})
-$(function () {
+    
     $("#btnProcurar").click(function () {
         getListarProdutos();
     })
@@ -67,7 +65,6 @@ function montaTabelaProdutos() {
     $("#tabelaProduto").html(tabela);
     $("#tabelaPerfil").DataTable();
 }
-
 function preencherCampos(index) {
     var dados = dadosRetorno[index];
     $("#dscProduto").val(dados.dscProduto);
@@ -81,22 +78,44 @@ function preencherCampos(index) {
     } else {
         $("#indComissaoGerencia").prop('checked', false);
     }
+    if (dados.indTipoRegistro == 'S') {
+        $("#indTipoRegistroS").prop('checked', true);
+        $(".produto").hide('fade');
+        $(".servico").show('fade');
+    } else {
+        $("#indTipoRegistroP").prop('checked', true);
+        $(".produto").show('fade');
+        $(".servico").hide('fade');
+    }
+    if (dados.indSituacaoProduto == 'N') {
+        $("#indSituacaoProdutoN").prop('checked', true);
+    } else {
+        $("#indSituacaoProdutoS").prop('checked', true);
+    }
     $("#codMarca").val(dados.codMarca);
     $("#codTipoProduto").val(dados.codTipoProduto);
-    $("#indSituacaoProduto").val(dados.indSituacaoProduto);
     $("#codProduto").val(dados.codProduto);
     $("#vlrProduto").val(dados.vlrProduto);
     $("#vlrMinimo").val(dados.vlrMinimo);
     $("#produtosServicosModal").modal("show");
+
 }
 
 function limparCampos() {
     $("#dscProduto").val("");
-    $("#codMarca").val(""),
-        $("#codTipoProduto").val(""),
-        $("#indSituacaoProduto").val(""),
+    $("#indComissaoGerencia").val("");
         $("#indTipoRegistro").val(""),
+        $("#indSituacaoProduto").val(""),
+        $("#codMarca").val(""),
+        $("#codTipoProduto").val(""),
+        $("#codProduto").val(""),
+        $("#vlrProduto").val(""),
+        $("#vlrMinimo").val(""),
+        $("#indAtivo").prop('checked', false);
+        $("#indSituacaoProdutoS").prop('checked', false);
+        $("#indSituacaoProdutoN").prop('checked', false);
+        $("#indComissaoGerencia").prop('checked', false);
+        $("#indTipoRegistroP").prop('checked', false);
+        $("#indTipoRegistroS").prop('checked', false);
         $("#codProduto").val(0);
-        $("#vlrProduto").val();
-        $("#vlrMinimo").val();
 }
