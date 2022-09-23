@@ -18,7 +18,7 @@ $(function() {
         }
         $.ajax({ 
             type: "POST",
-            url: "http://localhost:8080/produto/salvar",
+            url: "http://localhost:8080/tipo/produto/salvar",
             data: dados,
             beforeSend: function (xhr){
                 xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
@@ -54,7 +54,7 @@ $(function() {
 function criarComboClienteFinal() {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/produto/listar/ativos",
+        url: "http://localhost:8080/tipo/produto/listar/ativos",
         beforeSend: function (xhr){ 
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },
