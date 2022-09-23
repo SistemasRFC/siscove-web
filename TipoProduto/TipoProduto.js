@@ -77,7 +77,6 @@ function preencherCampos(index) {
 
 function limparCampos() {
     $("#dscTipoProduto").val("");
-    $("#codClienteFinal").val(0),
     $("#indAtivo").prop("checked", false),
     $("#codTipoProduto").val(0);
 }

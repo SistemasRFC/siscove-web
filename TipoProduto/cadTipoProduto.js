@@ -6,14 +6,12 @@ $(function() {
         }
         var dados = JSON.stringify({
             dscTipoProduto: $("#dscTipoProduto").val(),
-            codClienteFinal: $("#codClienteFinal").val(),
             indAtivo: ativo,
         });
 
         if ($("#codTipoProduto").val() > 0) {
             dados = JSON.stringify({
                 dscTipoProduto: $("#dscTipoProduto").val(),
-                codClienteFinal: $("#codClienteFinal").val(),
                 indAtivo: ativo,
                 codTipoProduto: $("#codTipoProduto").val()
             });
@@ -36,8 +34,8 @@ $(function() {
                         timer: 2000,
                         showConfirmButton: false
                     });
-                    getListarProduto();
-                    $("#produtoModal").modal("hide");
+                    $("#tipoProdutoModal").modal("hide");
+                    getListarTipoProduto();
                 } else {
                     swal("", "Produto não salvo!", "error");
                 }
