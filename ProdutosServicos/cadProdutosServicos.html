@@ -1,0 +1,140 @@
+<script src="cadProdutosServicos.js"></script>
+
+<div class="modal fade" id="produtosServicosModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 55%" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark">
+                <h5 class="modal-title" id="exampleModalLabel">Produtos Serviços</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input id="codProduto" name="codProduto" type="hidden" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="dscProduto">Descrição</label>
+                        <input id="dscProduto" name="dscProduto" type="text" class="form-control" />
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="codTipoProduto">Tipo</label>
+                        <br />
+                        <div class="d-flex">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input indTipoRegistro" type="radio" name="codTipoProduto" id="indTipoRegistroP"
+                                    value="P">
+                                <label style="color: black;" for="indTipoRegistroP">
+                                    Produtos
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline ml-auto">
+                                <input class="form-check-input indTipoRegistro" type="radio" name="codTipoProduto" id="indTipoRegistroS"
+                                    value="S">
+                                <label style="color: black;" for="indTipoRegistroS">
+                                    Serviços
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row produto">
+                    <div class="col-sm-6">
+                        <label for="codMarca">Marca</label>
+                        <select id="codMarca" class="form-control">
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="codTipoProduto">Situação</label>
+                        <br />
+                        <div class="d-flex">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="indSituacaoProduto" id="indSituacaoProdutoS"
+                                    value="S">
+                                <label style="color: black;" for="indSituacaoProdutoN">
+                                    SemiNovo
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline ml-auto">
+                                <input class="form-check-input" type="radio" name="indSituacaoProduto" id="indSituacaoProdutoN"
+                                    value="N">
+                                <label style="color: black;" for="indSituacaoProdutoS">
+                                    Novo
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row produto">
+                    <div class="col-sm-6">
+                        <label for="codTipoProduto">Tipo Produto</label>
+                        <select id="codTipoProduto" class="form-control">
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="nroAroPneu">Nro Aro Pneu</label>
+                        <select id="nroAroPneu" class="form-control">
+                            <option value="valor1">Selecione</option>
+                            <option value="valor1">13</option>
+                            <option value="valor2">14</option>
+                            <option value="valor2">15</option>
+                            <option value="valor2">16</option>
+                            <option value="valor2">17</option>
+                            <option value="valor2">18</option>
+                            <option value="valor2">19</option>
+                            <option value="valor2">20</option>
+                            <option value="valor2">21</option>
+                            <option value="valor2">22</option>
+                            <option value="valor2">23</option>
+                            <option value="valor2">25</option>
+                            <option value="valor2">26</option>
+                            <option value="valor2">27</option>
+                            <option value="valor2">26</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row servico">
+                    <div class="col-sm-6">
+                        <label for="vlrProduto">Valor Serviço</label>
+                        <input id="vlrProduto" name="vlrProduto" type="text" class="form-control" />
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="vlrMinimo">Valor Mínimo</label>
+                        <input id="vlrMinimo" name="vlrMinimo" type="text" class="form-control" />
+
+                    </div>
+                </div>
+                <div class="row servico">
+                    <div class="col-sm-12">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" name="indComissaoGerencia" id="indComissaoGerencia"
+                                class="custom-control-input" />
+                            <label class="custom-control-label" for="indComissaoGerencia">Comissão Da
+                                Gerência</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" name="indAtivo" id="indAtivo" class="custom-control-input" />
+                            <label class="custom-control-label" for="indAtivo">Ativo</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnSalvar" class='btn btn-success btn-icon-split'>
+                    <span class="icon text-white-50">
+                        <i class="fas fa-check"></i>
+                    </span>
+                    <span class="text">Salvar</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
