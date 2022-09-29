@@ -33,7 +33,7 @@ function getListaMarca() {
 function montaTabela(dados) {
     var tabela = '';
         tabela += "<table class='table table-hover table-striped table-bordered table-white'";
-        tabela += "    id='tabelaDeposito'>";
+        tabela += "    id='tabelaMarca'>";
         tabela += "    <thead>";
         tabela += "        <tr align='center'>";
         tabela += "            <th width='50%'>Descrição</th>";         
@@ -72,13 +72,11 @@ function preencherCampos(index) {
 
     $("#codMarca").val(dados.codMarca);
     $("#dscMarca").val(dados.dscMarca);
-    $("#codClienteFinal").val(dados.codClienteFinal)
-    $("#modalMarca").modal("show");
+    $("#marcaModal").modal("show");
 }
 
 function limparCampos() {
     $("#dscMarca").val("");
-    $("#codClienteFinal").val(0);
     $("#indAtiva").prop("checked", false),
     $("#codMarca").val(0);
 }
