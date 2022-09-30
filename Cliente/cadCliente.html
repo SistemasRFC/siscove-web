@@ -1,0 +1,106 @@
+<script src="cadCliente.js"></script>
+
+<div class="modal fade" id="clienteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 55%" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark">
+                <h5 class="modal-title" id="exampleModalLabel">Cliente</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input id="codCliente" name="codCliente" type="hidden" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label for="dscCliente">Nome do Cliente</label>
+                        <input id="dscCliente" name="dscCliente" type="text" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="custom-control">
+                            <input id="dtaNascimento" required="required" type="date" />
+                            <label class="custom-control-label" for="dtaNascimento">Data de Nascimento</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="custom-control">
+                            <input id="txtEmail" name="txtEmail" type="text" class="form-control" />
+                            <label for="txtEmail">E-mail</label>
+                        </div>
+                    </div>
+                </div>
+                    <div class="col-sm-4">
+                        <label for="codTipoProduto">Tipo de Pessoa</label>
+                        <br />
+                        <div class="d-flex">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="indTipoCLiente"
+                                    id="indTipoCLienteF" value="F">
+                                <label style="color: black;" for="indTipoCLienteJ">
+                                    Fisica
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline ml-auto">
+                                <input class="form-check-input" type="radio" name="indTipoCLiente"
+                                    id="indTipoCLienteJ" value="J">
+                                <label style="color: black;" for="indTipoCLienteF">
+                                    Jurídica
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row produto">
+                        <div class="col-sm-6">
+                            <label for="nroIe">I.E.</label>
+                            <select id="nroIe" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row servico">
+                        <div class="col-sm-6">
+                            <label for="vlrProduto">Valor Serviço</label>
+                            <input id="vlrProduto" name="vlrProduto" type="text" class="form-control" />
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="vlrMinimo">Valor Mínimo</label>
+                            <input id="vlrMinimo" name="vlrMinimo" type="text" class="form-control" />
+
+                        </div>
+                    </div>
+                    <div class="row servico">
+                        <div class="col-sm-12">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" name="indComissaoGerencia" id="indComissaoGerencia"
+                                    class="custom-control-input" />
+                                <label class="custom-control-label" for="indComissaoGerencia">Comissão Da
+                                    Gerência</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" name="indAtivo" id="indAtivo" class="custom-control-input" />
+                                <label class="custom-control-label" for="indAtivo">Ativo</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnSalvar" class='btn btn-success btn-icon-split'>
+                        <span class="icon text-white-50">
+                            <i class="fas fa-check"></i>
+                        </span>
+                        <span class="text">Salvar</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
