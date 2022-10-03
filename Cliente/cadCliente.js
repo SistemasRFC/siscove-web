@@ -1,12 +1,11 @@
 $(document).ready(function () {
-    getListaMarca();
-    getListaTipoProduto();
+    
+    getListarClientes();
     $(".indTipoCliente").click(function(){
-        if ($(this).val()=='P') {
+        if ($(this).val()=='F') {
             $(".fisica").show('fade');
             $(".jurídica").hide('fade');
         }else{
-            
             $(".fisica").hide('fade');
             $(".jurídica").show('fade');
         }
@@ -17,50 +16,39 @@ var dadosRetorno;
 
 $("#btnSalvar").click(function () {
 
-    if ($("#dscProduto").val() == '') {
+    if ($("#dscCliente").val() == '') {
         swal('', 'Por favor preencha a Descrição !', 'warning');
         return false;
     }
-    if ($("#codMarca").val() == '') {
-        swal('', 'Por favor preencha a Marca !', 'warning');
+    if ($("#nroCep").val() == '') {
+        swal('', 'Por favor preencha o Cep !', 'warning');
         return false;
     }
-    if ($("#codTipoProduto").val() == '') {
-        swal('', 'Por favor preencha o Tipo !', 'warning');
+    if ($("#txtLogradouro").val() == '') {
+        swal('', 'Por favor preencha o Logradouro !', 'warning');
         return false;
     }
-    if ($("#indSituacaoProduto").val() == '') {
-        swal('', 'Por favor preencha a Situação !', 'warning');
+    if ($("#txtEmail").val() == '') {
+        swal('', 'Por favor preencha o Email !', 'warning');
         return false;
     }
-    if ($("#vlrProduto").val() == '') {
-        swal('', 'Por favor preencha o Valor do Produto !', 'warning');
+    if ($("#nroIe").val() == '') {
+        swal('', 'Por favor preencha o I.E !', 'warning');
         return false;
     }
-    if ($("#vlrMinimo").val() == '') {
-        swal('', 'Por favor preencha o Valor Minimo !', 'warning');
+    if ($("#dtaNascimento").val() == '') {
+        swal('', 'Por favor preencha o Data de Nascimento !', 'warning');
         return false;
     }
-    if ($("#nroAroPneu").val() == '') {
-        swal('', 'Por favor preencha o Nro do Aro !', 'warning');
+    if ($("#txtLocalidade").val() == '') {
+        swal('', 'Por favor preencha a Cidade !', 'warning');
         return false;
     }
-    var comissao = "N";
-    if ($("#indComissaoGerencia").is(":checked")) {
-        comissao = 'S';
+    var cliente = "J";
+    if ($("#indTipoCliente").is(":checked")) {
+        cliente = 'F';
     }
-    var ativo = "N";
-    if ($("#indAtivo").is(":checked")) {
-        ativo = 'S';
-    }
-    var tipo = "P";
-    if ($("#indTipoRegistroS").is(":checked")) {
-        tipo = 'S';
-    }
-    var situacao = "N";
-    if($("#indSituacaoProduto").is(":checked")){
-        situacao = "S";
-    }
+    
     var dados = JSON.stringify({
         codMarca: $("#codMarca").val(),
         dscProduto: $("#dscProduto").val(),
@@ -112,63 +100,3 @@ $("#btnSalvar").click(function () {
     });
 
 });
-
-function getListaMarca() {
-    $.ajax({
-        type: "GET",
-        url: "http://localhost:8080/marca/listar/ativos",
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
-        },
-        
-        success: function (data) {
-            if (data.retorno) {
-                montaComboMarca(data.objeto);
-            } else {
-                swal("", data.mensagem, "error");
-            }
-        },
-        error: (err) => {
-            swal("", "Marca não confirmada!!!", "error");
-        }
-    });
-}
-
-function montaComboMarca(dados) {
-    var tabela = '';
-    tabela += '<option value="">Selecione </option>';
-    for (var i in dados) {
-        tabela += '<option value="' + dados[i].codMarca + '">' + dados[i].dscMarca + ' </option>';
-    }
-    $("#codMarca").html(tabela);
-}  
-
-function getListaTipoProduto() {
-    $.ajax({
-        type: "GET",
-        url: "http://localhost:8080/tipo/produto/listar/ativos",
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
-        },
-        
-        success: function (data) {
-            if (data.retorno) {
-                montaComboTipoProduto(data.objeto);
-            } else {
-                swal("", data.mensagem, "error");
-            }
-        },
-        error: (err) => {
-            swal("", "Tipo Produto não confirmada!!!", "error");
-        }
-    });
-}
-
-function montaComboTipoProduto(dados) {
-    var tabela = '';
-    tabela += '<option value="">Selecione </option>';
-    for (var i in dados) {
-        tabela  += '<option value="' + dados[i].codTipoProduto + '">' + dados[i].dscTipoProduto + ' </option>';
-    }
-    $("#codTipoProduto").html(tabela);
-}

@@ -23,84 +23,86 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-6">
-                        <div class="custom-control">
-                            <input id="dtaNascimento" required="required" type="date" />
-                            <label class="custom-control-label" for="dtaNascimento">Data de Nascimento</label>
-                        </div>
+                    <div class="col-sm-5">
+                        <label  for="dtaNascimento">Data de Nascimento</label>
+                        <input id="dtaNascimento"  type="date" class="custom-control"/>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-7">
                         <div class="custom-control">
-                            <input id="txtEmail" name="txtEmail" type="text" class="form-control" />
                             <label for="txtEmail">E-mail</label>
+                            <input id="txtEmail" name="txtEmail" type="text" class="form-control" />
                         </div>
                     </div>
                 </div>
-                    <div class="col-sm-4">
-                        <label for="codTipoProduto">Tipo de Pessoa</label>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label for="codTipoCliente">Tipo de Pessoa</label>
                         <br />
                         <div class="d-flex">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="indTipoCLiente"
-                                    id="indTipoCLienteF" value="F">
-                                <label style="color: black;" for="indTipoCLienteJ">
+                                <input class="form-check-input" type="radio" name="codTipoCLiente" id="codTipoCLienteF"
+                                    value="F">
+                                <label style="color: black;" for="codTipoCLienteJ">
                                     Fisica
                                 </label>
                             </div>
                             <div class="form-check form-check-inline ml-auto">
-                                <input class="form-check-input" type="radio" name="indTipoCLiente"
-                                    id="indTipoCLienteJ" value="J">
-                                <label style="color: black;" for="indTipoCLienteF">
+                                <input class="form-check-input" type="radio" name="codTipoCLiente" id="codTipoCLienteJ"
+                                    value="J">
+                                <label style="color: black;" for="codTipoCLienteF">
                                     Jurídica
                                 </label>
                             </div>
                         </div>
                     </div>
-                    <div class="row produto">
-                        <div class="col-sm-6">
-                            <label for="nroIe">I.E.</label>
-                            <select id="nroIe" class="form-control">
-                            </select>
+                    <div class="col-sm-4">
+                        <div class="custom-control">
+                            <label for="txtEmail">E-mail</label>
+                            <input id="txtEmail" name="txtEmail" type="text" class="form-control" />
                         </div>
                     </div>
-                    <div class="row servico">
-                        <div class="col-sm-6">
-                            <label for="vlrProduto">Valor Serviço</label>
-                            <input id="vlrProduto" name="vlrProduto" type="text" class="form-control" />
-                        </div>
-                        <div class="col-sm-6">
-                            <label for="vlrMinimo">Valor Mínimo</label>
-                            <input id="vlrMinimo" name="vlrMinimo" type="text" class="form-control" />
-
-                        </div>
-                    </div>
-                    <div class="row servico">
-                        <div class="col-sm-12">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" name="indComissaoGerencia" id="indComissaoGerencia"
-                                    class="custom-control-input" />
-                                <label class="custom-control-label" for="indComissaoGerencia">Comissão Da
-                                    Gerência</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" name="indAtivo" id="indAtivo" class="custom-control-input" />
-                                <label class="custom-control-label" for="indAtivo">Ativo</label>
-                            </div>
-                        </div>
+                    <div class="col-sm-6">
+                        <label for="nroIe">I.E.</label>
+                        <input id="nroIe" name="nroIe" type="number" class="form-control">
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button id="btnSalvar" class='btn btn-success btn-icon-split'>
-                        <span class="icon text-white-50">
-                            <i class="fas fa-check"></i>
-                        </span>
-                        <span class="text">Salvar</span>
-                    </button>
+                <div class="row ">
+                    <div class="col-sm-4">
+                        <label for="nroCep">CEP</label>
+                        <input id="nroCep" name="nroCep" type="number" class="form-control" />
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="txtLogradouro">Logradouro</label>
+                        <input id="txtLogradouro" name="txtLogradouro" type="text" class="form-control" />
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="vlrMinimo">Complemento</label>
+                        <input id="vlrMinimo" name="vlrMinimo" type="text" class="form-control" />
+                    </div>
                 </div>
+                <div class="row ">
+                    <div class="col-sm-4">
+                        <label for="nmeBairro">Bairro</label>
+                        <input id="nmeBairro" name="nmeBairro" type="text" class="form-control" />
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="txtLocalidade">Cidade</label>
+                        <input id="txtLocalidade" name="txtLocalidade" type="text" class="form-control" />
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="sglUf">UF</label>
+                        <input id="sglUf" name="sglUf" type="text" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnSalvar" class='btn btn-success btn-icon-split'>
+                    <span class="icon text-white-50">
+                        <i class="fas fa-check"></i>
+                    </span>
+                    <span class="text">Salvar</span>
+                </button>
             </div>
         </div>
     </div>
+</div>

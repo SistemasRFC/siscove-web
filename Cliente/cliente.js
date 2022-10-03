@@ -1,75 +1,82 @@
-var dadosRetorno;
+$(document).ready(function () {
+    $("#modalCliente").load("cadCliente.html")
 
-$(document).ready(function(){
-    $("#modalCliente").load("./cadCliente.html");
-    getListarCliente();
-});
-
-$(function(){
-    $("#btnNovo").click(function(){
+    $("#btnNovo").click(function () {
         limparCampos();
         $("#clienteModal").modal("show");
+    })
 
+    $("#btnProcurar").click(function () {
+        getListarClientes();
     })
 })
 
-function getListarCliente() {
+var dadosRetorno;
+
+function getListarClientes() {
     $.ajax({
-        type: "GET",
-        url: "http://localhost:8080/cliente/listar",
+        type: "POST",
+        url: "http://localhost:8080/cliente/listar/byTermo",
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },
+        data: $("#Termo").val(),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
         success: function (data) {
             dadosRetorno = data.objeto;
-            montaTabela(data.objeto);
+            montaTabelaCliente();
         },
         error: (err) => {
-            swal("", "Cliente não confirmado!!!", "error");
+            swal("", "Sao Paulo Campeao!!!", "error");
         }
     });
 }
 
-function montaTabela(dados) {
+function montaTabelaCliente() {
+    var dados = dadosRetorno;
     var tabela = '';
-        tabela += "<table class='table table-hover table-striped table-bordered table-white'";
-        tabela += "    id='tabelaCliente'>";
-        tabela += "    <thead>";
-        tabela += "        <tr align='center'>";
-        tabela += "            <th width='70%'>Descrição</th>";         
-        tabela += "            <th width='20%'>Ativo</th>";        
-        tabela += "            <th width='10%'>Editar</th>";
-        tabela += "        </tr>";
-        tabela += "    </thead>";
-        tabela += "    <tbody>";
-    for (var i in dados) {
-        var simNao = dados[i].indAtivo=='S'?'Sim':'Não' ;
-        tabela += "     <tr>";    
-        tabela += "     <td width='70%'>" + dados[i].dscCliente+ "</td>";
-        tabela += "     <td width='20%'>" + simNao + "</td>";
-        tabela += "     <td width='10%'  style='text-align:center;'>";
-        tabela += "         <a href='javascript:preencherCampos(" + i + ")'>";
-        tabela += "             <i class='fas  fa-pen'></i>";
-        tabela += "         </a>";
-        tabela += "     </td>";
-        tabela += "     </tr>";
-    }
-    tabela += "</tbody>";
-    tabela += "</table>";
-    $("#divTabela").html(tabela);
-    $("#tabelaCliente").DataTable();
+    tabela += '<table class="table table-hover table-striped table-bordered table-white" id="tabelaCliente">';
+    tabela += '<thead>';
+    tabela += '    <tr align="center">';
+    tabela += '        <td width="25%">CPF </td>';
+    tabela += '        <td width="25%">Nome</td>';
+    tabela += '    </tr>';
+    tabela += '</thead>';
+    tabela += '<tbody id="corpoTabela">';
 
+    for (var i in dados) {
+        tabela += "<tr>";
+        tabela += "<td width='50%'>" + dados[i].nroCpf + "</td>";
+        tabela += "<td width='50%'>" + dados[i].dscCliente + "</td>";
+        tabela += "<td width='25%'  style='text-align:center;'>";
+        tabela += "    <a href='javascript:preencherCampos(" + i + ")'>";
+        tabela += "        <i class='fa  fa-pen'></i>";
+        tabela += "    </a>";
+        tabela += "    </a>";
+        tabela += "</td>";
+        tabela += "</tr>";
+    }
+    tabela += '</tbody>';
+    tabela += '</table>';
+    $("#tabelaCliente").DataTable();
+    $("#divTabela").html(tabela);
 }
 
 function preencherCampos(index) {
     var dados = dadosRetorno[index];
-    
-    if (dados.indTipoCliente == 'S') {
-        $("#indTipoCliente").prop('checked', true);
+
+    if (dados.indTipoCliente == 'J') {
+        $("#indTipoCLienteJ").prop('checked', true);
+        $(".fisica").show('fade');
+        $(".jurídica").hide('fade');
     } else {
-        $("#indTipoCliente").prop('checked', false);
+        $("#indTipoCLienteF").prop('checked', true);
+        $(".fisica").show('fade');
+        $(".jurídica").hide('fade');
     }
-    $("#codCliente").val(dados.codCliente   );
+    $("#codCliente").val(dados.codCliente);
+    $("#codTipoCliente").val(dados.codTipoCliente)
     $("#dscCliente").val(dados.dscCliente);
     $("#nroCep").val(dados.nroCep);
     $("#txtLogradouro").val(dados.txtLogradouro);
@@ -86,8 +93,8 @@ function preencherCampos(index) {
     $("#nroCpf").val(dados.nroCpf);
     $("#nroTelefoneCelular").val(dados.nroTelefoneCelular);
     $("#nroTelefoneContato").val(dados.nroTelefoneContato);
-    $("#codPerfilW").val(dados.dscCliente);
-    $("#perfilModal").modal("show");
+    $("#dscCliente").val(dados.dscCliente);
+    $("#clienteModal").modal("show");
 }
 
 function limparCampos() {
@@ -108,7 +115,8 @@ function limparCampos() {
     $("#nroCpf").val("");
     $("#nroTelefoneCelular").val("");
     $("#nroTelefoneContato").val("");
+    $("#codTipoCliente").val("");
     $("#indTipoCliente").prop("checked", false),
-    $("#codCliente").val(0);
+        $("#codCliente").val(0);
 }
 
