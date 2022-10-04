@@ -12,36 +12,49 @@
             </div>
             <div class="modal-body">
                 <label class="mb-0" for="dscClienteFinal">Cliente Final</label>
-                <input id="dscClienteFinal" type="text" class="form-control"/>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <label class="mb-0" for="codClienteFinal">Tipo Pessoa</label>
-                <div class="col-sm-6 px-0">
-                    <div id="comboClienteFinal"></div> 
-                </div>
-                    </input>
+                <input id="dscClienteFinal" type="text" class="form-control" />
+
+                <label for="tipoPessoa" class="mb-0">Tipo de Pessoa</label>
+                <div class="form-control">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="tipoPessoa" id="tipoPessoaF"
+                            value="F">
+                        <label class="form-check-label" for="tipoPessoaF">
+                            Fisíca
+                        </label>
                     </div>
-                    <div class="col-sm-12">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" name="indAtivo" id="indAtivo" class="custom-control-input" />
-                            <label class="custom-control-label" for="indAtivo">Ativo</label>
-                        </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="tipoPessoa" id="tipoPessoaJ" 
+                            value="S">
+                        <label class="form-check-label" for="tipoPessoaJ">
+                            Jurídica
+                        </label>
                     </div>
+
+                    <label class="mb-0" for="codClienteFinal">Pessoa Fisíca</label>
+                    <div class="col-sm-6 px-0">
+                        <div id="tipoPessoaF"></div> 
+                    </div>
+                
+                <div class="custom-control custom-checkbox mt-2">
+                    <input type="checkbox" name="indAtivo" id="indAtivo" class="custom-control-input" />
+                    <label class="custom-control-label" for="indAtivo">Ativo</label>
                 </div>
-                <div class="modal-footer">
-                    <button class='btn btn-secondary btn-icon-split' data-dismiss="modal" aria-label="Close">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-times mt-1"></i>
-                        </span>
-                        <span class="text">Cancelar</span>
-                    </button>
-                    <button id="btnSalvar" class='btn btn-success btn-icon-split'>
-                        <span class="icon text-white-50">
-                            <i class="fas fa-check"></i>
-                        </span>
-                        <span class="text">Salvar</span>
-                    </button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button class='btn btn-secondary btn-icon-split' data-dismiss="modal" aria-label="Close">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-times mt-1"></i>
+                    </span>
+                    <span class="text">Cancelar</span>
+                </button>
+                <button id="btnSalvar" class='btn btn-success btn-icon-split'>
+                    <span class="icon text-white-50">
+                        <i class="fas fa-check"></i>
+                    </span>
+                    <span class="text">Salvar</span>
+                </button>
             </div>
         </div>
     </div>
+</div>

@@ -45,8 +45,8 @@ function montaTabela(dados) {
     for (var i in dados) {
         var simNao = dados[i].indAtivo=='S'?'Sim':'Não';
         tabela += "     <tr>";   
-        tabela += "     <td width='70%'>" + dados[i].dscClienteFinal+ "</td>";
-        tabela += "     <td width='40%'>" + simNao + "</td>";
+        tabela += "     <td width='40%'>" + dados[i].nmeClienteFinal + "</td>";
+        tabela += "     <td width='20%'>" + simNao + "</td>";
         tabela += "     <td width='10%'  style='text-align:center;'>";
         tabela += "         <a href='javascript:preencherCampos(" + i + ")'>";
         tabela += "             <i class='fas  fa-pen'></i>";
@@ -71,12 +71,10 @@ function preencherCampos(index) {
     }
 
     $("#codClienteFinal").val(dados.codClienteFinal)
-    $("#dscClieteFinal").val("");
     $("#clienteFinalModal").modal("show");
 }
 
 function limparCampos() {
     $("#codClienteFinal").val(0);
-    $("#dscClienteFinal").val("");
     $("#indAtivo").prop("checked", false);
 }
