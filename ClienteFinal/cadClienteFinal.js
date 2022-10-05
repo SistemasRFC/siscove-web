@@ -1,3 +1,16 @@
+$(document).ready(function(){
+    $(".divPessoaF").hide();
+    $(".divPessoaJ").hide();
+    $("[name=indTipoCliente]").change(function(){
+        if ($("#indTipoClienteJ").prop('checked')) {
+            $(".divPessoaF").hide();
+            $(".divPessoaJ").show();
+        } else {
+            $(".divPessoaJ").hide();
+            $(".divPessoaF").show();
+        }
+    })
+})
 var dadosRetorno;
 
 $("#btnSalvar").click(function () {

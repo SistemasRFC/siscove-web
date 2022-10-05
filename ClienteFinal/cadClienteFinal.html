@@ -11,34 +11,49 @@
                 </button>
             </div>
             <div class="modal-body">
-                <label class="mb-0" for="dscClienteFinal">Cliente Final</label>
-                <input id="dscClienteFinal" type="text" class="form-control" />
+                <input id="codClienteFinal" name="codClienteFinal" type="hidden" class="form-control" />
+                <div class="row">
+                    <div class="col-sm-8">
+                        <label for="nmeClienteFinal">Descrição</label>
+                        <input id="nmeClienteFinal" name="nmeClienteFinal" type="text" class="form-control" />
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="codClienteFinal">Tipo de Pessoa</label>
+                        <br />
+                        <div class="d-flex form-control">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="indTipoCliente"
+                                    id="indTipoClienteF" value="F">
+                                <label style="color: black;" for="indTipoClienteF">
+                                    Fisíca
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline ml-auto">
+                                <input class="form-check-input" type="radio" name="indTipoCliente"
+                                    id="indTipoClienteJ" value="J">
+                                <label style="color: black;" for="indTipoClienteJ">
+                                    Jurídica
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 divPessoaF">
+                        <label for="nroCpf">CPF</label>
+                        <input id="nroCpf" name="nroCpf" type="text" class="form-control" />
+                    </div>
+                    <div class="col-sm-6 divPessoaJ">
+                        <label for="nroCnpj">CNPJ</label>
+                        <input id="nroCnpj" name="nroCnpj" type="text" class="form-control" />
+                    </div>
+                </div>
 
-                <label for="tipoPessoa" class="mb-0">Tipo de Pessoa</label>
-                <div class="form-control">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="tipoPessoa" id="tipoPessoaF"
-                            value="F">
-                        <label class="form-check-label" for="tipoPessoaF">
-                            Fisíca
-                        </label>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="custom-control custom-checkbox mt-2">
+                            <input type="checkbox" name="indAtivo" id="indAtivo" class="custom-control-input" />
+                            <label class="custom-control-label" for="indAtivo">Ativo</label>
+                        </div>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="tipoPessoa" id="tipoPessoaJ" 
-                            value="S">
-                        <label class="form-check-label" for="tipoPessoaJ">
-                            Jurídica
-                        </label>
-                    </div>
-
-                    <label class="mb-0" for="codClienteFinal">Pessoa Fisíca</label>
-                    <div class="col-sm-6 px-0">
-                        <div id="tipoPessoaF"></div> 
-                    </div>
-                
-                <div class="custom-control custom-checkbox mt-2">
-                    <input type="checkbox" name="indAtivo" id="indAtivo" class="custom-control-input" />
-                    <label class="custom-control-label" for="indAtivo">Ativo</label>
                 </div>
             </div>
             <div class="modal-footer">
