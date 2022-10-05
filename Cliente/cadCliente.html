@@ -24,8 +24,8 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-5">
-                        <label  for="dtaNascimento">Data de Nascimento</label>
-                        <input id="dtaNascimento"  type="date" class="custom-control"/>
+                        <label for="dtaNascimento">Data de Nascimento</label>
+                        <input id="dtaNascimento" type="date" class="custom-control" />
                     </div>
                     <div class="col-sm-7">
                         <div class="custom-control">
@@ -34,36 +34,42 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row cliente">
                     <div class="col-sm-2">
-                        <label for="codTipoCliente">Tipo de Pessoa</label>
+                        <label for="codClienteFinal">Tipo de Pessoa</label>
                         <br />
                         <div class="d-flex">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="codTipoCLiente" id="codTipoCLienteF"
-                                    value="F">
-                                <label style="color: black;" for="codTipoCLienteJ">
-                                    Fisica
+                            <div class="form-check form-check-inline ">
+                                <input class="form-check-input indTipoCliente" type="radio" name="codClienteFinal"
+                                    id="indTipoClienteJ" value="J">
+                                <label style="color: black;" for="indTipoClienteF">
+                                    Jurídica
                                 </label>
                             </div>
                             <div class="form-check form-check-inline ml-auto">
-                                <input class="form-check-input" type="radio" name="codTipoCLiente" id="codTipoCLienteJ"
-                                    value="J">
-                                <label style="color: black;" for="codTipoCLienteF">
-                                    Jurídica
+                                <input class="form-check-input indTipoCliente" type="radio" name="codClienteFinal"
+                                    id="indTipoClienteF" value="F">
+                                <label style="color: black;" for="indTipoClienteJ">
+                                    Fisica
                                 </label>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-4">
-                        <div class="custom-control">
-                            <label for="txtEmail">E-mail</label>
-                            <input id="txtEmail" name="txtEmail" type="text" class="form-control" />
+                        <div class="custom-control fisica">
+                            <label for="nroCpf">CPF</label>
+                            <input id="nroCpf" name="nroCpf" type="text" class="form-control" />
+                        </div>
+                        <div class="custom-control juridica">
+                            <label for="nroCnpj">CNPJ</label>
+                            <input id="nroCnpj" name="nroCnpj" type="text" class="form-control" />
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <label for="nroIe">I.E.</label>
-                        <input id="nroIe" name="nroIe" type="number" class="form-control">
+                        <div class="custom-control juridica">
+                            <label for="nroIe">I.E.</label>
+                            <input id="nroIe" name="nroIe" type="text" class="form-control">
+                        </div>
                     </div>
                 </div>
                 <div class="row ">
@@ -76,8 +82,8 @@
                         <input id="txtLogradouro" name="txtLogradouro" type="text" class="form-control" />
                     </div>
                     <div class="col-sm-4">
-                        <label for="vlrMinimo">Complemento</label>
-                        <input id="vlrMinimo" name="vlrMinimo" type="text" class="form-control" />
+                        <label for="txtComplemento">Complemento</label>
+                        <input id="txtComplemento" name="txtComplemento" type="text" class="form-control" />
                     </div>
                 </div>
                 <div class="row ">

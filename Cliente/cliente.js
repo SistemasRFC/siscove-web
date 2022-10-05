@@ -1,9 +1,13 @@
 $(document).ready(function () {
     $("#modalCliente").load("cadCliente.html")
 
+
     $("#btnNovo").click(function () {
         limparCampos();
+        $(".fisica").hide();
+        $(".juridica").hide()
         $("#clienteModal").modal("show");
+
     })
 
     $("#btnProcurar").click(function () {
@@ -28,7 +32,7 @@ function getListarClientes() {
             montaTabelaCliente();
         },
         error: (err) => {
-            swal("", "Sao Paulo Campeao!!!", "error");
+            
         }
     });
 }
@@ -39,7 +43,7 @@ function montaTabelaCliente() {
     tabela += '<table class="table table-hover table-striped table-bordered table-white" id="tabelaCliente">';
     tabela += '<thead>';
     tabela += '    <tr align="center">';
-    tabela += '        <td width="25%">CPF </td>';
+    tabela += '        <td width="20%">CPF/CNPJ</td>';
     tabela += '        <td width="25%">Nome</td>';
     tabela += '    </tr>';
     tabela += '</thead>';
@@ -47,7 +51,7 @@ function montaTabelaCliente() {
 
     for (var i in dados) {
         tabela += "<tr>";
-        tabela += "<td width='50%'>" + dados[i].nroCpf + "</td>";
+        tabela += "<td width='25%'>" + dados[i].nroCpf +  dados[i].nroCnpj + "</td>";
         tabela += "<td width='50%'>" + dados[i].dscCliente + "</td>";
         tabela += "<td width='25%'  style='text-align:center;'>";
         tabela += "    <a href='javascript:preencherCampos(" + i + ")'>";
@@ -65,19 +69,19 @@ function montaTabelaCliente() {
 
 function preencherCampos(index) {
     var dados = dadosRetorno[index];
-
+    $("#dscCliente").val(dados.dscCliente);
     if (dados.indTipoCliente == 'J') {
-        $("#indTipoCLienteJ").prop('checked', true);
-        $(".fisica").show('fade');
-        $(".jurídica").hide('fade');
+        $("#indTipoClienteJ").prop('checked', true);
+        $(".juridica").show('fade');
+        $(".fisica").hide('fade');
     } else {
-        $("#indTipoCLienteF").prop('checked', true);
-        $(".fisica").show('fade');
-        $(".jurídica").hide('fade');
+        $("#indTipoClienteF").prop('checked', true);
+        $(".juridica").show('fade');
+        $(".fisica").hide('fade');
     }
+    $("#nmeBairro").val(dados.nmeBairro);
     $("#codCliente").val(dados.codCliente);
     $("#codTipoCliente").val(dados.codTipoCliente)
-    $("#dscCliente").val(dados.dscCliente);
     $("#nroCep").val(dados.nroCep);
     $("#txtLogradouro").val(dados.txtLogradouro);
     $("#txtComplemento").val(dados.txtComplemento);
@@ -93,7 +97,6 @@ function preencherCampos(index) {
     $("#nroCpf").val(dados.nroCpf);
     $("#nroTelefoneCelular").val(dados.nroTelefoneCelular);
     $("#nroTelefoneContato").val(dados.nroTelefoneContato);
-    $("#dscCliente").val(dados.dscCliente);
     $("#clienteModal").modal("show");
 }
 
@@ -116,7 +119,8 @@ function limparCampos() {
     $("#nroTelefoneCelular").val("");
     $("#nroTelefoneContato").val("");
     $("#codTipoCliente").val("");
-    $("#indTipoCliente").prop("checked", false),
-        $("#codCliente").val(0);
+    $("#indTipoClienteJ").prop("checked", false),
+    $("#indTipoClienteF").prop("checked", false),
+    $("#codCliente").val(0);
 }
 

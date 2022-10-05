@@ -3,11 +3,11 @@ $(document).ready(function () {
     getListarClientes();
     $(".indTipoCliente").click(function(){
         if ($(this).val()=='F') {
-            $(".fisica").show('fade');
-            $(".jurídica").hide('fade');
+            $(".fisica").show();
+            $(".juridica").hide();
         }else{
-            $(".fisica").hide('fade');
-            $(".jurídica").show('fade');
+            $(".fisica").hide();
+            $(".juridica").show();
         }
     })
 });
@@ -44,40 +44,59 @@ $("#btnSalvar").click(function () {
         swal('', 'Por favor preencha a Cidade !', 'warning');
         return false;
     }
-    var cliente = "J";
-    if ($("#indTipoCliente").is(":checked")) {
-        cliente = 'F';
+    var cliente = "F";
+    if($("#indTipoCliente").is(":checked")){
+        cliente = "J";
     }
     
     var dados = JSON.stringify({
-        codMarca: $("#codMarca").val(),
-        dscProduto: $("#dscProduto").val(),
-        codTipoProduto: $("#codTipoProduto").val(),
-        vlrProduto: $("#vlrProduto").val(),
-        vlrMinimo: $("#vlrMinimo").val(),
-        nroAroPneu: $("#nroAroPneu").val(),
-        indSituacaoProduto: situacao,
-        indComissaoGerencia: comissao,
-        indAtivo: ativo,
-        
+        codCliente: $("#codCliente").val(),
+        dscCliente: $("#dscCliente").val(),
+        nroCep: $("#nroCep").val(),
+        txtLogradouro: $("#txtLogradouro").val(),
+        txtComplemento: $("#txtComplemento").val(),
+        txtLocalidade: $("#txtLocalidade").val(),
+        sglUf: $("#sglUf").val(),
+        txtUnidade: $("#txtUnidade").val(),
+        codIbge: $("#codIbge").val(),
+        codGia: $("#codGia").val(),
+        nroTelefoneContato: $("#nroTelefoneContato").val(),
+        nroTelefoneCelular: $("#nroTelefoneCelular").val(),
+        nroCpf: $("#nroCpf").val(),
+        nroCnpj: $("#nroCnpj").val(),
+        nroIe: $("#nroIe").val(),
+        codClienteFinal: $("#codClienteFinal").val(),
+        dtaNascimento: $("#dtaNascimento").val(),
+        txtEmail: $("#txtEmail").val(),
+        indTipoCliente: cliente,
+
     })
-    if ($("#codProduto").val() > 0) {
+    if ($("#codCliente").val() > 0) {
         dados = JSON.stringify({
             dscProduto: $("#dscProduto").val(),
-            codMarca: $("#codMarca").val(),
-            codTipoProduto: $("#codTipoProduto").val(),
-            vlrProduto: $("#vlrProduto").val(),
-            vlrMinimo: $("#vlrMinimo").val(),
-            indSituacaoProduto: situacao,
-            indComissaoGerencia: comissao,
-            indAtivo: ativo,
-            codProduto: $("#codProduto").val()
+            dscCliente: $("#codCliente").val(),
+            nroCep: $("#nroCep").val(),
+            nmeBairro: $("#nmeBairro").val(),
+            txtLocalidade: $("#txtLocalidade").val(),
+            sglUf: $("#sglUf").val(),
+            txtUnidade: $("#txtUnidade").val(),
+            codIbge: $("#codIbge").val(),
+            codGia: $("#codGia").val(),
+            nroTelefoneContato: $("#nroTelefoneContato").val(),
+            nroTelefoneCelular: $("#nroTelefoneCelular").val(),
+            nroCpf: $("#nroCpf").val(),
+            nroCnpj: $("#nroCnpj").val(),
+            nroIe: $("#nroIe").val(),
+            codClienteFinal: $("#codClienteFinal").val(),
+            txtEmail: $("#txtEmail").val(),
+            indTipoCliente: cliente,
+            codCliente: $("#codCliente").val()
         })
     }
 
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/produtos/salvar",
+        url: "http://localhost:8080/cliente/salvar",
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },
@@ -88,14 +107,14 @@ $("#btnSalvar").click(function () {
         success: function (data) {
             console.log(data);
             if (data.retorno) {
-                swal("", "Produto/Serviço confirmado!!!", "success");
-                getListarProdutos();
+                swal("", "Cliente confirmado!!!", "success");
+                getListarClientes();
             } else {
-                swal("", "Produto/Serviço não confirmado!!!", "error");
+                swal("", "Cliente não confirmado!!!", "error");
             }
         },
         error: function (err) {
-            swal("", "Produto/Serviço não confirmado!!!", "error");
+            swal("", "Cliente não confirmado!!!", "error");
         }
     });
 
