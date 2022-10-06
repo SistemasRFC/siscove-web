@@ -1,16 +1,19 @@
 var dadosRetorno;
 
-$(document).ready(function(){
+$(document).ready(function () {
     $("#modalFornecedor").load("./cadFornecedor.html");
     getListarFornecedor();
 });
 
-$(function(){
-    $("#btnNovo").click(function(){
+$(function () {
+    $("#btnNovo").click(function () {
         limparCampos();
         $("#fornecedorModal").modal("show");
-
-    })
+        $("nroCep").blur(function () {
+            let nroCep = this.value
+            nroCep();
+        })
+    });
 })
 
 function getListarFornecedor() {
@@ -32,22 +35,22 @@ function getListarFornecedor() {
 
 function montaTabela(dados) {
     var tabela = '';
-        tabela += "<table class='table table-hover table-striped table-bordered table-white'";
-        tabela += "    id='tabelaFornecedor'>";
-        tabela += "    <thead>";
-        tabela += "        <tr align='center'>";
-        tabela += "            <th width='70%'>Fornecedor</th>";         
-        tabela += "            <th width='40%'>Telefone</th>"; 
-        tabela += "            <th width='20%'>Ativo</th>";       
-        tabela += "            <th width='10%'>Editar</th>";
-        tabela += "        </tr>";
-        tabela += "    </thead>";
-        tabela += "    <tbody>";
+    tabela += "<table class='table table-hover table-striped table-bordered table-white'";
+    tabela += "    id='tabelaFornecedor'>";
+    tabela += "    <thead>";
+    tabela += "        <tr align='center'>";
+    tabela += "            <th width='70%'>Fornecedor</th>";
+    tabela += "            <th width='40%'>Telefone</th>";
+    tabela += "            <th width='20%'>Ativo</th>";
+    tabela += "            <th width='10%'>Editar</th>";
+    tabela += "        </tr>";
+    tabela += "    </thead>";
+    tabela += "    <tbody>";
     for (var i in dados) {
-        var simNao = dados[i].indAtivo=='S'?'Sim':'Não';
+        var simNao = dados[i].indAtivo == 'S' ? 'Sim' : 'Não';
         tabela += "     <tr>";
-        tabela += "     <td width='70'>" + dados[i].dscFornecedor+ "</td>";    
-        tabela += "     <td width='50'>" + dados[i].nroTelefone+ "</td>";
+        tabela += "     <td width='70'>" + dados[i].dscFornecedor + "</td>";
+        tabela += "     <td width='50'>" + dados[i].nroTelefone + "</td>";
         tabela += "     <td width='20%'>" + simNao + "</td>";
         tabela += "     <td width='10%'  style='text-align:center;'>";
         tabela += "         <a href='javascript:preencherCampos(" + i + ")'>";
@@ -65,7 +68,7 @@ function montaTabela(dados) {
 
 function preencherCampos(index) {
     var dados = dadosRetorno[index];
-    
+
     if (dados.indAtivo == 'S') {
         $("#indAtivo").prop('checked', true);
     } else {
@@ -104,6 +107,5 @@ function limparCampos() {
     $("#nroCep").val("");
     $("#observacao").val("");
     $("#indAtivo").prop("checked", false),
-    $("#codFornecedor").val(0);
+        $("#codFornecedor").val(0);
 }
-
