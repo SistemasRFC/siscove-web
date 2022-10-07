@@ -1,0 +1,106 @@
+<script src="cadFornecedor.js"></script>
+
+<div class="modal fade" id="fornecedorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 55%" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark">
+                <h5 class="modal-title" id="exampleModalLabel">Novo Fornecedor</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input id="codFornecedor" name="codFornecedor" type="hidden" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="nroCnpj">CNPJ</label>
+                        <input id="nroCnpj" name="nroCnpj" type="text" class="form-control" />
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="nroIe">I.E</label>
+                        <input id="nroIe" name="nroIe" type="text" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label for="dscFornecedor">Nome Fornecedor</label>
+                        <input id="dscFornecedor" name="dscFornecedor" type="text" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label for="nroTelefone">Telefone</label>
+                        <input id="nroTelefone" name="nroTelefone" type="text" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label for="nroCep">CEP</label>
+                        <input id="nroCep" name="nroCep" type="text" class="form-control" value="71920180"/>
+                        <small>00000-000</small>
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="txtLogradouro">Logradouro</label>
+                        <input id="txtLogradouro" name="txtLogradouro" type="text" class="form-control" />
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="txtLocalidade">Cidade</label>
+                        <input id="txtLocalidade" name="txtLocalidade" type="text" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="txtComplemento">Complemento</label>
+                        <input id="txtComplemento" name="txtComplemento" type="text" class="form-control" />
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="nmeBairro">Bairro</label>
+                        <input id="nmeBairro" name="nmeBairro" type="text" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label for="sglUf">U.F</label>
+                        <input id="sglUf" name="sglUf" type="text" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="observacao">OBSERVAÇÃO</label>
+                            <textarea id="observacao" name="observacao" rows="4" class="form-control">
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" name="indAtivo" id="indAtivo" class="custom-control-input" />
+                            <label class="custom-control-label" for="indAtivo">Ativo</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class='btn btn-secondary btn-icon-split' data-dismiss="modal" aria-label="Close">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-times"></i>
+                        </span>
+                        <span class="text">Cancelar</span>
+                    </button>
+                    <button id="btnSalvar" class='btn btn-success btn-icon-split'>
+                        <span class="icon text-white-50">
+                            <i class="fas fa-check"></i>
+                        </span>
+                        <span class="text">Salvar</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
