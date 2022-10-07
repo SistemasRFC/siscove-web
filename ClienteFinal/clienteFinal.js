@@ -70,11 +70,26 @@ function preencherCampos(index) {
         $("#indAtivo").prop('checked', false);
     }
 
-    $("#codClienteFinal").val(dados.codClienteFinal)
+    $("#codClienteFinal").val(dados.codClienteFinal);
+    $("#nmeClienteFinal").val(dados.nmeClienteFinal);
+    if(dados.indTipoCliente == "F") {
+        $("#indTipoClienteF").prop('checked', true);
+    } else if(dados.indTipoCliente == "J"){
+        $("#indTipoClienteJ").prop('checked', true);
+    }
+    $("[name=indTipoCliente]").change();
+    $("#nroCnpj").val(dados.nroCnpj);
+    $("#nroCpf").val(dados.nroCpf);
     $("#clienteFinalModal").modal("show");
 }
 
-function limparCampos() {
+function limparCampos() { 
     $("#codClienteFinal").val(0);
+    $("#nmeClienteFinal").val('');
+    $("#indTipoClienteF").prop('checked', false);
+    $("#indTipoClienteJ").prop('checked', false);
+    $("[name=indTipoCliente]").change();
+    $("#nroCnpj").val('');
+    $("#nroCpf").val('');
     $("#indAtivo").prop("checked", false);
 }
