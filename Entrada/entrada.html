@@ -1,0 +1,205 @@
+<html>
+
+<head>
+    <title>Cadastro-Entrada</title>
+    <meta charset="UTF-8">
+    <!-- JS -->
+    <script src="../Resources/bootstrap-admin/vendor/jquery/jquery.min.js"></script>
+    <script src="../Resources/bootstrap-admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../Resources/bootstrap-admin/js/sb-admin-2.min.js"></script>
+    <script src="../Resources/swal/sweetalert.min.js"></script>
+    <script src="../Resources/swal/dist/sweetalert.min.js"></script>
+    <script src="../Resources/jquery/jquery-3.6.0.min.js"></script>
+    <script src="../Shared/header-component.js"></script>
+    <script src="../Shared/FuncoesGerais.js"></script>
+    <script src="../Shared/navegacao-component.js"></script>
+    <script src="Entrada.js"></script>
+    <!-- bootstrap -->
+    <script src="../Resources/bootstrap-admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../Resources/bootstrap-admin/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- chart -->
+    <script src="../Resources/bootstrap-admin/vendor/chart.js/Chart.min.js"></script>
+    <script src="../Resources/bootstrap-admin/vendor/chart.js/Chart.bundle.min.js"></script>
+    <!-- datatables -->
+    <script src="../Resources/bootstrap-admin/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="../Resources/bootstrap-admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="../Resources/bootstrap-admin/css/sb-admin-2.min.css">
+    </link>
+    <link href="../Resources/bootstrap-admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../Resources/swal/dist/sweetalert.css">
+    <link href="../Resources/bootstrap-admin/css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <content>
+        <navegacao-component></navegacao-component>
+        <header-component></header-component>
+        <div id="wrapper">
+            <div id="content-wrapper" class="d-flex flex-column">
+                <div id="content">
+                    <div class="container-fluid">
+                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                            <h1 class="h3 mb-0 text-gray-800">Cadastro</h1>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-xl-12 col-lg-12">
+                                <div class="card shadow mb-4">
+                                    <div
+                                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-dark">
+                                        <h6 class="m-0 font-weight-bold text-persian-dark">Entrada </h6>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <input id="codUsuario" name="codUsuario" type="hidden"
+                                                class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <button class="btn btn-primary" id="btnNovo">Novo</button>
+                                        <br></br>
+                                        <div id="divTabela"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <input type="text" id="btnProcurar" onkeyup="myFunction()" placeholder="Procurar.." title="Procurar">
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label for="codDeposito">Deposito</label>
+                                            <select id="codDeposito" class="form-control">
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="codFornecedor">Fornecedor</label>
+                                            <select id="codFornecedor" class="form-control">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label for="dtaEntrada">Data da Entrada</label>
+                                            <input id="dtaEntrada" name="dtaEntrada" type="datetime-local"
+                                                class="form-control" />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="nroNotaFiscal">Numero Nota Fiscal</label>
+                                            <input id="nroNotaFiscal" name="nroNotaFiscal" min="1" type="number"
+                                                class="form-control" />
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div id="accordion">
+                                        <div class="btn btn-block accordion-header bg-color-primary" id="topDescricao">
+                                            <i class="ml-auto fa-solid fa-angle-right"></i>
+                                            <span id="btnDsc" class="mb-0 h5" data-toggle="collapse"
+                                                data-target="#descricao" aria-expanded="true"
+                                                aria-controls="collapseOne">
+                                                Mais Informações
+                                            </span>
+                                            <i class="ml-auto fa-solid fa-angle-left"></i>
+                                        </div>
+
+                                        <div id="descricao" class="collapse accordion-body"
+                                            aria-labelledby="topDescricao" data-parent="#accordion">
+                                            <div class="row">
+                                                <div id="accordionDsc" class="table"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div id="descricaoEdit" class="accordion-body collapse show"
+                                        aria-labelledby="topDescricaoEdit" data-parent="#accordionEdit" style="">
+                                        <div class="row">
+                                            <div id="accordionDscEdit" class="table">
+                                                <div id="tbAccordionDscEdit_wrapper"
+                                                    class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                                    <div class="row">
+                                                        <div class="col-sm-12 col-md-6"></div>
+                                                        <div class="col-sm-12 col-md-6"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <table id="tbAccordionDscEdit"
+                                                                class="table table-striped dataTable no-footer"
+                                                                role="grid">
+                                                                <thead>
+                                                                    <tr role="row">
+                                                                        <th class="sorting_disabled" rowspan="1"
+                                                                            colspan="1" style="width: 190px;">
+                                                                            <b>Fornecedor</b>
+                                                                        </th>
+                                                                        <th class="sorting_disabled" rowspan="1"
+                                                                            colspan="1" style="width: 96px;">
+                                                                            <b>Deposito</b>
+                                                                        </th>
+                                                                        <th class="sorting_disabled" rowspan="1"
+                                                                            colspan="1" style="width: 238px;">
+                                                                            <b>Data</b>
+                                                                        </th>
+                                                                        <th class="sorting_disabled" rowspan="1"
+                                                                            colspan="1" style="width: 128px;">
+                                                                            <b>Ações</b>
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12 col-md-5"></div>
+                                                        <div class="col-sm-12 col-md-7"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label for="txtObervacao">OBSERVAÇÃO</label>
+                                                <textarea id="txtObervacao" name="txtObervacao" rows="4"
+                                                    class="form-control">
+                                                </textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" name="indEntrada" id="indEntrada"
+                                                    class="custom-control-input" />
+                                                <label class="custom-control-label" for="indEntrada">Entrada</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer" align="right">
+                                        <button id="btnSalvar" class='btn btn-success btn-icon-split'>
+                                            <span class="icon text-white-100">
+                                                <i class="fas fa-check"></i>
+                                            </span>
+                                            <span class="text">Salvar</span>
+                                        </button>
+                                    </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div id="modalEntrada"></div>
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+    </content>
+</body>
+
+</html>
