@@ -1,11 +1,13 @@
 $(document).ready(function () {
-    $("[name=indTipoCliente]").change(function () {
+    $(".indTipoCliente").change(function () {
         if ($("#indTipoClienteJ").prop('checked')) {
             $(".divPessoaF").hide();
             $(".divPessoaJ").show();
-        } else if ($("#indTipoClienteF").prop('checked')){
+            $("#nroCpf").val('');
+        } else if ($("#indTipoClienteF").prop('checked')) {
             $(".divPessoaJ").hide();
             $(".divPessoaF").show();
+            $("#nroCnpj").val('');
         } else {
             $(".divPessoaF").hide();
             $(".divPessoaJ").hide();
@@ -15,27 +17,27 @@ $(document).ready(function () {
 var dadosRetorno;
 
 $("#btnSalvar").click(function () {
-        var ativo = $("#indAtivo").is(":checked") ? "S" : "N";
-        var indTipoCliente = $("#indTipoClienteJ").prop('checked') ? "J" : "F";
-        
-        var dados = JSON.stringify({
+    var ativo = $("#indAtivo").is(":checked") ? "S" : "N";
+    var indTipoCliente = $("#indTipoClienteJ").prop('checked') ? "J" : "F";
+
+    var dados = JSON.stringify({
+        nmeClienteFinal: $("#nmeClienteFinal").val(),
+        indTipoCliente: indTipoCliente,
+        nroCnpj: $("#nroCnpj").val(),
+        nroCpf: $("#nroCpf").val(),
+        indAtivo: ativo,
+    });
+
+    if ($("#codClienteFinal").val() > 0) {
+        dados = JSON.stringify({
             nmeClienteFinal: $("#nmeClienteFinal").val(),
             indTipoCliente: indTipoCliente,
             nroCnpj: $("#nroCnpj").val(),
             nroCpf: $("#nroCpf").val(),
             indAtivo: ativo,
+            codClienteFinal: $("#codClienteFinal").val()
         });
-
-        if ($("#codClienteFinal").val() > 0) {
-            dados = JSON.stringify({
-                nmeClienteFinal: $("#nmeClienteFinal").val(),
-                indTipoCliente: indTipoCliente,
-                nroCnpj: $("#nroCnpj").val(),
-                nroCpf: $("#nroCpf").val(),
-                indAtivo: ativo,
-                codClienteFinal: $("#codClienteFinal").val()
-            });
-        }
+    }
 
     $.ajax({
         type: "POST",
@@ -50,6 +52,7 @@ $("#btnSalvar").click(function () {
         success: function (data) {
             console.log(data);
             if (data.retorno) {
+                $("#clienteFinalModal").modal("hide");
                 swal("", "Cliente Final salvo!!!", "success");
                 getListaClienteFinal();
             } else {
@@ -61,6 +64,7 @@ $("#btnSalvar").click(function () {
         }
     });
 });
+
 
 function criarComboClienteFinal() {
     $.ajax({
