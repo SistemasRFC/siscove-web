@@ -1,9 +1,10 @@
 $(document).ready(function () {
-    getListaDeposito();
-    getListarFornecedor();
-    getListarEntrada();
+    getListaDepositoAtivos();
+    getListarAtivos();
+    getListarEntradaEstoque();
 
     $("#btnNovo").click(function () {
+
         limparCampos();
     })
 
@@ -45,10 +46,10 @@ $(document).ready(function () {
 var dadosRetorno;
 
 
-function getListarEntrada() {
+function getListarEntradaEstoque() {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/entrada/listar",
+        url: "http://localhost:8080entrada/estoque/listar",
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },
@@ -67,16 +68,23 @@ function montaTabela() {
     tabela += '<table class="table table-hover table-striped table-bordered table-white" id="tabelaEntrada">';
     tabela += '<thead>';
     tabela += '    <tr align="center">';
-    tabela += '        <td width="25%">Fornecedor </td>';
-    tabela += '        <td width="25%">Deposito </td>';
+    tabela += '        <td width="25%">Codigo </td>';
+    tabela += '        <td width="25%">Produto </td>';
+    tabela += '        <td width="25%">Quantidade </td>';
+    tabela += '        <td width="25%">Valor Custo </td>';
+    tabela += '        <td width="25%">Valor Mínimo </td>';
+    tabela += '        <td width="25%">Valor Venda </td>';
     tabela += '    </tr>';
     tabela += '</thead>';
     tabela += '<tbody id="corpoTabela">';
 
     for (var i in dados) {
         tabela += "<tr>";
-        tabela += "     <td width='70'>" + dados[i].dscFornecedor .codFornecedor +"</td>";
-        tabela += "     <td width='70'>" + dados[i].dscDeposito + "</td>";
+        tabela += "     <td width='70'>" + dados[i].codProduto + "</td>";
+        tabela += "     <td width='70'>" + dados[i].dscProduto + "</td>";
+        tabela += "     <td width='70'>" + dados[i].qtdEntrada + "</td>";
+        tabela += "     <td width='70'>" + dados[i].vlrUnitario + "</td>";
+        tabela += "     <td width='70'>" + dados[i].vlrVenda + "</td>";
         tabela += "    </a>";
         tabela += "    </a>";
         tabela += "</td>";
@@ -92,15 +100,21 @@ function montaTabela() {
 
 function limparCampos() {
     $("#dscProduto").val(""),
+        $("#vlrVenda").val(""),
+        $("#vlrUnitario").val(""),
+        $("#qtdEntrada").val(""),
+        $("#codFornecedor").val(""),
         $("#btnProcurar").val(""),
         $("#codDeposito").val(""),
         $("#dtaEntrada").val(""),
         $("#txtObervacao").val(""),
         $("#nroNotaFiscal").val(""),
+        $("#vlrProduto").val(""),
+        $("#vlrMinimo").val(""),
         $("#codProduto").val(0);
 }
 
-function getListarFornecedor() {
+function getListarAtivos() {
     $.ajax({
         type: "GET",
         url: "http://localhost:8080/fornecedor/listar/ativos",
@@ -126,24 +140,10 @@ function montaComboFornecedor(dados) {
     $("#codFornecedor").html(tabela);
 }
 
-
-
-function montaComboMarca(dados) {
-    var tabela = '';
-    tabela += '<option value="">Selecione </option>';
-    for (var i in dados) {
-        tabela += '<option value="' + dados[i].codMarca + '">' + dados[i].dscMarca + ' </option>';
-    }
-    $("#codMarca").html(tabela);
-}
-
-
-
-
-function getListaDeposito() {
+function getListaDepositoAtivos() {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/deposito/listar",
+        url: "http://localhost:8080/deposito/listar/ativos",
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },
@@ -169,3 +169,9 @@ function montaComboDeposito(dados) {
 
 }
 
+
+function calcular() {
+    var valor1 = parseInt(document.getElementById('vlrProduto').value,);
+    var valor2 = parseInt(document.getElementById('vlrMinimo').value,);
+    document.getElementById('vlrTotal').value = valor1 % valor2;
+}
