@@ -49,7 +49,7 @@ var dadosRetorno;
 function getListarEntradaEstoque() {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080entrada/estoque/listar",
+        url: "http://localhost:8080/entrada/estoque/listar",
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },
@@ -58,33 +58,39 @@ function getListarEntradaEstoque() {
             montaTabela(data.objeto);
         },
         error: (err) => {
-            swal("", "Entrada não confirmado!!!", "error");
+            swal("", " não confirmado!!!", "error");
         }
     });
 }
+
 function montaTabela() {
     var dados = dadosRetorno;
     var tabela = '';
     tabela += '<table class="table table-hover table-striped table-bordered table-white" id="tabelaEntrada">';
     tabela += '<thead>';
     tabela += '    <tr align="center">';
-    tabela += '        <td width="25%">Codigo </td>';
-    tabela += '        <td width="25%">Produto </td>';
-    tabela += '        <td width="25%">Quantidade </td>';
-    tabela += '        <td width="25%">Valor Custo </td>';
-    tabela += '        <td width="25%">Valor Mínimo </td>';
-    tabela += '        <td width="25%">Valor Venda </td>';
+    tabela += '        <td width="50%">Codigo </td>';
+    tabela += '        <td width="50%">Produto </td>';
+    tabela += '        <td width="50%">Quantidade </td>';
+    tabela += '        <td width="50%">Valor Custo </td>';
+    tabela += '        <td width="50%">Valor Mínimo </td>';
+    tabela += '        <td width="50%">Valor Venda </td>';
     tabela += '    </tr>';
     tabela += '</thead>';
     tabela += '<tbody id="corpoTabela">';
 
     for (var i in dados) {
         tabela += "<tr>";
-        tabela += "     <td width='70'>" + dados[i].codProduto + "</td>";
-        tabela += "     <td width='70'>" + dados[i].dscProduto + "</td>";
-        tabela += "     <td width='70'>" + dados[i].qtdEntrada + "</td>";
-        tabela += "     <td width='70'>" + dados[i].vlrUnitario + "</td>";
-        tabela += "     <td width='70'>" + dados[i].vlrVenda + "</td>";
+        tabela += "     <td width='50'>" + dados[i].nroSequencial + "</td>";
+        if(dados[i].produto==null){
+            tabela += "     <td width='50'></td>";
+        }else{
+            tabela += "     <td width='50'>" + dados[i].produto.dscProduto + "</td>";
+        }
+        tabela += "     <td width='50'>" + dados[i].qtdEntrada + "</td>";
+        tabela += "     <td width='50'>" + dados[i].vlrUnitario + "</td>";
+        tabela += "     <td width='50'>" + dados[i].vlrMinimo + "</td>";
+        tabela += "     <td width='50'>" + dados[i].vlrVenda + "</td>";
         tabela += "    </a>";
         tabela += "    </a>";
         tabela += "</td>";
