@@ -1,3 +1,10 @@
+// dois combos nas linhas  204 e 230
+// um calculo na linha 259
+// um botao para limpar chamado de BtnNovo na linha 22 / um pra salvar chamado de BtnAddicionar  /
+// um AutoComplete na linha 27
+// uma tabela na linha 150
+// botao cancelar para fechar o adicionar produtos
+
 $(document).ready(function () {
     getListaDepositoAtivos();
     getListarAtivos();
@@ -45,6 +52,74 @@ $(document).ready(function () {
 
 var dadosRetorno;
 
+$("#btnSalvar").click(function () {
+    if ($("#codFornecedor").val() == '') {
+        swal('', 'Por favor preencha o Fornecedor !', 'warning');
+        return false;
+    }
+    if ($("#codDeposito").val() == '') {
+        swal('', 'Por favor preencha a Quantidade !', 'warning');
+        return false;
+    }
+    if ($("#nroNotaFiscal").val() == '') {
+        swal('', 'Por favor preencha o Numero da Nota Fiscal !', 'warning');
+        return false;
+    }
+    if ($("#dtaEntrada").val() == '') {
+        swal('', 'Por favor preencha o Valor Minimo !', 'warning');
+        return false;
+    }
+    var entrada = "F";
+    if ($("#indTipoEntrada").is(":checked")) {
+        entrada = "A";
+    }
+    var dados = JSON.stringify({
+        codFornecedor: $("#codFornecedor").val(),
+        codDeposito: $("#codDeposito").val(),
+        nroNotaFiscal: $("#nroNotaFiscal").val(),
+        dtaEntrada: $("#dtaEntrada").val(),
+        indTipoEntrada: entrada,
+    })
+
+    if ($("#codFornecedor").val() > 0) {
+        dados = JSON.stringify({
+            codDeposito: $("#codDeposito").val(),
+            nroNotaFiscal: $("#nroNotaFiscal").val(),
+            dtaEntrada: $("#dtaEntrada").val(),
+            codFornecedor: $("#codFornecedor").val(),
+            indTipoEntrada: entrada,
+        })
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/entrada/salvar",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
+        },
+        data: dados,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            if (data.retorno) {
+                swal({
+                    title: "",
+                    text: "Produto salvo!",
+                    type: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+                salvarEntrada();
+            } else {
+                swal("", "Produto não salvo!!!", "error");
+            }
+        },
+        error: function (err) {
+            swal("", "Erro ao salvar Produto!!!", "error");
+        }
+    });
+});
+
 
 function getListarEntradaEstoque() {
     $.ajax({
@@ -82,9 +157,9 @@ function montaTabela() {
     for (var i in dados) {
         tabela += "<tr>";
         tabela += "     <td width='50'>" + dados[i].nroSequencial + "</td>";
-        if(dados[i].produto==null){
+        if (dados[i].produto == null) {
             tabela += "     <td width='50'></td>";
-        }else{
+        } else {
             tabela += "     <td width='50'>" + dados[i].produto.dscProduto + "</td>";
         }
         tabela += "     <td width='50'>" + dados[i].qtdEntrada + "</td>";
@@ -101,8 +176,6 @@ function montaTabela() {
     $("#tabelaProdutos").html(tabela);
     $("#tabelaEntrada").DataTable();
 }
-
-
 
 function limparCampos() {
     $("#dscProduto").val(""),
@@ -175,9 +248,9 @@ function montaComboDeposito(dados) {
 
 }
 
-
 function calcular() {
-    var valor1 = parseInt(document.getElementById('vlrProduto').value,);
-    var valor2 = parseInt(document.getElementById('vlrMinimo').value,);
-    document.getElementById('vlrTotal').value = valor1 % valor2;
+    var valor2 = parseFloat($('#vlrUnitario').val());
+    $('#vlrMinimo').val(1.25 * valor2);
+    $('#vlrVenda').val(1.35 * valor2);
+
 }

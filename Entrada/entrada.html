@@ -59,28 +59,42 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <button class="btn btn-primary" id="btnNovo">Novo</button>
-                                            <button class="btn btn-warning" id="btnEntradas">Entradas Em Aberto</button>
+                                            <button class="btn btn-warning" id="indTipoEntrada">Entradas Em Aberto</button>
+                                            <div class="form-check form-check-inline ml-auto">
+                                                <input class="form-check-input indTipoEntrada" type="radio" name="indTipoEntrada"
+                                                    id="indTipoEntradaF" value="F">
+                                                <label style="color: black;" for="indTipoEntradaA">
+                                                    Fechada
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline ml-auto">
+                                                <input class="form-check-input indTipoEntrada" type="radio" name="indTipoEntrada"
+                                                    id="indTipoEntradaA" value="A">
+                                                <label style="color: black;" for="indTipoEntradaF">
+                                                    Aberta
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-6 Fechada">
                                             <label for="codFornecedor">Fornecedor</label>
                                             <select id="codFornecedor" class="form-control">
                                             </select>
                                         </div>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-6 Fechada">
                                             <label for="codDeposito">Deposito</label>
                                             <select id="codDeposito" class="form-control">
                                             </select>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-6 Fechada">
                                             <label for="nroNotaFiscal">Chave Nota Fiscal</label>
                                             <input id="nroNotaFiscal" name="nroNotaFiscal" min="1" type="number"
                                                 class="form-control" />
                                         </div>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-6 Aberta">
                                             <label for="dtaEntrada">Data da Entrada</label>
                                             <input id="dtaEntrada" name="dtaEntrada" type="datetime-local"
                                                 class="form-control" />
@@ -112,6 +126,7 @@
                                             <div class="col-lg-12">
                                                 <a class="btn btn-link" data-toggle="collapse" href="#collapseExample"
                                                     role="button" aria-expanded="false" aria-controls="collapseExample">
+
                                                     <i class="fas fa-plus"></i>
                                                     Adicionar Produto
                                                 </a>
@@ -143,15 +158,14 @@
                                                                     <label for="vlrUnitario">Valor Unitario</label>
                                                                     <input id="vlrUnitario" type="number"
                                                                         class="form-control" value="1"
-                                                                        onfocus="calcular()" />
+                                                                        onblur="calcular()" />
 
                                                                 </div>
                                                                 <div class="col-sm-3">
                                                                     <label for="vlrMinimo">Valor Minimo</label>
 
                                                                     <input id="vlrMinimo" type="number"
-                                                                        class="form-control" value="1"
-                                                                        onblur="calcular()" />
+                                                                        class="form-control" value="1" />
 
                                                                 </div>
                                                                 <div class="col-sm-3">
@@ -186,7 +200,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-12">
+                                        <div class="col-sm-12 fechada">
                                             <button class="btn btn-dark" id="btnFechar">Fechar Entrada</button>
                                         </div>
                                     </div>
