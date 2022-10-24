@@ -11,8 +11,8 @@ $(document).ready(function () {
     getListarEntradaEstoque();
 
     $("#btnNovo").click(function () {
-
         limparCampos();
+        $("#depositoModal").modal("show");
     })
 
     $('.basicAutoComplete').on('autocomplete.select', function (evt, item) {
