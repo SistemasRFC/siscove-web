@@ -15,7 +15,7 @@
     <script src="../Shared/header-component.js"></script>
     <script src="../Shared/FuncoesGerais.js"></script>
     <script src="../Shared/navegacao-component.js"></script>
-    <script src="Usuario.js"></script>
+    <script src="venda.js"></script>
     <!-- bootstrap -->
     <script src="../Resources/bootstrap-admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../Resources/bootstrap-admin/vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -50,15 +50,36 @@
                             <div class="col-xl-12 col-lg-12">
                                 <div class="card shadow mb-4">
                                     <div
-                                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-dark">
+                                        class="card-header d-flex flex-row align-items-center justify-content-between bg-dark">
                                         <h6 class="m-0 font-weight-bold text-persian-dark">Cliente</h6>
+                                        <div>
+                                            <button class="btn btn-warning" id="btnBuscar">Buscar</button>
+                                            <button class="btn btn-primary" id="btnNovo">Novo</button>
+                                        </div>
                                     </div>
                                     <div class="card-body">
-                                        <button class="btn btn-primary" id="btnNovo">Novo</button>
-
-                                        <br></br>
-                                        <div id="tabelaUsuario"></div>
-                                       
+                                        <div class="row align-items-center">
+                                            <div class="col-sm-2 col-md-1 col-lg-1">
+                                                <label class="mb-0" for="dscCliente"><b>Nome:</b></label>
+                                            </div>
+                                            <div class="col-sm-4 col-md-5 col-lg-5 pl-0">
+                                                <input id="dscCliente" name="dscCliente" type="text" class="form-control" />
+                                            </div>
+                                            <div class="col-sm-2 col-md-1 col-lg-1 px-0">
+                                                <label class="mb-0" for="nroDoc"><b>CPF/CNPJ:</b></label>
+                                            </div>
+                                            <div class="col-sm-4 col-md-5 col-lg-5">
+                                                <input id="nroDoc" name="nroDoc" type="text" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                                <label class="mb-0"><b>Contato:</b></label>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                                <label class="mb-0"><b>Endereço:</b></label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -67,7 +88,7 @@
                 </div>
             </div>
         </div>
-        <div id="modalUsuario"></div>
+        <div id="modalVenda"></div>
         <a class="scroll-to-top rounded" href="#page-top">
             <i class="fas fa-angle-up"></i>
         </a>
