@@ -1,20 +1,15 @@
 $(document).ready(function () {
-
     $("#btnNovo").click(function () {
-        limparCampos();
+        editarCampos();
         $("#vendaModal").modal("show");
-    })
-
-    $("#btnBuscar").click(function (){
-        limparCampos();
-        
-    })
+    });
 
     $('.basicAutoComplete').on('autocomplete.select', function (evt, item) {
         console.log(item)
         $("#codCliente").val(item.codCliente);
         $("#nroDoc").val(item.nroCpf);
-        $("#dscContato").html(item.nroTelefoneCelular);
+        $("#nroCelular").html(item.nroTelefoneCelular);
+        $("#nroTelefone").html(item.nroTelefoneContato);
         $("#txtEndereco").html(item.txtLogradouro);
 
         $('.basicAutoSelectSelected').html(item ? JSON.stringify(item) : 'null');
@@ -46,8 +41,52 @@ $(document).ready(function () {
                 });
             }
         }
+        
+    });
+
+
+    $('.cpfCnpjAutoComplete').on('autocomplete.select', function (evt, item) {
+        console.log($('.cpfCnpjAutoComplete'))
+        $("#codCliente").val(item.codCliente);
+        $("#dscCliente").val(item.dscCliente);
+        $("#nroDoc").val(item.nroCpf ? item.nroCpf : item.nroCnpj);
+        $("#nroCelular").html(item.nroTelefoneCelular);
+        $("#nroTelefone").html(item.nroTelefoneContato);
+        $("#txtEndereco").html(item.txtLogradouro);
+    });
+
+    $(".cpfCnpjAutoComplete").autoComplete({
+        resolver: 'custom',
+        formatResult: function (item) {
+            return {
+                value: item.codCliente,
+                label: item.nroCpf, 
+                text: item.nroCpf ? item.nroCpf : item.nroCnpj,
+            };
+        },
+        events: {
+            search: function (qry, callback) {
+                $.ajax(
+
+                    {
+                        type: "GET",
+                        url: "http://localhost:8080/cliente/listar/byCpfCnpj/"+qry,
+
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
+                        },
+                        data: qry
+                    }
+                ).done(function (res) {
+                    callback(res)
+                });
+            }
+        }
+        
     });
 });
+
+
 
 var dadosRetorno;
 
@@ -56,18 +95,12 @@ $("#btnSalvar").click(function () {
         swal('', 'Por favor preencha o Nome !', 'warning');
         return false;
     }
-    if ($("#nroTelefoneContato").val() == '') {
-        swal('', 'Por favor preencha o Numero de Telefone !', 'warning');
-        return false;;
-    }
+    
     if ($("#nroDoc").val() == '') {
         swal('', 'Por favor preencha o Cpf ou Cnpj!', 'warning');
         return false;
     }
-    if ($("#nroCep").val() == '') {
-        swal('', 'Por favor preencha o Endereço !', 'warning');
-        return false;
-    }
+   
     var entrada = "F";
     if ($("#indTipoEntrada").is(":checked")) {
         entrada = "A";
@@ -83,15 +116,13 @@ $("#btnSalvar").click(function () {
 
     if ($("#codCiente").val() > 0) {
         dados = JSON.stringify({
-            codVenda: $("#codVenda").val(),
+            codCliente: $("#codCliente").val(),
             nroTelefoneContato: $("#nroTelefoneContato").val(),
             nroDoc: $("#nroDoc").val(),
             nroCep: $("#nroCep").val(),
             indTipoEntrada: entrada,
         })
     } 
-
-
 
     $.ajax({
         type: "POST",
@@ -126,4 +157,9 @@ function limparCampos() {
     $(".precisaLimpar").val('');
     $(".precisaLimpar").html('');
         
+}
+
+function editarCampos() {
+    $(".precisaEditar").val('');
+    $(".precisaEditar").html('');
 }

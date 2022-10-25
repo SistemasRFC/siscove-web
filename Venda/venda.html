@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../Resources/swal/dist/sweetalert.css">
     <link href="../Resources/bootstrap-admin/css/style.css" rel="stylesheet" type="text/css">
     <script
-    src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@master/dist/latest/bootstrap-autocomplete.min.js"></script>
+        src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@master/dist/latest/bootstrap-autocomplete.min.js"></script>
 </head>
 
 <body>
@@ -55,7 +55,6 @@
                                         class="card-header d-flex flex-row align-items-center justify-content-between bg-dark">
                                         <h6 class="m-0 font-weight-bold text-persian-dark">Cliente</h6>
                                         <div>
-                                            <button class="btn btn-warning" id="btnBuscar">Buscar</button>
                                             <button class="btn btn-primary" id="btnNovo">Novo</button>
                                         </div>
                                     </div>
@@ -65,24 +64,30 @@
                                                 <label class="mb-0" for="dscCliente"><b>Nome:</b></label>
                                             </div>
                                             <div class="col-sm-4 col-md-5 col-lg-5 pl-0">
-                                                <input id="dscCliente" name="dscCliente" type="text" class="form-control basicAutoComplete precisaLimpar" />
+                                                <input id="dscCliente" name="dscCliente" type="text"
+                                                    class="form-control basicAutoComplete " />
                                             </div>
                                             <div class="col-sm-2 col-md-1 col-lg-1 px-0">
                                                 <label class="mb-0" for="nroDoc"><b>CPF/CNPJ:</b></label>
                                             </div>
                                             <div class="col-sm-4 col-md-5 col-lg-5">
-                                                <input id="nroDoc" name="nroDoc" type="text" class="form-control precisaLimpar" />
+                                                <input id="nroDoc" name="nroDoc" type="text"
+                                                    class="form-control cpfCnpjAutoComplete " />
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-6 col-md-6 col-lg-6">
-                                                <label class="mb-0"><b>Contato:</b> <span id="dscContato" class=" precisaLimpar"></span></label>
+                                                <label class="mb-0"><b>Contato:</b></label>
+                                                Celular: <span id="nroCelular"></span>
+                                                / Fixo: <span id="nroTelefone"></span>
                                             </div>
-                                            <div class="col-sm-6 col-md-6 col-lg-6">
-                                                <label class="mb-0"><b>Endereço:</b><span id="txtEndereco" class=" precisaLimpar"></span></label>
+                                            <div class="col-sm-6 col-md-6 col-lg-6 px-0">
+                                                <label class="mb-0"><b>Endereço:</b></label>
+                                                <span id="txtEndereco" class=" precisaLimpar"></span>
                                             </div>
                                         </div>
                                     </div>
+                                    <input id="codCliente" name="codCliente" type="hidden" />
                                 </div>
                             </div>
                         </div>
