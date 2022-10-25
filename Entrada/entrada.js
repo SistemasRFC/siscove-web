@@ -10,9 +10,27 @@ $(document).ready(function () {
     getListarAtivos();
     getListarEntradaEstoque();
 
+    $("#modalEntrada").load("cadEntrada.html")
+
+    $("#indTipoEntrada").click(function () {
+        limparCampos();
+        
+        $("#entradaModal").modal("show");
+
+    })
+
     $("#btnNovo").click(function () {
 
         limparCampos();
+    })
+    $(".indTipoEntrada").click(function(){
+        if ($(this).val()=='F') {
+            $(".fechada").show();
+            $(".aberta").hide();
+        }else{
+            $(".fechada").hide();
+            $(".aberta").show();
+        }
     })
 
     $('.basicAutoComplete').on('autocomplete.select', function (evt, item) {
@@ -69,10 +87,7 @@ $("#btnSalvar").click(function () {
         swal('', 'Por favor preencha o Valor Minimo !', 'warning');
         return false;
     }
-    var entrada = "F";
-    if ($("#indTipoEntrada").is(":checked")) {
-        entrada = "A";
-    }
+    
     var dados = JSON.stringify({
         codFornecedor: $("#codFornecedor").val(),
         codDeposito: $("#codDeposito").val(),
@@ -150,6 +165,7 @@ function montaTabela() {
     tabela += '        <td width="50%">Valor Custo </td>';
     tabela += '        <td width="50%">Valor Mínimo </td>';
     tabela += '        <td width="50%">Valor Venda </td>';
+    tabela += '        <td width="50%">Entrada </td>';
     tabela += '    </tr>';
     tabela += '</thead>';
     tabela += '<tbody id="corpoTabela">';
@@ -166,6 +182,7 @@ function montaTabela() {
         tabela += "     <td width='50'>" + dados[i].vlrUnitario + "</td>";
         tabela += "     <td width='50'>" + dados[i].vlrMinimo + "</td>";
         tabela += "     <td width='50'>" + dados[i].vlrVenda + "</td>";
+        tabela += "     <td width='50'>" + dados[i].indTipoEntrada + "</td>";
         tabela += "    </a>";
         tabela += "    </a>";
         tabela += "</td>";
@@ -190,6 +207,8 @@ function limparCampos() {
         $("#nroNotaFiscal").val(""),
         $("#vlrProduto").val(""),
         $("#vlrMinimo").val(""),
+        $("#indTipoEntradaF").prop("checked", false),
+        $("#indTipoEntradaA").prop("checked", false),
         $("#codProduto").val(0);
 }
 

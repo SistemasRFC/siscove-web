@@ -59,19 +59,20 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <button class="btn btn-primary" id="btnNovo">Novo</button>
-                                            <button class="btn btn-warning" id="indTipoEntrada">Entradas Em Aberto</button>
+                                            <button class="btn btn-warning" id="indTipoEntrada">Entradas Em
+                                                Aberto</button>
                                             <div class="form-check form-check-inline ml-auto">
-                                                <input class="form-check-input indTipoEntrada" type="radio" name="indTipoEntrada"
-                                                    id="indTipoEntradaF" value="F">
+                                                <input class="form-check-input indTipoEntrada" type="radio"
+                                                    name="indTipoEntrada" id="indTipoEntradaF" value="F">
                                                 <label style="color: black;" for="indTipoEntradaA">
-                                                    Fechada
+                                                    Aberta
                                                 </label>
                                             </div>
                                             <div class="form-check form-check-inline ml-auto">
-                                                <input class="form-check-input indTipoEntrada" type="radio" name="indTipoEntrada"
-                                                    id="indTipoEntradaA" value="A">
+                                                <input class="form-check-input indTipoEntrada" type="radio"
+                                                    name="indTipoEntrada" id="indTipoEntradaA" value="A">
                                                 <label style="color: black;" for="indTipoEntradaF">
-                                                    Aberta
+                                                    Fechada
                                                 </label>
                                             </div>
                                         </div>
@@ -94,14 +95,14 @@
                                             <input id="nroNotaFiscal" name="nroNotaFiscal" min="1" type="number"
                                                 class="form-control" />
                                         </div>
-                                        <div class="col-sm-6 Aberta">
+                                        <div class="col-sm-6 Fechada">
                                             <label for="dtaEntrada">Data da Entrada</label>
                                             <input id="dtaEntrada" name="dtaEntrada" type="datetime-local"
                                                 class="form-control" />
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-12">
+                                        <div class="col-sm-12 Fechada">
                                             <div class="form-group">
                                                 <label for="txtObervacao">OBSERVAÇÃO</label>
                                                 <textarea id="txtObervacao" name="txtObervacao" rows="4"
@@ -179,8 +180,13 @@
                                                             <div class="row">
                                                                 <div class="col-sm-12">
                                                                     <button class="btn btn-secondary"
+                                                                        data-toggle="collapse"
+                                                                        data-target="#collapseExample"
+                                                                        aria-expanded="false"
+                                                                        aria-controls="collapseExample"
                                                                         id="btnCancelar">Cancelar
                                                                     </button>
+
                                                                     <button class="btn btn-success"
                                                                         id="btnAdicionar">Adicionar
                                                                     </button>
@@ -212,6 +218,7 @@
                 </div>
             </div>
         </div>
+        <div id="modalEntrada"></div>
     </content>
 </body>
 
