@@ -1,14 +1,14 @@
-// dois combos nas linhas  204 e 230
-// um calculo na linha 259
-// um botao para limpar chamado de BtnNovo na linha 22 / um pra salvar chamado de BtnAddicionar  /
-// um AutoComplete na linha 27
-// uma tabela na linha 150
-// botao cancelar para fechar o adicionar produtos
 
 $(document).ready(function () {
     getListaDepositoAtivos();
     getListarAtivos();
-    getListarEntradaEstoque();
+    
+
+    $("#nroSequencial").change(function(){
+        if($("#nroSequencial").val()!=0){
+            getListarEntradaEstoque($("#nroSequencial").val());
+        }
+    });
 
     $("#modalEntrada").load("cadEntrada.html")
 
@@ -22,15 +22,6 @@ $(document).ready(function () {
     $("#btnNovo").click(function () {
 
         limparCampos();
-    })
-    $(".indTipoEntrada").click(function(){
-        if ($(this).val()=='F') {
-            $(".fechada").show();
-            $(".aberta").hide();
-        }else{
-            $(".fechada").hide();
-            $(".aberta").show();
-        }
     })
 
     $('.basicAutoComplete').on('autocomplete.select', function (evt, item) {
@@ -136,10 +127,10 @@ $("#btnSalvar").click(function () {
 });
 
 
-function getListarEntradaEstoque() {
+function getListarEntradaEstoque(nroSequencial) {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/entrada/estoque/listar",
+        url: "http://localhost:8080/entrada/estoque/listar/"+ nroSequencial,
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },
@@ -165,7 +156,6 @@ function montaTabela() {
     tabela += '        <td width="50%">Valor Custo </td>';
     tabela += '        <td width="50%">Valor Mínimo </td>';
     tabela += '        <td width="50%">Valor Venda </td>';
-    tabela += '        <td width="50%">Entrada </td>';
     tabela += '    </tr>';
     tabela += '</thead>';
     tabela += '<tbody id="corpoTabela">';
@@ -182,7 +172,6 @@ function montaTabela() {
         tabela += "     <td width='50'>" + dados[i].vlrUnitario + "</td>";
         tabela += "     <td width='50'>" + dados[i].vlrMinimo + "</td>";
         tabela += "     <td width='50'>" + dados[i].vlrVenda + "</td>";
-        tabela += "     <td width='50'>" + dados[i].indTipoEntrada + "</td>";
         tabela += "    </a>";
         tabela += "    </a>";
         tabela += "</td>";
