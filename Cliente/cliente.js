@@ -87,9 +87,6 @@ function preencherCampos(index) {
     $("#txtComplemento").val(dados.txtComplemento);
     $("#txtLocalidade").val(dados.txtLocalidade);
     $("#sglUf").val(dados.sglUf);
-    $("#txtUnidade").val(dados.txtUnidade);
-    $("#codIgbe").val(dados.codIgbe);
-    $("#codGia").val(dados.codGia);
     $("#txtEmail").val(dados.txtEmail);
     $("#dtaNascimento").val(dados.dtaNascimento);
     $("#nroIe").val(dados.nroIe);
@@ -108,9 +105,6 @@ function limparCampos() {
     $("#nmeBairro").val("");
     $("#txtLocalidade").val("");
     $("#sglUf").val("");
-    $("#txtUnidade").val("");
-    $("#codIgbe").val("");
-    $("#codGia").val("");
     $("#txtEmail").val("");
     $("#dtaNascimento").val("");
     $("#nroIe").val("");
