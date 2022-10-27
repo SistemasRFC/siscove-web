@@ -20,20 +20,16 @@ $("#btnSalvar").click(function () {
         swal('', 'Por favor preencha a Descrição !', 'warning');
         return false;
     }
+    if ($("#nroTelefoneContato").val() == '') {
+        swal('', 'Por favor preencha a Descrição !', 'warning');
+        return false;
+    }
     if ($("#nroCep").val() == '') {
         swal('', 'Por favor preencha o Cep !', 'warning');
         return false;
     }
     if ($("#txtLogradouro").val() == '') {
         swal('', 'Por favor preencha o Logradouro !', 'warning');
-        return false;
-    }
-    if ($("#txtEmail").val() == '') {
-        swal('', 'Por favor preencha o Email !', 'warning');
-        return false;
-    }
-    if ($("#nroIe").val() == '') {
-        swal('', 'Por favor preencha o I.E !', 'warning');
         return false;
     }
     if ($("#dtaNascimento").val() == '') {
@@ -44,8 +40,13 @@ $("#btnSalvar").click(function () {
         swal('', 'Por favor preencha a Cidade !', 'warning');
         return false;
     }
+    if ($("#indTipoClienteJ").is(":checked") && ($("#nroIe").val() == '')) {
+        swal('', 'Por favor preencha o I.E !', 'warning');
+        return false;
+    }
+
     var cliente = "F";
-    if($("#indTipoCliente").is(":checked")){
+    if($("#indTipoClienteJ").is(":checked")){
         cliente = "J";
     }
     
