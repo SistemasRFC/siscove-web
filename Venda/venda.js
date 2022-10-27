@@ -1,8 +1,16 @@
+// var dadosClienteSelected;
 $(document).ready(function () {
-    $("#btnNovo").click(function () {
-        editarCampos();
-        $("#vendaModal").modal("show");
-    });
+    criarComboVendedores();
+
+    // $("#modalCadCliente").load("../Cliente/cadCliente.html", dadosClienteSelected)
+
+    // $("#btnNovoCliente").click(function () {
+    //     limparCamposCliente();
+    //     $(".fisica").hide();
+    //     $(".juridica").hide();
+    //     $("#clienteModal").modal("show");
+
+    // });
 
     $('.basicAutoComplete').on('autocomplete.select', function (evt, item) {
         console.log(item)
@@ -64,13 +72,14 @@ $(document).ready(function () {
                 text: item.nroCpf ? item.nroCpf : item.nroCnpj,
             };
         },
+
         events: {
             search: function (qry, callback) {
                 $.ajax(
 
                     {
                         type: "GET",
-                        url: "http://localhost:8080/cliente/listar/byCpfCnpj/"+qry,
+                        url: "http://localhost:8080/listar/venda/produto/"+qry,
 
                         beforeSend: function (xhr) {
                             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
@@ -85,7 +94,6 @@ $(document).ready(function () {
         
     });
 });
-
 
 
 var dadosRetorno;
@@ -123,6 +131,7 @@ $("#btnSalvar").click(function () {
             indTipoEntrada: entrada,
         })
     } 
+    
 
     $.ajax({
         type: "POST",
@@ -152,6 +161,44 @@ $("#btnSalvar").click(function () {
         }
     });
 });
+
+
+
+function criarComboVendedores() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/usuario/listar/vendedores/",
+        beforeSend: function (xhr){ 
+            xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
+        },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(data){
+            if (data.retorno){
+                montarComboVendedores(data.objeto)
+            }else{
+                swal("", data.mensagem, "error"); 
+            }
+        },
+        error: function(err) {
+            swal("", "Erro ao consultar Vendedor!", "error"); 
+        }
+    });
+
+}
+
+function montarComboVendedores(obj) {
+    var html = "<select id='codUsuario' class='form-control dropdown-toggle'>";
+    html += "<option value='0'>Selecione</option>"
+    if(obj.length>0) {
+        for(var i in obj) {
+            html += "<option value="+obj[i].codUsuario+">"+obj[i].nmeUsuarioCompleto+"</option>"
+        }
+    }
+    html += "</select>";
+    $("#comboVendedor").html(html);
+}
+
 
 function limparCampos() {
     $(".precisaLimpar").val('');

@@ -47,50 +47,97 @@
                             <h1 class="h3 mb-0 text-gray-800">Cadastro</h1>
                         </div>
 
-                        <div class="row">
-
-                            <div class="col-xl-12 col-lg-12">
-                                <div class="card shadow mb-4">
-                                    <div
-                                        class="card-header d-flex flex-row align-items-center justify-content-between bg-dark">
-                                        <h6 class="m-0 font-weight-bold text-persian-dark">Cliente</h6>
-                                        <div>
-                                            <button class="btn btn-primary" id="btnNovo">Novo</button>
-                                        </div>
+                        <div class="card shadow">
+                            <div class="card-header d-flex flex-row align-items-center justify-content-between bg-dark">
+                                <h6 class="m-0 font-weight-bold text-persian-dark">Cliente</h6>
+                            </div>
+                            <div class="card-body">
+                                <input id="codCliente" name="codCliente" type="hidden" />
+                                <div class="row align-items-center">
+                                    <div class="col-sm-12 col-md-5 col-lg-5">
+                                        <label class="mb-0" for="dscCliente"><b>Nome:</b></label>
+                                        <input id="dscCliente" name="dscCliente" type="text"
+                                            class="form-control basicAutoComplete col-lg-11 mt-0" />
                                     </div>
-                                    <div class="card-body">
-                                        <div class="row align-items-center">
-                                            <div class="col-sm-2 col-md-1 col-lg-1">
-                                                <label class="mb-0" for="dscCliente"><b>Nome:</b></label>
-                                            </div>
-                                            <div class="col-sm-4 col-md-5 col-lg-5 pl-0">
-                                                <input id="dscCliente" name="dscCliente" type="text"
-                                                    class="form-control basicAutoComplete " />
-                                            </div>
-                                            <div class="col-sm-2 col-md-1 col-lg-1 px-0">
-                                                <label class="mb-0" for="nroDoc"><b>CPF/CNPJ:</b></label>
-                                            </div>
-                                            <div class="col-sm-4 col-md-5 col-lg-5">
-                                                <input id="nroDoc" name="nroDoc" type="text"
-                                                    class="form-control cpfCnpjAutoComplete " />
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-6 col-md-6 col-lg-6">
-                                                <label class="mb-0"><b>Contato:</b></label>
-                                                Celular: <span id="nroCelular"></span>
-                                                / Fixo: <span id="nroTelefone"></span>
-                                            </div>
-                                            <div class="col-sm-6 col-md-6 col-lg-6 px-0">
-                                                <label class="mb-0"><b>Endereço:</b></label>
-                                                <span id="txtEndereco" class=" precisaLimpar"></span>
-                                            </div>
-                                        </div>
+                                    <div class="col-sm-12 col-md-5 col-lg-5 pl-0">
+                                        <label class="mb-0" for="nroDoc"><b>CPF/ CNPJ:</b></label>
+                                        <input id="nroDoc" name="nroDoc" type="text"
+                                            class="form-control cpfCnpjAutoComplete col-lg-11 mt-0" />
                                     </div>
-                                    <input id="codCliente" name="codCliente" type="hidden" />
+                                    <div class="col-sm-12 col-md-2 col-lg-2 px-0">
+                                        <button class="btn btn-link" id="btnNovoCliente"><i
+                                                class="fa-solid fa-plus"></i> Novo Cliente</button>
+                                        <div id="modalCadCliente"></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-5 col-lg-5">
+                                        <label class="mb-0"><b>Contato:</b></label>
+                                        <br>
+                                        Celular: <span id="nroCelular"></span>
+                                        <br>
+                                        Fixo: <span id="nroTelefone"></span>
+                                    </div>
+                                    <div class="col-sm-12 col-md-5 col-lg-5 pl-0">
+                                        <label class="mb-0"><b>Endereço:</b></label>
+                                        <br>
+                                        <span id="txtEndereco" class=" precisaLimpar"></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+
+                        <div class="card shadow mt-2 mb-4">
+                            <div class="card-header d-flex flex-row align-items-center justify-content-between bg-dark">
+                                <h6 class="m-0 font-weight-bold text-persian-dark">Venda</h6>
+                            </div>
+                            <div class="card-body">
+                                <input id="codCliente" name="codCliente" type="hidden" />
+                                <div class="row align-items-center">
+                                    <div class="col-md-5 col-lg-5">
+                                        <label class="mb-0" for="dscCliente"><b>Vendedor</b></label>
+                                        <div id="comboVendedor"></div>
+                                    </div>
+                                    <div class="col-md-5 col-lg-3 pl-0">
+                                        <label class="mb-0" for="nroDoc"><b>Imposto do Produto</b></label>
+                                        <input id="nroDoc" name="nroDoc" type="text"
+                                            class="form-control cpfCnpjAutoComplete col-lg-11 mt-0" />
+                                    </div>
+                                    <div class="col-md-5 col-lg-3 pl-0">
+                                        <label class="mb-0" for="nroDoc"><b>Imposto do Serviço</b></label>
+                                        <input id="nroDoc" name="nroDoc" type="text"
+                                            class="form-control cpfCnpjAutoComplete col-lg-11 mt-0" />
+                                    </div>
+                                    <div id="modalCadCliente"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5 col-lg-5">
+                                        <label class="mb-0"><b>Veiculo</b></label>
+                                        <input id="dscVeiculo" name="dscVeiculo" type="text"
+                                            class="form-control basicAutoComplete col-lg-11 mt-0" />
+                                        <br>
+                                        <span id="dscVeiculo"></span>
+                                        <br>
+                                    </div>
+                                    <div class="col-md-5 col-lg-3 pl-0">
+                                        <label class="mb-0"><b>Placa</b></label>
+                                        <input id="nroPlaca" name="nroPlaca" type="text"
+                                            class="form-control basicAutoComplete col-lg-11 mt-0" />
+                                        <br>
+                                        <span id="nroPlaca" class=" precisaLimpar"></span>
+                                    </div>
+                                    <div class="col-md-5 col-lg-3 pl-0">
+                                        <label class="mb-0"><b>Km Rodado</b></label>
+                                        <input id="VlrKmRodado" name="VlrKmRodado" type="text"
+                                            class="form-control basicAutoComplete col-lg-11 mt-0" />
+                                        <br>
+                                        <span id="VlrKmRodado" class=" precisaLimpar"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
