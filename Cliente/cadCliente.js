@@ -21,7 +21,7 @@ $("#btnSalvar").click(function () {
         return false;
     }
     if ($("#nroTelefoneContato").val() == '') {
-        swal('', 'Por favor preencha a Descrição !', 'warning');
+        swal('', 'Por favor preencha o Telefone de Contato !', 'warning');
         return false;
     }
     if ($("#nroCep").val() == '') {
