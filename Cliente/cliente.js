@@ -84,7 +84,7 @@ function preencherCampos(index) {
     $("#codTipoCliente").val(dados.codTipoCliente)
     $("#nroCep").val(dados.nroCep);
     $("#txtLogradouro").val(dados.txtLogradouro);
-    $("#txtComplemento").val(dados.txtComplemento);
+    $("#txtComplemento").val(dados.txtComplemento)
     $("#txtLocalidade").val(dados.txtLocalidade);
     $("#sglUf").val(dados.sglUf);
     $("#txtEmail").val(dados.txtEmail);
@@ -115,6 +115,6 @@ function limparCampos() {
     $("#codTipoCliente").val("");
     $("#indTipoClienteJ").prop("checked", false),
     $("#indTipoClienteF").prop("checked", false),
-    $("#codCliente").val(0);
+        $("#codCliente").val(0);
 }
 
