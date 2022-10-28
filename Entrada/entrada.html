@@ -54,7 +54,7 @@
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-dark">
                                     <h6 class="m-0 font-weight-bold text-persian-dark">Entrada </h6>
                                 </div>
-                                <input id="nroSequencial" name="nroSequencial" type="text" value="0" />
+                                <input id="nroSequencial" name="nroSequencial" type="hidden" value="0" />
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-sm-12">
@@ -130,36 +130,24 @@
                                                                         placeholder="Informe um Produto"
                                                                         autocomplete="off" />
                                                                     <!-- <input class="form-control basicAutoComplete" type="text" placeholder="Pesquisar" autocomplete="off"> -->
-
                                                                 </div>
-
                                                             </div>
                                                             <div class="row servico">
                                                                 <div class="col-sm-3">
                                                                     <label for="qtdEntrada">Quantidade</label>
-
-                                                                    <input id="qtdEntrada" name="qtdEntrada"
-                                                                        type="number" class="form-control" />
+                                                                    <input id="qtdEntrada" name="qtdEntrada" type="number" class="form-control" />
                                                                 </div>
                                                                 <div class="col-sm-3">
                                                                     <label for="vlrUnitario">Valor Unitario</label>
-                                                                    <input id="vlrUnitario" type="number"
-                                                                        class="form-control" value="1"
-                                                                        onblur="calcular()" />
-
+                                                                    <input id="vlrUnitario" type="number"class="form-control" onblur="calcular()" />
                                                                 </div>
                                                                 <div class="col-sm-3">
                                                                     <label for="vlrMinimo">Valor Minimo</label>
-
-                                                                    <input id="vlrMinimo" type="number"
-                                                                        class="form-control" value="1" />
-
+                                                                    <input id="vlrMinimo" type="number" class="form-control" />                                                                     
                                                                 </div>
                                                                 <div class="col-sm-3">
                                                                     <label for="vlrVenda">Venda</label>
-
-                                                                    <input id="vlrVenda" name="vlrVenda" type="number"
-                                                                        class="form-control" />
+                                                                    <input id="vlrVenda" name="vlrVenda" type="number"class="form-control" />     
                                                                 </div>
                                                             </div>
                                                             <br>

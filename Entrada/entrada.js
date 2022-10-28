@@ -1,27 +1,26 @@
-
 $(document).ready(function () {
     getListaDepositoAtivos();
     getListarAtivos();
-    
 
-    $("#nroSequencial").change(function(){
-        if($("#nroSequencial").val()!=0){
+
+    $("#nroSequencial").change(function () {
+        if ($("#nroSequencial").val() != 0) {
             getListarEntradaEstoque($("#nroSequencial").val());
         }
     });
-
     $("#modalEntrada").load("cadEntrada.html")
 
-    $("#indTipoEntrada").click(function () {
-        limparCampos();
-        
+    $("#indTipoEntrada").click(function () { 
         $("#entradaModal").modal("show");
-
     })
 
     $("#btnNovo").click(function () {
 
         limparCampos();
+    })
+    $("#btnCancelar").click(function () {
+
+        LimparCamposCalculo();
     })
 
     $('.basicAutoComplete').on('autocomplete.select', function (evt, item) {
@@ -78,7 +77,7 @@ $("#btnSalvar").click(function () {
         swal('', 'Por favor preencha o Valor Minimo !', 'warning');
         return false;
     }
-    
+
     var dados = JSON.stringify({
         codFornecedor: $("#codFornecedor").val(),
         codDeposito: $("#codDeposito").val(),
@@ -130,7 +129,7 @@ $("#btnSalvar").click(function () {
 function getListarEntradaEstoque(nroSequencial) {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/entrada/estoque/listar/"+ nroSequencial,
+        url: "http://localhost:8080/entrada/estoque/listar/" +nroSequencial,
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },
@@ -147,7 +146,7 @@ function getListarEntradaEstoque(nroSequencial) {
 function montaTabela() {
     var dados = dadosRetorno;
     var tabela = '';
-    tabela += '<table class="table table-hover table-striped table-bordered table-white" id="tabelaEntrada">';
+    tabela += '<table class="table table-hover table-striped table-bordered table-white" id="tabelaEntradas">';
     tabela += '<thead>';
     tabela += '    <tr align="center">';
     tabela += '        <td width="50%">Codigo </td>';
@@ -162,7 +161,7 @@ function montaTabela() {
 
     for (var i in dados) {
         tabela += "<tr>";
-        tabela += "     <td width='50'>" + dados[i].nroSequencial + "</td>";
+        tabela += "     <td width='50'>" + dados[i].codProduto + "</td>";
         if (dados[i].produto == null) {
             tabela += "     <td width='50'></td>";
         } else {
@@ -180,22 +179,26 @@ function montaTabela() {
     tabela += "</tbody>";
     tabela += "</table>";
     $("#tabelaProdutos").html(tabela);
-    $("#tabelaEntrada").DataTable();
+    $("#tabelaEntradas").DataTable();
+}
+
+function LimparCamposCalculo() {
+    $("#dscProduto").val(""),
+        $("#vlrUnitario").val(""),
+        $("#qtdEntrada").val(""),
+        $("#vlrProduto").val(""),
+        $("#vlrMinimo").val(""),
+        $("#codProduto").val(0);
 }
 
 function limparCampos() {
-    $("#dscProduto").val(""),
-        $("#vlrVenda").val(""),
-        $("#vlrUnitario").val(""),
-        $("#qtdEntrada").val(""),
+    $("#vlrVenda").val(""),
         $("#codFornecedor").val(""),
         $("#btnProcurar").val(""),
         $("#codDeposito").val(""),
         $("#dtaEntrada").val(""),
         $("#txtObervacao").val(""),
         $("#nroNotaFiscal").val(""),
-        $("#vlrProduto").val(""),
-        $("#vlrMinimo").val(""),
         $("#indTipoEntradaF").prop("checked", false),
         $("#indTipoEntradaA").prop("checked", false),
         $("#codProduto").val(0);
