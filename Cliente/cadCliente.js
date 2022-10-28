@@ -1,11 +1,11 @@
 $(document).ready(function () {
-    
+
     getListarClientes();
-    $(".indTipoCliente").click(function(){
-        if ($(this).val()=='F') {
+    $(".indTipoCliente").click(function () {
+        if ($(this).val() == 'F') {
             $(".fisica").show();
             $(".juridica").hide();
-        }else{
+        } else {
             $(".fisica").hide();
             $(".juridica").show();
         }
@@ -45,10 +45,10 @@ $("#btnSalvar").click(function () {
         return false;
     }
     var cliente = "F";
-    if($("#indTipoCliente").is(":checked")){
+    if ($("#indTipoCliente").is(":checked")) {
         cliente = "J";
     }
-    
+
     var dados = JSON.stringify({
         codCliente: $("#codCliente").val(),
         dscCliente: $("#dscCliente").val(),
@@ -95,14 +95,19 @@ $("#btnSalvar").click(function () {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },
         data: dados,
-        
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
-            console.log(data);
             if (data.retorno) {
-                swal("", "Cliente confirmado!!!", "success");
+                swal({
+                    title: "",
+                    text: "Cliente salvo!",
+                    type: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
                 getListarClientes();
+                $("#clienteModal").modal("hide");
             } else {
                 swal("", "Cliente não confirmado!!!", "error");
             }
