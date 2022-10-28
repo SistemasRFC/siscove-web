@@ -12,7 +12,7 @@ $(document).ready(function () {
 
     // });
 
-    $('.basicAutoComplete').on('autocomplete.select', function (evt, item) {
+    $('.clienteAutoComplete').on('autocomplete.select', function (evt, item) {
         console.log(item)
         $("#codCliente").val(item.codCliente);
         $("#nroDoc").val(item.nroCpf);
@@ -20,10 +20,10 @@ $(document).ready(function () {
         $("#nroTelefone").html(item.nroTelefoneContato);
         $("#txtEndereco").html(item.txtLogradouro);
 
-        $('.basicAutoSelectSelected').html(item ? JSON.stringify(item) : 'null');
+        $('.clienteAutoSelectSelected').html(item ? JSON.stringify(item) : 'null');
     });
 
-    $(".basicAutoComplete").autoComplete({
+    $(".clienteAutoComplete").autoComplete({
         resolver: 'custom',
         formatResult: function (item) {
             return {
@@ -37,7 +37,7 @@ $(document).ready(function () {
 
                     {
                         type: "GET",
-                        url: "http://localhost:8080/cliente/listar/byTermo/"+qry,
+                        url: "http://localhost:8080/cliente/listar/byTermo/" + qry,
 
                         beforeSend: function (xhr) {
                             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
@@ -49,7 +49,7 @@ $(document).ready(function () {
                 });
             }
         }
-        
+
     });
 
 
@@ -68,10 +68,12 @@ $(document).ready(function () {
         formatResult: function (item) {
             return {
                 value: item.codCliente,
-                label: item.nroCpf, 
+                label: item.nroCpf,
                 text: item.nroCpf ? item.nroCpf : item.nroCnpj,
             };
         },
+
+
 
         events: {
             search: function (qry, callback) {
@@ -79,7 +81,7 @@ $(document).ready(function () {
 
                     {
                         type: "GET",
-                        url: "http://localhost:8080/listar/venda/produto/"+qry,
+                        url: "http://localhost:8080/listar/venda/produto/" + qry,
 
                         beforeSend: function (xhr) {
                             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
@@ -91,7 +93,46 @@ $(document).ready(function () {
                 });
             }
         }
-        
+
+    });
+
+    
+
+    $('.veiculoAutoComplete').on('autocomplete.select', function (evt, item) {
+        console.log(item)
+        $("#codVeiculo").val(item.codVeiculo);
+        $("#dscVeiculo").val(item.dscVeiculo);
+        $("#indAtivo").html(item.indAtivo);
+        $('.basicAutoSelectSelected').html(item ? JSON.stringify(item) : 'null');
+    });
+
+    $(".veiculoAutoComplete").autoComplete({
+        resolver: 'custom',
+        formatResult: function (item) {
+            return {
+                value: item.codVeiculo,
+                text: item.dscVeiculo,
+            };
+        },
+        events: {
+            search: function (qry, callback) {
+                $.ajax(
+
+                    {
+                        type: "GET",
+                        url: "http://localhost:8080/veiculo/listar/byTermo/" + qry,
+
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
+                        },
+                        data: qry
+                    }
+                ).done(function (res) {
+                    callback(res)
+                });
+            }
+        }
+
     });
 });
 
@@ -103,12 +144,12 @@ $("#btnSalvar").click(function () {
         swal('', 'Por favor preencha o Nome !', 'warning');
         return false;
     }
-    
+
     if ($("#nroDoc").val() == '') {
         swal('', 'Por favor preencha o Cpf ou Cnpj!', 'warning');
         return false;
     }
-   
+
     var entrada = "F";
     if ($("#indTipoEntrada").is(":checked")) {
         entrada = "A";
@@ -130,9 +171,8 @@ $("#btnSalvar").click(function () {
             nroCep: $("#nroCep").val(),
             indTipoEntrada: entrada,
         })
-    } 
-    
-
+    }
+ 
     $.ajax({
         type: "POST",
         url: "http://localhost:8080/cliente/salvar",
@@ -159,7 +199,7 @@ $("#btnSalvar").click(function () {
         error: function (err) {
             swal("", "Erro ao salvar Cliente", "error");
         }
-    });
+    })
 });
 
 
@@ -168,42 +208,42 @@ function criarComboVendedores() {
     $.ajax({
         type: "GET",
         url: "http://localhost:8080/usuario/listar/vendedores/",
-        beforeSend: function (xhr){ 
+        beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        success: function(data){
-            if (data.retorno){
+        success: function (data) {
+            if (data.retorno) {
                 montarComboVendedores(data.objeto)
-            }else{
-                swal("", data.mensagem, "error"); 
+            } else {
+                swal("", data.mensagem, "error");
             }
         },
-        error: function(err) {
-            swal("", "Erro ao consultar Vendedor!", "error"); 
+        error: function (err) {
+            swal("", "Erro ao consultar Vendedor!", "error");
         }
     });
 
 }
 
+
 function montarComboVendedores(obj) {
     var html = "<select id='codUsuario' class='form-control dropdown-toggle'>";
     html += "<option value='0'>Selecione</option>"
-    if(obj.length>0) {
-        for(var i in obj) {
-            html += "<option value="+obj[i].codUsuario+">"+obj[i].nmeUsuarioCompleto+"</option>"
+    if (obj.length > 0) {
+        for (var i in obj) {
+            html += "<option value=" + obj[i].codUsuario + ">" + obj[i].nmeUsuarioCompleto + "</option>"
         }
     }
     html += "</select>";
     $("#comboVendedor").html(html);
 }
 
-
 function limparCampos() {
     $(".precisaLimpar").val('');
     $(".precisaLimpar").html('');
-        
+
 }
 
 function editarCampos() {
