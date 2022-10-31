@@ -31,7 +31,6 @@ $(document).ready(function () {
 
 
     var dadosRetorno;
-
     $("#btnSalvar").click(function () {
         if ($("#codFornecedor").val() == '') {
             swal('', 'Por favor preencha o Fornecedor !', 'warning');
@@ -45,29 +44,22 @@ $(document).ready(function () {
             swal('', 'Por favor preencha o Numero da Nota Fiscal !', 'warning');
             return false;
         }
-        if ($("#dtaEntrada").val() == '') {
-            swal('', 'Por favor preencha o Valor Minimo !', 'warning');
-            return false;
-        }
+    
         var dados = JSON.stringify({
             codFornecedor: $("#codFornecedor").val(),
             codDeposito: $("#codDeposito").val(),
             nroNotaFiscal: $("#nroNotaFiscal").val(),
             dtaEntrada: $("#dtaEntrada").val(),
-            indTipoEntrada: entrada,
         })
-
-        if ($("#nroSequencial").val() > 0) {
+        if ($("#codUsuario").val() > 0) {
             dados = JSON.stringify({
                 codDeposito: $("#codDeposito").val(),
                 nroNotaFiscal: $("#nroNotaFiscal").val(),
                 dtaEntrada: $("#dtaEntrada").val(),
                 codFornecedor: $("#codFornecedor").val(),
-                nroSequencial: $("#nroSequencial").val(),
-                indTipoEntrada: entrada,
+                 codUsuario: $("#codUauario").val(),
             })
         }
-
         $.ajax({
             type: "POST",
             url: "http://localhost:8080/entrada/salvar",
@@ -230,12 +222,6 @@ $(document).ready(function () {
 
     }
 
-    function calcular() {
-        var valor2 = parseFloat($('#vlrUnitario').val());
-        $('#vlrMinimo').val(1.25 * valor2);
-        $('#vlrVenda').val(1.35 * valor2);
-
-    }
     $(".basicAutoComplete").autoComplete({
         resolver: 'custom',
         formatResult: function (item) {
@@ -264,3 +250,9 @@ $(document).ready(function () {
         }
     });
 });
+function calcular() {
+    var valor2 = parseFloat($('#vlrUnitario').val());
+    $('#vlrMinimo').val(1.25 * valor2);
+    $('#vlrVenda').val(1.35 * valor2);
+
+}
