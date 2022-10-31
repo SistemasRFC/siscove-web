@@ -1,4 +1,10 @@
 // var dadosClienteSelected;
+
+$(document).ready(function(){
+    $("#modalVenda").load("./venda.html");
+    getListaVenda();
+});
+
 $(document).ready(function () {
     criarComboVendedores();
 
@@ -200,8 +206,70 @@ $("#btnSalvar").click(function () {
             swal("", "Erro ao salvar Cliente", "error");
         }
     })
+    
 });
 
+var dadosRetorno;
+
+$("#btnSalvar").click(function () {
+    if ($("#dscVeiculo").val() == '') {
+        swal('', 'Por favor preencha o Veiculo !', 'warning');
+        return false;
+    }
+
+    if ($("#nroPlaca").val() == '') {
+        swal('', 'Por favor preencha a placa!', 'warning');
+        return false;
+    }
+
+    if ($("#vlrKmRodado").val() == '') {
+        swal('', 'Por favor preencha o quilometro rodado', 'warning');
+        return false;
+    }
+
+    var dados = JSON.stringify({
+        dscVeiculo: $("#dscVeiculo").val(),
+        nroPlaca: $("#nroPlaca").val(),
+        vlrKmRodado: $("#vlrKmRodado").val(),
+    })
+
+    if ($("#codVenda").val() > 0) {
+        dados = JSON.stringify({
+            codVenda: $("#codVenda").val(),
+            nroPlaca: $("#nroPlaca").val(),
+            vlrKmRodado: $("#vlrKmRodado").val(),
+        })
+    }
+ 
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/venda/produto/salvar",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
+        },
+        data: dados,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            if (data.retorno) {
+                swal({
+                    title: "",
+                    text: "venda salvo!",
+                    type: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+                salvarEntrada();
+            } else {
+                swal("", "Venda não pode ser salva!", "error");
+            }
+        },
+        error: function (err) {
+            swal("", "Erro ao salvar Venda", "error");
+        }
+    })
+    
+});
 
 
 function criarComboVendedores() {
