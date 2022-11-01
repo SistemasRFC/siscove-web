@@ -1,12 +1,12 @@
 $(document).ready(function () {
-    getListarEntradaEstoque();
+    getListarEntradaAtivos();
 
 })
 
-function getListarEntradaEstoque() {
+function getListarEntradaAtivos() {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/entrada/listar/ativos",
+        url: "http://localhost:8080/entrada/listar/abertas",
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },

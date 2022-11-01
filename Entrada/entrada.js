@@ -44,20 +44,30 @@ $(document).ready(function () {
             swal('', 'Por favor preencha o Numero da Nota Fiscal !', 'warning');
             return false;
         }
-    
+
         var dados = JSON.stringify({
-            codFornecedor: $("#codFornecedor").val(),
-            codDeposito: $("#codDeposito").val(),
+            fornecedorDto: {
+                codFornecedor: $("#codFornecedor").val(),
+            },
+            depositoDto: {
+                codDeposito: $("#codDeposito").val(),
+            },
             nroNotaFiscal: $("#nroNotaFiscal").val(),
             dtaEntrada: $("#dtaEntrada").val(),
+            txtObservacao: $("#txtObservacao").val(),
         })
         if ($("#codUsuario").val() > 0) {
             dados = JSON.stringify({
-                codDeposito: $("#codDeposito").val(),
+                depositoDto: {
+                    codDeposito: $("#codDeposito").val(),
+                },
                 nroNotaFiscal: $("#nroNotaFiscal").val(),
                 dtaEntrada: $("#dtaEntrada").val(),
-                codFornecedor: $("#codFornecedor").val(),
-                 codUsuario: $("#codUauario").val(),
+                fornecedorDto: {
+                    codFornecedor: $("#codFornecedor").val(),
+                },
+                codUsuario: $("#codUauario").val(),
+                txtObservacao: $("#txtObservacao").val(),
             })
         }
         $.ajax({
@@ -78,6 +88,7 @@ $(document).ready(function () {
                         timer: 2000,
                         showConfirmButton: false
                     });
+                    limparCampos();
                     salvarEntrada();
                 } else {
                     swal("", "Produto não salvo!!!", "error");
@@ -160,10 +171,8 @@ $(document).ready(function () {
             $("#btnProcurar").val(""),
             $("#codDeposito").val(""),
             $("#dtaEntrada").val(""),
-            $("#txtObervacao").val(""),
+            $("#txtObservacao").val(""),
             $("#nroNotaFiscal").val(""),
-            $("#indTipoEntradaF").prop("checked", false),
-            $("#indTipoEntradaA").prop("checked", false),
             $("#codProduto").val(0);
     }
 
