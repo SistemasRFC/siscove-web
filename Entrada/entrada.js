@@ -117,6 +117,61 @@ $(document).ready(function () {
         });
     }
 
+    $("#btnAdicionar").click(function () {
+        if ($("#codProduto").val() == '') {
+            swal('', 'Por favor preencha o Fornecedor !', 'warning');
+            return false;
+        }
+        if ($("#vlrUnitario").val() == '') {
+            swal('', 'Por favor preencha o Deposito !', 'warning');
+            return false;
+        }
+        var dados = JSON.stringify({
+            codProduto: $("#codProduto").val(),
+            vlrVenda: $("#vlrVenda").val(),
+            vlrMinimo: $("#vlrMinimo").val(),
+            vlrUnitario: $("#vlrUnitario").val(),
+            qtdEntrada: $("#qtdEntrada").val(),
+        })
+        if ($("#codUsuario").val() > 0) {
+            dados = JSON.stringify({
+                codProduto: $("#codProduto").val(),
+                vlrVenda: $("#vlrVenda").val(),
+                vlrMinimo: $("#vlrMinimo").val(),
+                vlrUnitario: $("#vlrUnitario").val(),
+                qtdEntrada: $("#qtdEntrada").val(),
+            })
+        }
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/entrada/estoque/adicionar/produto",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
+            },
+            data: dados,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data.retorno) {
+                    swal({
+                        title: "",
+                        text: "Produto salvo!",
+                        type: "success",
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                    LimparCamposCalculo();
+                    adicionarProduto();
+                } else {
+                    swal("", "Produto não salvo!!!", "error");
+                }
+            },
+            error: function (err) {
+                swal("", "Erro ao salvar Produto!!!", "error");
+            }
+        });
+    });
+
     function montaTabela() {
         var dados = dadosRetorno;
         var tabela = '';
