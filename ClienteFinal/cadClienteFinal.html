@@ -1,0 +1,75 @@
+<script src="cadClienteFinal.js"></script>
+
+<div class="modal fade" id="clienteFinalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 55%" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark">
+                <h5 class="modal-title" id="exampleModalLabel">Novo Cliente Final</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input id="codClienteFinal" name="codClienteFinal" type="hidden" class="form-control" />
+                <div class="row">
+                    <div class="col-sm-8">
+                        <label for="nmeClienteFinal">Descrição</label>
+                        <input id="nmeClienteFinal" name="nmeClienteFinal" type="text" class="form-control" />
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="codClienteFinal">Tipo de Pessoa</label>
+                        <br />
+                        <div class="d-flex form-control">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input indTipoCliente" type="radio" name="indTipoCliente"
+                                    id="indTipoClienteF" value="F">
+                                <label style="color: black;" for="indTipoClienteF">
+                                    Fisíca
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline ml-auto">
+                                <input class="form-check-input indTipoCliente" type="radio" name="indTipoCliente"
+                                    id="indTipoClienteJ" value="J">
+                                <label style="color: black;" for="indTipoClienteJ">
+                                    Jurídica
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 divPessoaF">
+                        <label for="nroCpf">CPF</label>
+                        <input id="nroCpf" name="nroCpf" type="text" class="form-control" maxlength="11"/>
+                    </div>
+                    <div class="col-sm-6 divPessoaJ">
+                        <label for="nroCnpj">CNPJ</label>
+                        <input id="nroCnpj" name="nroCnpj" type="text" class="form-control" maxlength="14"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="custom-control custom-checkbox mt-2">
+                            <input type="checkbox" name="indAtivo" id="indAtivo" class="custom-control-input" />
+                            <label class="custom-control-label" for="indAtivo">Ativo</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class='btn btn-secondary btn-icon-split' data-dismiss="modal" aria-label="Close">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-times mt-1"></i>
+                    </span>
+                    <span class="text">Cancelar</span>
+                </button>
+                <button id="btnSalvar" class='btn btn-success btn-icon-split'>
+                    <span class="icon text-white-50">
+                        <i class="fas fa-check"></i>
+                    </span>
+                    <span class="text">Salvar</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
