@@ -50,35 +50,34 @@
                         <div class="card shadow">
                             <div class="card-header d-flex flex-row align-items-center justify-content-between bg-dark">
                                 <h6 class="m-0 font-weight-bold text-persian-dark">Cliente</h6>
+                                
+                                <button class="btn btn-link" id="btnNovoCliente"><i
+                                    class="fa-solid fa-plus"></i> Novo Cliente</button>
                             </div>
+                            <div id="modalCadCliente"></div>
                             <div class="card-body">
                                 <input id="codCliente" name="codCliente" type="hidden" />
                                 <div class="row align-items-center">
-                                    <div class="col-sm-12 col-md-5 col-lg-5">
+                                    <div class="col-sm-12 col-md-6 col-lg-6">
                                         <label class="mb-0" for="dscCliente"><b>Nome:</b></label>
                                         <input id="dscCliente" name="dscCliente" type="text"
                                             class="form-control clienteAutoComplete col-lg-11 mt-0" />
                                     </div>
-                                    <div class="col-sm-12 col-md-5 col-lg-5 pl-0">
+                                    <div class="col-sm-12 col-md-6 col-lg-6 pl-0">
                                         <label class="mb-0" for="nroDoc"><b>CPF/ CNPJ:</b></label>
                                         <input id="nroDoc" name="nroDoc" type="text"
                                             class="form-control cpfCnpjAutoComplete col-lg-11 mt-0" />
                                     </div>
-                                    <div class="col-sm-12 col-md-2 col-lg-2 px-0">
-                                        <button class="btn btn-link" id="btnNovoCliente"><i
-                                                class="fa-solid fa-plus"></i> Novo Cliente</button>
-                                        <div id="modalCadCliente"></div>
-                                    </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-5 col-lg-5">
+                                    <div class="col-sm-12 col-md-6 col-lg-6">
                                         <label class="mb-0"><b>Contato:</b></label>
                                         <br>
                                         Celular: <span id="nroCelular"></span>
                                         <br>
                                         Fixo: <span id="nroTelefone"></span>
                                     </div>
-                                    <div class="col-sm-12 col-md-5 col-lg-5 pl-0">
+                                    <div class="col-sm-12 col-md-6 col-lg-6 pl-0">
                                         <label class="mb-0"><b>Endereço:</b></label>
                                         <br>
                                         <span id="txtEndereco" class=" precisaLimpar"></span>
@@ -93,47 +92,54 @@
                                 <h6 class="m-0 font-weight-bold text-persian-dark">Venda</h6>
                             </div>
                             <div class="card-body">
-                                <input id="codCliente" name="codCliente" type="hidden" />
+                                <input id="codVenda" name="codVenda" type="hidden" />
                                 <div class="row align-items-center">
-                                    <div class="col-md-5 col-lg-5">
-                                        <label class="mb-0" for="dscCliente"><b>Vendedor</b></label>
+                                    <div class="col-md-6 col-lg-5">
+                                        <label class="mb-0" for="codVendedor"><b>Vendedor</b></label>
                                         <div id="comboVendedor"></div>
                                     </div>
-                                    <div class="col-md-5 col-lg-3 pl-0">
-                                        <label class="mb-0" for="nroDoc"><b>Imposto do Produto</b></label>
-                                        <input id="nroDoc" name="nroDoc" type="text"
-                                            class="form-control cpfCnpjAutoComplete col-lg-11 mt-0" />
+                                    <div class="col-md-6 col-lg-3">
+                                        <label class="mb-0" for="vlrImpostoProduto"><b>Imposto do Produto</b></label>
+                                        <input id="vlrImpostoProduto" name="vlrImpostoProduto" type="text"
+                                            class="form-control mt-0" />
                                     </div>
-                                    <div class="col-md-5 col-lg-3 pl-0">
-                                        <label class="mb-0" for="nroDoc"><b>Imposto do Serviço</b></label>
-                                        <input id="nroDoc" name="nroDoc" type="text"
-                                            class="form-control cpfCnpjAutoComplete col-lg-11 mt-0" />
+                                    <div class="col-md-6 col-lg-3">
+                                        <label class="mb-0" for="vlrImpostoServico"><b>Imposto do Serviço</b></label>
+                                        <input id="vlrImpostoServico" name="vlrImpostoServico" type="text"
+                                            class="form-control mt-0" />
                                     </div>
-                                    <div id="modalCadCliente"></div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-5 col-lg-5">
-                                        <label class="mb-0"><b>Veiculo</b></label>
+                                <div class="row align-items-center">
+                                    <div class="col-md-5 col-lg-4 pr-0">
+                                        <label class="mb-0" for="dscVeiculo"><b>Veículo</b></label>
                                         <input id="dscVeiculo" name="dscVeiculo" type="text"
-                                            class="form-control veiculoAutoComplete col-lg-11 mt-0" />
-                                        <br>
+                                            class="form-control veiculoAutoComplete mt-0" />
                                     </div>
-                                    <div class="col-md-5 col-lg-3 pl-0">
-                                        <label class="mb-0"><b>Placa</b></label>
+                                    <div class="col-md-2 col-lg-2 px-0">
+                                        <button class="btn btn-link" id="btnNovoVeiculo"><i
+                                                class="fa-solid fa-plus"></i> Novo Veículo</button>
+                                        <div id="modalCadVeiculo"></div>
+                                    </div>
+                                    <div class="col-md-5 col-lg-3">
+                                        <label class="mb-0" for="nroPlaca"><b>Placa</b></label>
                                         <input id="nroPlaca" name="nroPlaca" type="text"
-                                            class="form-control col-lg-11 mt-0" />
+                                            class="form-control mt-0" />
                                     </div>
-                                    <div class="col-md-5 col-lg-3 pl-0">
-                                        <label class="mb-0"><b>Km Rodado</b></label>
+                                    <div class="col-md-4 col-lg-3">
+                                        <label class="mb-0" for="VlrKmRodado"><b>Km Rodado</b></label>
                                         <input id="VlrKmRodado" name="VlrKmRodado" type="text"
-                                            class="form-control col-lg-11 mt-0" />
+                                            class="form-control mt-0" />
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 col-lg-12">
-                                        <label class="mt-0" for="story">Observação:</label>
-                                        <textarea id="story" name="story" rows="7" cols="110" class="form-control"></textarea> 
-                                        <button class="btn btn-success" id="btnSalvar" style="width: 100%;">Salvar</button>
+                                        <label class="mt-0" for="txtObservacao">Observação:</label>
+                                        <textarea id="txtObservacao" name="txtObservacao" rows="3" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-12 my-2">
+                                        <button class="btn btn-success btn-block" id="btnSalvar">Salvar</button>
                                     </div>
                                 </div>
                             </div>
