@@ -8,7 +8,7 @@ $(document).ready(function () {
             getListarEntradaEstoque($("#nroSequencial").val());
         }
     });
-    $("#modalEntrada").load("cadEntrada.html")
+    $("#modalEntrada").load("listaEntradasAbertas.html")
 
     $("#indTipoEntrada").click(function () {
         $("#entradaModal").modal("show");
@@ -32,18 +32,18 @@ $(document).ready(function () {
 
     var dadosRetorno;
     $("#btnSalvar").click(function () {
-        if ($("#codFornecedor").val() == '') {
-            swal('', 'Por favor preencha o Fornecedor !', 'warning');
-            return false;
-        }
-        if ($("#codDeposito").val() == '') {
-            swal('', 'Por favor preencha o Deposito !', 'warning');
-            return false;
-        }
-        if ($("#nroNotaFiscal").val() == '') {
-            swal('', 'Por favor preencha o Numero da Nota Fiscal !', 'warning');
-            return false;
-        }
+        // if ($("#codFornecedor").val() == '') {
+        //     swal('', 'Por favor preencha o Fornecedor !', 'warning');
+        //     return false;
+        // }
+        // if ($("#codDeposito").val() == '') {
+        //     swal('', 'Por favor preencha o Deposito !', 'warning');
+        //     return false;
+        // }
+        // if ($("#nroNotaFiscal").val() == '') {
+        //     swal('', 'Por favor preencha o Numero da Nota Fiscal !', 'warning');
+        //     return false;
+        // }
 
         var dados = JSON.stringify({
             fornecedorDto: {
@@ -56,7 +56,7 @@ $(document).ready(function () {
             dtaEntrada: $("#dtaEntrada").val(),
             txtObservacao: $("#txtObservacao").val(),
         })
-        if ($("#codUsuario").val() > 0) {
+        if ($("#nroSequencial").val() > 0) {
             dados = JSON.stringify({
                 depositoDto: {
                     codDeposito: $("#codDeposito").val(),
@@ -88,7 +88,6 @@ $(document).ready(function () {
                         timer: 2000,
                         showConfirmButton: false
                     });
-                    limparCampos();
                     salvarEntrada();
                 } else {
                     swal("", "Produto não salvo!!!", "error");
@@ -127,7 +126,11 @@ $(document).ready(function () {
             return false;
         }
         var dados = JSON.stringify({
-            codProduto: $("#codProduto").val(),
+            produto: {
+                codProduto: $("#codProduto").val(),
+            },
+            nroSequencial: $("#nroSequencial").val(),
+
             vlrVenda: $("#vlrVenda").val(),
             vlrMinimo: $("#vlrMinimo").val(),
             vlrUnitario: $("#vlrUnitario").val(),
@@ -135,7 +138,10 @@ $(document).ready(function () {
         })
         if ($("#codUsuario").val() > 0) {
             dados = JSON.stringify({
-                codProduto: $("#codProduto").val(),
+                produto: {
+                    codProduto: $("#codProduto").val(),
+                },
+                nroSequencial: $("#nroSequencial").val(),
                 vlrVenda: $("#vlrVenda").val(),
                 vlrMinimo: $("#vlrMinimo").val(),
                 vlrUnitario: $("#vlrUnitario").val(),
@@ -213,6 +219,7 @@ $(document).ready(function () {
 
     function LimparCamposCalculo() {
         $("#dscProduto").val(""),
+            $("#vlrVenda").val(""),
             $("#vlrUnitario").val(""),
             $("#qtdEntrada").val(""),
             $("#vlrProduto").val(""),
@@ -221,8 +228,7 @@ $(document).ready(function () {
     }
 
     function limparCampos() {
-        $("#vlrVenda").val(""),
-            $("#codFornecedor").val(""),
+        $("#codFornecedor").val(""),
             $("#btnProcurar").val(""),
             $("#codDeposito").val(""),
             $("#dtaEntrada").val(""),
@@ -320,3 +326,11 @@ function calcular() {
     $('#vlrVenda').val(1.35 * valor2);
 
 }
+
+$buttons.click(function() {
+    $(this).prop('disabled', true); //disable clicked button
+});
+
+$('#enable').click(() =>
+    $buttons.prop('disabled', false) //enable all buttons
+);

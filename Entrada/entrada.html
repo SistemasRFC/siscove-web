@@ -98,73 +98,77 @@
                                         </div>
                                     </div>
 
-                                    <div id="linha">
-                                        <div class="row" align="right">
-                                            <button id="btnSalvar" class='btn btn-success'>
-                                                <span class="icon text-white-100">
-                                                    <i class="fas fa-check"></i>
-                                                </span>
-                                                <span class="text">Salvar</span>
-                                            </button>
-                                        </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 " align=" right"></div>
+                                        <button id="btnSalvar" class='btn btn-success'>
+                                            <span class="icon text-white-100">
+                                                <i class="fas fa-check"></i>
+                                            </span>
+                                            <span class="text" onclick="undisableBtn()">Salvar</span>
+                                        </button>
                                     </div>
-                                    <div id="linha">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <a class="btn btn-link" data-toggle="collapse" href="#collapseExample"
-                                                    role="button" aria-expanded="false" aria-controls="collapseExample">
+                                    <script>
+                                        function undisableBtn() {
+                                            document.getElementById("myBtn").disabled = false;
+                                        }
+                                    </script>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <a class="btn btn-link disabled" data-toggle="collapse"
+                                                href="#collapseExample" role="button" id="myBtn" aria-expanded="false"
+                                                aria-controls="collapseExample">
+                                                <i class="fas fa-plus"></i>
+                                                Adicionar Produto
+                                            </a>
+                                            <div class="row">
 
-                                                    <i class="fas fa-plus"></i>
-                                                    Adicionar Produto
-                                                </a>
-                                                <div class="row">
-
-                                                    <div class="col-lg-12">
-                                                        <div class="collapse" id="collapseExample">
-                                                            <div class="row">
-                                                                <div class="col-sm-12">
-                                                                    <label for="codProduto">Produto</label>
-                                                                    <input type="hidden" id="codProduto">
-                                                                    <input class="form-control basicAutoComplete"
-                                                                        type="text" id="dscProduto"
-                                                                        placeholder="Informe um Produto"
-                                                                        autocomplete="off" />
-                                                                    <!-- <input class="form-control basicAutoComplete" type="text" placeholder="Pesquisar" autocomplete="off"> -->
-                                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="collapse" id="collapseExample">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <label for="codProduto">Produto</label>
+                                                                <input type="hidden" id="codProduto">
+                                                                <input class="form-control basicAutoComplete"
+                                                                    type="text" id="dscProduto"
+                                                                    placeholder="Informe um Produto"
+                                                                    autocomplete="off" />
+                                                                <!-- <input class="form-control basicAutoComplete" type="text" placeholder="Pesquisar" autocomplete="off"> -->
                                                             </div>
-                                                            <div class="row servico">
-                                                                <div class="col-sm-3">
-                                                                    <label for="qtdEntrada">Quantidade</label>
-                                                                    <input id="qtdEntrada" name="qtdEntrada" type="number" class="form-control" />
-                                                                </div>
-                                                                <div class="col-sm-3">
-                                                                    <label for="vlrUnitario">Valor Unitario</label>
-                                                                    <input id="vlrUnitario" type="number"class="form-control" onblur="calcular()" />
-                                                                </div>
-                                                                <div class="col-sm-3">
-                                                                    <label for="vlrMinimo">Valor Minimo</label>
-                                                                    <input id="vlrMinimo" type="number" class="form-control" />                                                                     
-                                                                </div>
-                                                                <div class="col-sm-3">
-                                                                    <label for="vlrVenda">Venda</label>
-                                                                    <input id="vlrVenda" name="vlrVenda" type="number"class="form-control" />     
-                                                                </div>
+                                                        </div>
+                                                        <div class="row servico">
+                                                            <div class="col-sm-3">
+                                                                <label for="qtdEntrada">Quantidade</label>
+                                                                <input id="qtdEntrada" name="qtdEntrada" type="number"
+                                                                    class="form-control" />
                                                             </div>
-                                                            <br>
-                                                            <div class="row">
-                                                                <div class="col-sm-12">
-                                                                    <button class="btn btn-secondary"
-                                                                        data-toggle="collapse"
-                                                                        data-target="#collapseExample"
-                                                                        aria-expanded="false"
-                                                                        aria-controls="collapseExample"
-                                                                        id="btnCancelar">Cancelar
-                                                                    </button>
+                                                            <div class="col-sm-3">
+                                                                <label for="vlrUnitario">Valor Unitario</label>
+                                                                <input id="vlrUnitario" type="number"
+                                                                    class="form-control" onblur="calcular()" />
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                <label for="vlrMinimo">Valor Minimo</label>
+                                                                <input id="vlrMinimo" type="number"
+                                                                    class="form-control" />
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                <label for="vlrVenda">Venda</label>
+                                                                <input id="vlrVenda" name="vlrVenda" type="number"
+                                                                    class="form-control" />
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <button class="btn btn-secondary" data-toggle="collapse"
+                                                                    data-target="#collapseExample" aria-expanded="false"
+                                                                    aria-controls="collapseExample"
+                                                                    id="btnCancelar">Cancelar
+                                                                </button>
 
-                                                                    <button class="btn btn-success"
-                                                                        id="btnAdicionar">Adicionar
-                                                                    </button>
-                                                                </div>
+                                                                <button class="btn btn-success"
+                                                                    id="btnAdicionar">Adicionar
+                                                                </button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -172,27 +176,27 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="linha">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div id="tabelaProdutos"></div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                </div>
+                                <div id="linha">
                                     <div class="row">
-                                        <div class="col-sm-12 fechada">
-                                            <button class="btn btn-dark" id="btnFechar">Fechar Entrada</button>
+                                        <div class="col-lg-12">
+                                            <div id="tabelaProdutos"></div>
                                         </div>
                                     </div>
-
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 fechada">
+                                        <button class="btn btn-dark" id="btnFechar">Fechar Entrada</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div id="modalEntrada"></div>
         </div>
-        <div id="modalEntrada"></div>
+
     </content>
 </body>
 

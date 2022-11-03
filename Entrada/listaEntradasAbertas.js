@@ -37,10 +37,10 @@ function montaTabelaEntrada() {
         tabela += "<tr>";
         tabela += "     <td width='10'>" + dados[i].nroSequencial + "</td>";
         tabela += "     <td width='15'>" + dados[i].dtaEntrada + "</td>"; 
-        if (dados[i].fornecedor == null) {
+        if (dados[i].fornecedorDto == null) {
             tabela += "     <td width='50'></td>";
         } else {
-            tabela += "     <td width='50'>" + dados[i].fornecedor.dscFornecedor + "</td>";
+            tabela += "     <td width='50'>" + dados[i].fornecedorDto.dscFornecedor + "</td>";
         }
         tabela += "     <td width='50'>" + dados[i].vlrTotal + "</td>"; 
         tabela += "    </a>";
