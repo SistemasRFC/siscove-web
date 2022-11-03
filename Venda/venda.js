@@ -4,13 +4,11 @@ $(document).ready(function () {
     $("#vlrImpostoServico").val('0,1026');
     criarComboVendedores();
 
-    // $("#modalCadCliente").load("../Cliente/cadCliente.html", dadosClienteSelected)
+    // $("#modalVenda").load("../Venda/venda.html", dadosVendaSelected)
 
-    // $("#btnNovoCliente").click(function () {
-    //     limparCamposCliente();
-    //     $(".fisica").hide();
-    //     $(".juridica").hide();
-    //     $("#clienteModal").modal("show"); 
+    // $("#btnNovoVenda").click(function () {
+    //     limparCamposVenda();
+    //     $("#vendaModal").modal("show"); 
 
     // });
 
@@ -129,125 +127,78 @@ $(document).ready(function () {
         }
 
     });
-});
 
-$("#btnSalvar").click(function () {
-    if ($("#codCliente").val() == '') {
-        swal('', 'Por favor informe o Cliente!', 'warning');
-        return false;
-    }
+    $("#btnSalvar").click(function () {
 
-    var dados = JSON.stringify({
-        codCliente: $("#codCliente").val(),
-        nroDoc: $("#nroDoc").val(),
-        nroTelefoneCelular: $("#nroTelefoneCelular").val(),
-        nroTelefoneContato: $("#nroTelefoneContato").val(),
-        txtLogradouro: $("#txtLogradouro").val(),
-        codUsuario: $("#codUsuario").val(),
-        dscVeiculo: $("#dscVeiculo").val(),
-        vlrImpostoProduto: $("#vlrImpostoProduto").val(),
-        vlrServicoProduto: $("#vlrServicoProduto").val(),
-        nroPlaca: $("#nroPlaca").val(),
-        vlrKmRodado: $("#vlrKmRodado").val(),
-        
+        if ($("#nroPlaca").val() == '') {
+            swal('', 'Por favor preencher a placa !', 'warning');
+            return false;
+        }
 
-    })
-
-    if ($("#codVenda").val() > 0) {
-        dados = JSON.stringify({
-            codVenda: $("#codVenda").val(),
+        if ($("#vlrKmRodado").val() == '') {
+            swal('', 'Por favor preencher a quilometragem !', 'warning');
+            return false;
+        }
+    
+        var dados = JSON.stringify({
+            nroPlaca: $("#nroPlaca").val(),
+            vlrKmRodado: $("#vlrKmRodado").val(),
+            vlrImpostoProduto: $("#vlrImpostoProduto").val(),
+            vlrImpostoServico: $("#vlrImpostoServico").val(),
             codCliente: $("#codCliente").val(),
-            nroDoc: $("#nroDoc").val(),
-        nroTelefoneCelular: $("#nroTelefoneCelular").val(),
-        nroTelefoneContato: $("#nroTelefoneContato").val(),
-        txtLogradouro: $("#txtLogradouro").val(),
-        codUsuario: $("#codUsuario").val(),
-        dscVeiculo: $("#dscVeiculo").val(),
-        vlrImpostoProduto: $("#vlrImpostoProduto").val(),
-        vlrServicoProduto: $("#vlrServicoProduto").val(),
-        nroPlaca: $("#nroPlaca").val(),
-        vlrKmRodado: $("#vlrKmRodado").val(),
-
+            codUsuario: $("#codUsuario").val(),
+            vlrDesconto: $("#vlrDesconto").val(),
+            nroPlaca: $("#nroPlaca").val(),
+            codVeiculo: $("#codVeiculo").val(),
+            txtObservacao: $("#txtOnservacao").val(), 
+            vlrKmRodado: $("#vlrKmRodado").val(),
         })
-        
-    }
- 
-    $.ajax({
-        type: "POST",
-        url: "http://localhost:8080/venda/salvar",
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
-        },
-        data: dados,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
-            if (data.retorno) {
-                swal({
-                    title: "",
-                    text: "Venda salva!",
-                    type: "success",
-                    timer: 2000,
-                    showConfirmButton: false
-                });
-                salvarEntrada();
-            } else {
+    
+        if ($("#codVenda").val() > 0) {
+            dados = JSON.stringify({  
+                codVenda: $("#codVenda").val(),
+                nroPlaca: $("#nroPlaca").val(),
+                vlrKmRodado: ("#vlrKmRodado").val(),
+                codCliente: ("#codCliente").val(),
+                codUsuario: ("#codUsuario").val(),
+                vlrDesconto: $("#vlrDesconto").val(),
+                nroPlaca: $("#nroPlaca").val(),
+                codVeiculo: $("#codVeiculo").val(),
+                txtObservacao: $("#txtObservacao").val(),
+                vlrKmRodado: $("#vlrKmRodado").val(),  
+            })
+        }
+    
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/venda/salvar",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
+            },
+            data: dados,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data.retorno) {
+                    swal({
+                        title: "",
+                        text: "Venda salva!",
+                        type: "success",
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                    getListaVenda();
+                    $("#modalVenda").modal("hide");
+                } else {
+                    swal("", "Venda não salva!", "error");
+                }
+            },
+            error: function (err) {
                 swal("", "Não foi possível salvar a venda!", "error");
             }
-        },
-        error: function (err) {
-            swal("", "Erro ao salvar Venda", "error");
-        }
-    })
-    
+        });
+    });
 });
-
-
-// $("#btnSalvar").click(function () {
-//     if ($("#dscVeiculo").val() == '') {
-//         swal('', 'Por favor preencha o Veiculo !', 'warning');
-//         return false;
-//     }
-
-//     var dados = JSON.stringify({
-//         dscVeiculo: $("#dscVeiculo").val(),
-//     })
-
-//     if ($("#codVenda").val() > 0) {
-//         dados = JSON.stringify({
-//             codVenda: $("#codVenda").val(),
-//         })
-//     }
- 
-//     $.ajax({
-//         type: "POST",
-//         url: "http://localhost:8080/venda/produto/salvar",
-//         beforeSend: function (xhr) {
-//             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
-//         },
-//         data: dados,
-//         contentType: "application/json; charset=utf-8",
-//         dataType: "json",
-//         success: function (data) {
-//             if (data.retorno) {
-//                 swal({
-//                     title: "",
-//                     text: "venda salva!",
-//                     type: "success",
-//                     timer: 2000,
-//                     showConfirmButton: false
-//                 });
-//                 salvarEntrada();
-//             } else {
-//                 swal("", "Venda não pode ser salva!", "error");
-//             }
-//         },
-//         error: function (err) {
-//             swal("", "Erro ao salvar Venda", "error");
-//         }
-//     })
-    
-// });
 
 function criarComboVendedores() {
     $.ajax({
