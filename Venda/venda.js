@@ -93,13 +93,13 @@ $(document).ready(function () {
 
     });
 
-    
+
 
     $('.veiculoAutoComplete').on('autocomplete.select', function (evt, item) {
         $("#dscVeiculo").val(item.dscVeiculo);
 
     });
-    
+
     $(".veiculoAutoComplete").autoComplete({
         resolver: 'custom',
         formatResult: function (item) {
@@ -139,39 +139,38 @@ $(document).ready(function () {
             swal('', 'Por favor preencher a quilometragem !', 'warning');
             return false;
         }
-    
+
         var dados = JSON.stringify({
-            nroPlaca: $("#nroPlaca").val(),
-            vlrKmRodado: $("#vlrKmRodado").val(),
-            vlrImpostoProduto: $("#vlrImpostoProduto").val(),
-            vlrImpostoServico: $("#vlrImpostoServico").val(),
-            codCliente: $("#codCliente").val(),
-            codUsuario: $("#codUsuario").val(),
-            vlrDesconto: $("#vlrDesconto").val(),
-            nroPlaca: $("#nroPlaca").val(),
-            codVeiculo: $("#codVeiculo").val(),
-            txtObservacao: $("#txtOnservacao").val(), 
-            vlrKmRodado: $("#vlrKmRodado").val(),
+              vlrImpostoProduto: $("#vlrImpostoProduto"),
+              vlrImpostoServico: $("#vlrImpostoServico"),
+              codCliente: $("#codCliente"),
+              vlrDesconto: $("#vlrDesconto"),
+              nroPlaca: $("#nroPlaca"),
+              codVeiculo: $("#codVeiculo"),
+              txtObservacao: $("#txtObservacao"),
+              vlrKmRodado: $("#vlrKmRodado"),
+              
         })
-    
+
         if ($("#codVenda").val() > 0) {
-            dados = JSON.stringify({  
-                codVenda: $("#codVenda").val(),
-                nroPlaca: $("#nroPlaca").val(),
-                vlrKmRodado: ("#vlrKmRodado").val(),
-                codCliente: ("#codCliente").val(),
-                codUsuario: ("#codUsuario").val(),
-                vlrDesconto: $("#vlrDesconto").val(),
-                nroPlaca: $("#nroPlaca").val(),
-                codVeiculo: $("#codVeiculo").val(),
-                txtObservacao: $("#txtObservacao").val(),
-                vlrKmRodado: $("#vlrKmRodado").val(),  
+            dados = JSON.stringify({
+                vlrImpostoProduto: $("#vlrImpostoProduto"),
+                vlrImpostoServico: $("#vlrImpostoServico"),
+                codVenda: $("#codVenda"),
+                codCliente: $("#codCliente"),
+                vlrDesconto: $("#vlrDesconto"),
+                nroPlaca: $("#nroPlaca"),
+                codVeiculo: $("#codVeiculo"),
+                txtObservacao: $("#txtObservacao"),
+                vlrKmRodado: $("#vlrKmRodado"),
+           
+
             })
         }
-    
+
         $.ajax({
             type: "POST",
-            url: "http://localhost:8080/venda/salvar",
+            url: "http://localhost:8080/venda/salvar/",
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
             },
@@ -190,7 +189,7 @@ $(document).ready(function () {
                     getListaVenda();
                     $("#modalVenda").modal("hide");
                 } else {
-                    swal("", "Venda não salva!", "error");
+                    swal("", "Venda não pode salva!", "error");
                 }
             },
             error: function (err) {
