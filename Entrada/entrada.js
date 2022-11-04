@@ -3,6 +3,7 @@ $(document).ready(function () {
     getListarAtivos();
 
 
+
     $("#nroSequencial").change(function () {
         if ($("#nroSequencial").val() != 0) {
             getListarEntradaEstoque($("#nroSequencial").val());
@@ -12,6 +13,14 @@ $(document).ready(function () {
 
     $("#indTipoEntrada").click(function () {
         $("#entradaModal").modal("show");
+        swal({
+            
+            title: "",
+            text: "Carregando Lista de Entradas Abertas!",
+            imageUrl:"https://media.giphy.com/media/8agqybiK5LW8qrG3vJ/giphy.gif",
+            timer: 9000,
+            showConfirmButton: false
+        });
     })
 
     $("#btnNovo").click(function () {
@@ -44,7 +53,6 @@ $(document).ready(function () {
         //     swal('', 'Por favor preencha o Numero da Nota Fiscal !', 'warning');
         //     return false;
         // }
-
         var dados = JSON.stringify({
             fornecedorDto: {
                 codFornecedor: $("#codFornecedor").val(),
@@ -55,6 +63,7 @@ $(document).ready(function () {
             nroNotaFiscal: $("#nroNotaFiscal").val(),
             dtaEntrada: $("#dtaEntrada").val(),
             txtObservacao: $("#txtObservacao").val(),
+            codUsuario: $("#codUsuario").val(),
         })
         if ($("#nroSequencial").val() > 0) {
             dados = JSON.stringify({
@@ -66,7 +75,7 @@ $(document).ready(function () {
                 fornecedorDto: {
                     codFornecedor: $("#codFornecedor").val(),
                 },
-                codUsuario: $("#codUauario").val(),
+                codUsuario: $("#codUsuario").val(),
                 txtObservacao: $("#txtObservacao").val(),
             })
         }
@@ -88,7 +97,14 @@ $(document).ready(function () {
                         timer: 2000,
                         showConfirmButton: false
                     });
-                    salvarEntrada();
+                    $('#btnSalvar').on('click', function () {
+                        $('#BtnAddProduto').prop('disabled', true);
+                    }
+                    );
+                    if ($("#nroSequencial").val() != 0) {
+                        getListarEntradaEstoque($("#nroSequencial").val());
+                    }
+
                 } else {
                     swal("", "Produto não salvo!!!", "error");
                 }
@@ -166,7 +182,6 @@ $(document).ready(function () {
                         timer: 2000,
                         showConfirmButton: false
                     });
-                    LimparCamposCalculo();
                     adicionarProduto();
                 } else {
                     swal("", "Produto não salvo!!!", "error");
@@ -184,28 +199,28 @@ $(document).ready(function () {
         tabela += '<table class="table table-hover table-striped table-bordered table-white" id="tabelaEntradas">';
         tabela += '<thead>';
         tabela += '    <tr align="center">';
-        tabela += '        <td width="50%">Codigo </td>';
-        tabela += '        <td width="50%">Produto </td>';
-        tabela += '        <td width="50%">Quantidade </td>';
-        tabela += '        <td width="50%">Valor Custo </td>';
-        tabela += '        <td width="50%">Valor Mínimo </td>';
-        tabela += '        <td width="50%">Valor Venda </td>';
+        tabela += '        <td width="10%">Codigo </td>';
+        tabela += '        <td width="30%">Produto </td>';
+        tabela += '        <td width="10%">Quantidade </td>';
+        tabela += '        <td width="10%">Valor Custo </td>';
+        tabela += '        <td width="10%">Valor Mínimo </td>';
+        tabela += '        <td width="10%">Valor Venda </td>';
         tabela += '    </tr>';
         tabela += '</thead>';
         tabela += '<tbody id="corpoTabela">';
 
         for (var i in dados) {
             tabela += "<tr>";
-            tabela += "     <td width='50'>" + dados[i].codProduto + "</td>";
+            tabela += "     <td width='10'>" + dados[i].nroSequencial + "</td>";
             if (dados[i].produto == null) {
                 tabela += "     <td width='50'></td>";
             } else {
-                tabela += "     <td width='50'>" + dados[i].produto.dscProduto + "</td>";
+                tabela += "     <td width='30'>" + dados[i].produto.dscProduto + "</td>";
             }
-            tabela += "     <td width='50'>" + dados[i].qtdEntrada + "</td>";
-            tabela += "     <td width='50'>" + dados[i].vlrUnitario + "</td>";
-            tabela += "     <td width='50'>" + dados[i].vlrMinimo + "</td>";
-            tabela += "     <td width='50'>" + dados[i].vlrVenda + "</td>";
+            tabela += "     <td width='10'>" + dados[i].qtdEntrada + "</td>";
+            tabela += "     <td width='10'>" + dados[i].vlrUnitario + "</td>";
+            tabela += "     <td width='10'>" + dados[i].vlrMinimo + "</td>";
+            tabela += "     <td width='10'>" + dados[i].vlrVenda + "</td>";
             tabela += "    </a>";
             tabela += "    </a>";
             tabela += "</td>";
@@ -326,11 +341,3 @@ function calcular() {
     $('#vlrVenda').val(1.35 * valor2);
 
 }
-
-$buttons.click(function() {
-    $(this).prop('disabled', true); //disable clicked button
-});
-
-$('#enable').click(() =>
-    $buttons.prop('disabled', false) //enable all buttons
-);

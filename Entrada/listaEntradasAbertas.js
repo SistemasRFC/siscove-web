@@ -11,14 +11,18 @@ function getListarEntradaAtivos() {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },
         success: function (data) {
+            
             dadosRetorno = data.objeto;
             montaTabelaEntrada(data.objeto);
+            
         },
+
         error: (err) => {
             swal("", " não confirmado!!!", "error");
         }
     });
 }
+
 function montaTabelaEntrada() {
     var dados = dadosRetorno;
     var tabela = '';
@@ -36,13 +40,13 @@ function montaTabelaEntrada() {
     for (var i in dados) {
         tabela += "<tr>";
         tabela += "     <td width='10'>" + dados[i].nroSequencial + "</td>";
-        tabela += "     <td width='15'>" + dados[i].dtaEntrada + "</td>"; 
+        tabela += "     <td width='15'>" + dados[i].dtaEntrada + "</td>";
         if (dados[i].fornecedorDto == null) {
             tabela += "     <td width='50'></td>";
         } else {
             tabela += "     <td width='50'>" + dados[i].fornecedorDto.dscFornecedor + "</td>";
         }
-        tabela += "     <td width='50'>" + dados[i].vlrTotal + "</td>"; 
+        tabela += "     <td width='50'>" + dados[i].vlrTotal + "</td>";
         tabela += "    </a>";
 
         tabela += "</td>";
