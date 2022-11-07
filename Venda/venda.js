@@ -97,6 +97,7 @@ $(document).ready(function () {
 
     $('.veiculoAutoComplete').on('autocomplete.select', function (evt, item) {
         $("#dscVeiculo").val(item.dscVeiculo);
+        $("#codVeiculo").val(item.codVeiculo);
 
     });
 
@@ -130,47 +131,52 @@ $(document).ready(function () {
 
     $("#btnSalvar").click(function () {
 
-        if ($("#nroPlaca").val() == '') {
-            swal('', 'Por favor preencher a placa !', 'warning');
+        if ($("#codCliente").val() == '') {
+            swal('', 'Por favor informe o cliente.', 'warning');
             return false;
         }
 
-        if ($("#vlrKmRodado").val() == '') {
-            swal('', 'Por favor preencher a quilometragem !', 'warning');
+        if ($("#codVendedor").val() == '') {
+            swal('', 'Por favor informe o vendedor.', 'warning');
             return false;
         }
+
+        var vlrImpostoP = $("#vlrImpostoProduto").val().replace(',','.');
+        var vlrImpostoS = $("#vlrImpostoServico").val().replace(',',',');
+        var vlrDesconto = $("#vlrDesconto").val().repalce(',',',');
 
         var dados = JSON.stringify({
-              vlrImpostoProduto: $("#vlrImpostoProduto"),
-              vlrImpostoServico: $("#vlrImpostoServico"),
-              codCliente: $("#codCliente"),
-              vlrDesconto: $("#vlrDesconto"),
-              nroPlaca: $("#nroPlaca"),
-              codVeiculo: $("#codVeiculo"),
-              txtObservacao: $("#txtObservacao"),
-              vlrKmRodado: $("#vlrKmRodado"),
-              
+            nroStatusVenda: $("#nroStatusVenda").val(),
+            codCliente: $("#codCliente").val(),
+            codVendedor: $("#codVendedor").val(),
+             vlrDesconto: parseFloat(vlrDesconto),
+            nroPlaca: $("#nroPlaca").val(),
+            codVeiculo: $("#codVeiculo").val(),
+            txtObservacao: $("#txtObservacao").val(),
+            vlrKmRodado: $("#vlrKmRodado").val(),
+            vlrImpostoProduto: parseFloat(vlrImpostoP), 
+            vlrImpostoServico: parseFloat(vlrImpostoS),
         })
 
         if ($("#codVenda").val() > 0) {
             dados = JSON.stringify({
-                vlrImpostoProduto: $("#vlrImpostoProduto"),
-                vlrImpostoServico: $("#vlrImpostoServico"),
-                codVenda: $("#codVenda"),
-                codCliente: $("#codCliente"),
-                vlrDesconto: $("#vlrDesconto"),
-                nroPlaca: $("#nroPlaca"),
-                codVeiculo: $("#codVeiculo"),
-                txtObservacao: $("#txtObservacao"),
-                vlrKmRodado: $("#vlrKmRodado"),
-           
-
+                codVenda: $("#codVenda").val(),
+                nroStatusVenda: $("#nroStatusVenda").val(),
+                codCliente: $("#codCliente").val(),
+                codVendedor: $("#codVendedor").val(),
+                vlrDesconto: parseFloat(vlrDesconto),
+                nroPlaca: $("#nroPlaca").val(),
+                codVeiculo: $("#codVeiculo").val(),
+                txtObservacao: $("#txtObservacao").val(),
+                vlrKmRodado: $("#vlrKmRodado").val(), 
+                vlrImpostoProduto: parseFloat(vlrImpostoP),
+                 vlrImpostoServico: parseFloat(vlrImpostoS),
             })
         }
 
         $.ajax({
             type: "POST",
-            url: "http://localhost:8080/venda/salvar/",
+            url: "http://localhost:8080/venda/salvar",
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
             },
@@ -189,7 +195,7 @@ $(document).ready(function () {
                     getListaVenda();
                     $("#modalVenda").modal("hide");
                 } else {
-                    swal("", "Venda não pode salva!", "error");
+                    swal("", "Venda não pôde ser salva!", "error");
                 }
             },
             error: function (err) {
@@ -202,7 +208,7 @@ $(document).ready(function () {
 function criarComboVendedores() {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/usuario/listar/vendedores/",
+        url: "http://localhost:8080/usuario/listar/vendedores",
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },

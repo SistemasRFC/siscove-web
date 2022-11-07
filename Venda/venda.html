@@ -89,7 +89,8 @@
 
                         <div class="card shadow mt-2 mb-4">
                             <div class="card-header d-flex flex-row align-items-center justify-content-between bg-dark">
-                                <h6 class="m-0 font-weight-bold text-persian-dark">Venda</h6>
+                                <input id="nroStatusVenda" name="nroStatusVenda" type="hidden" />
+                                <h6 class="m-0 font-weight-bold text-persian-dark">Venda <span class="badge bg-info" id="statusVenda">Nova venda</span></h6>
                             </div>
                             <div class="card-body">
                                 <input id="codVenda" name="codVenda" type="hidden" />
@@ -111,6 +112,7 @@
                                 </div>
                                 <div class="row align-items-center">
                                     <div class="col-md-5 col-lg-4 pr-0">
+                                        <input id="codVeiculo" name="codVeiculo" type="hidden">
                                         <label class="mb-0" for="dscVeiculo"><b>Veículo</b></label>
                                         <input id="dscVeiculo" name="dscVeiculo" type="text"
                                             class="form-control veiculoAutoComplete mt-0" />
