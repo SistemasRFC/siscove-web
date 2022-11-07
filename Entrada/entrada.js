@@ -1,36 +1,35 @@
 $(document).ready(function () {
     getListaDepositoAtivos();
     getListarAtivos();
-
-
-
+    
     $("#nroSequencial").change(function () {
         if ($("#nroSequencial").val() != 0) {
             getListarEntradaEstoque($("#nroSequencial").val());
         }
     });
-    $("#modalEntrada").load("listaEntradasAbertas.html")
-
-    $("#indTipoEntrada").click(function () {
-        $("#entradaModal").modal("show");
-        swal({
-            
-            title: "",
-            text: "Carregando Lista de Entradas Abertas!",
-            imageUrl:"https://media.giphy.com/media/8agqybiK5LW8qrG3vJ/giphy.gif",
-            timer: 9000,
-            showConfirmButton: false
-        });
-    })
+    $("#modalEntrada").load("modalEntradasAbertas.html");
 
     $("#btnNovo").click(function () {
-
         limparCampos();
-    })
+    });
+
     $("#btnCancelar").click(function () {
 
         LimparCamposCalculo();
-    })
+    });
+
+    
+
+    $("#btnTipoEntrada").click(function () {
+        swal({
+
+            title: "Carregando Lista de Entradas Abertas!",
+            text: "",
+            imageUrl: "../Resources/images/preload.gif",
+            showConfirmButton: false
+        });
+        getListarEntradaAbertas();
+    });
 
     $('.basicAutoComplete').on('autocomplete.select', function (evt, item) {
         console.log(item)
@@ -41,18 +40,18 @@ $(document).ready(function () {
 
     var dadosRetorno;
     $("#btnSalvar").click(function () {
-        // if ($("#codFornecedor").val() == '') {
-        //     swal('', 'Por favor preencha o Fornecedor !', 'warning');
-        //     return false;
-        // }
-        // if ($("#codDeposito").val() == '') {
-        //     swal('', 'Por favor preencha o Deposito !', 'warning');
-        //     return false;
-        // }
-        // if ($("#nroNotaFiscal").val() == '') {
-        //     swal('', 'Por favor preencha o Numero da Nota Fiscal !', 'warning');
-        //     return false;
-        // }
+        if ($("#codFornecedor").val() == '') {
+            swal('', 'Por favor preencha o Fornecedor !', 'warning');
+            return false;
+        }
+        if ($("#codDeposito").val() == '') {
+            swal('', 'Por favor preencha o Deposito !', 'warning');
+            return false;
+        }
+        if ($("#nroNotaFiscal").val() == '') {
+            swal('', 'Por favor preencha o Numero da Nota Fiscal !', 'warning');
+            return false;
+        }
         var dados = JSON.stringify({
             fornecedorDto: {
                 codFornecedor: $("#codFornecedor").val(),
@@ -134,11 +133,11 @@ $(document).ready(function () {
 
     $("#btnAdicionar").click(function () {
         if ($("#codProduto").val() == '') {
-            swal('', 'Por favor preencha o Fornecedor !', 'warning');
+            swal('', 'Por favor preencha o Produto !', 'warning');
             return false;
         }
         if ($("#vlrUnitario").val() == '') {
-            swal('', 'Por favor preencha o Deposito !', 'warning');
+            swal('', 'Por favor preencha o Valor Unitario !', 'warning');
             return false;
         }
         var dados = JSON.stringify({

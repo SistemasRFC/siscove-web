@@ -1,9 +1,9 @@
-$(document).ready(function () {
-    getListarEntradaAtivos();
+// $(document).ready(function () {
+//     getListarEntradaAbertas();
 
-})
+// })
 
-function getListarEntradaAtivos() {
+function getListarEntradaAbertas() {
     $.ajax({
         type: "GET",
         url: "http://localhost:8080/entrada/listar/abertas",
@@ -11,12 +11,9 @@ function getListarEntradaAtivos() {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },
         success: function (data) {
-            
             dadosRetorno = data.objeto;
             montaTabelaEntrada(data.objeto);
-            
         },
-
         error: (err) => {
             swal("", " não confirmado!!!", "error");
         }
@@ -29,24 +26,24 @@ function montaTabelaEntrada() {
     tabela += '<table class="table table-hover table-striped table-bordered table-white" id="tabelaEntrada">';
     tabela += '<thead>';
     tabela += '    <tr align="center">';
-    tabela += '        <td width="10%">Codigo </td>'
-    tabela += '        <td width="15%">Data </td>'
-    tabela += '        <td width="50%">Fornecedor </td>'
-    tabela += '        <td width="50%">Valor Total </td>'
+    tabela += '        <td>Codigo </td>'
+    tabela += '        <td>Data </td>'
+    tabela += '        <td>Fornecedor </td>'
+    tabela += '        <td>Valor Total </td>'
     tabela += '    </tr>';
     tabela += '</thead>';
-    tabela += '<tbody id="tabelaCorpo">';
+    tabela += '<tbody>';
 
     for (var i in dados) {
         tabela += "<tr>";
-        tabela += "     <td width='10'>" + dados[i].nroSequencial + "</td>";
-        tabela += "     <td width='15'>" + dados[i].dtaEntrada + "</td>";
+        tabela += "     <td>" + dados[i].nroSequencial + "</td>";
+        tabela += "     <td>" + dados[i].dtaEntrada + "</td>";
         if (dados[i].fornecedorDto == null) {
-            tabela += "     <td width='50'></td>";
+            tabela += "     <td></td>";
         } else {
-            tabela += "     <td width='50'>" + dados[i].fornecedorDto.dscFornecedor + "</td>";
+            tabela += "     <td>" + dados[i].fornecedorDto.dscFornecedor + "</td>";
         }
-        tabela += "     <td width='50'>" + dados[i].vlrTotal + "</td>";
+        tabela += "     <td>" + dados[i].vlrTotal + "</td>";
         tabela += "    </a>";
 
         tabela += "</td>";
@@ -54,7 +51,9 @@ function montaTabelaEntrada() {
     }
     tabela += "</tbody>";
     tabela += "</table>";
-    $("#tabelaEntradaAberta").html(tabela);
     $("#tabelaEntrada").DataTable();
+    $("#tabelaEntradaAberta").html(tabela);
+    swal.close();
+    $("#entradaModal").modal("show");
 }
 
