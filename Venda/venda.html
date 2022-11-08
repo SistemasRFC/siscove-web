@@ -50,9 +50,9 @@
                         <div class="card shadow">
                             <div class="card-header d-flex flex-row align-items-center justify-content-between bg-dark">
                                 <h6 class="m-0 font-weight-bold text-persian-dark">Cliente</h6>
-                                
-                                <button class="btn btn-link" id="btnNovoCliente"><i
-                                    class="fa-solid fa-plus"></i> Novo Cliente</button>
+
+                                <button class="btn btn-link" id="btnNovoCliente"><i class="fa-solid fa-plus"></i> Novo
+                                    Cliente</button>
                             </div>
                             <div id="modalCadCliente"></div>
                             <div class="card-body">
@@ -89,8 +89,9 @@
 
                         <div class="card shadow mt-2 mb-4">
                             <div class="card-header d-flex flex-row align-items-center justify-content-between bg-dark">
-                                <input id="nroStatusVenda" name="nroStatusVenda" type="hidden" />
-                                <h6 class="m-0 font-weight-bold text-persian-dark">Venda <span class="badge bg-info" id="statusVenda">Nova venda</span></h6>
+                                <input id="nroStat usVenda" name="nroStatusVenda" type="hidden" />
+                                <h6 class="m-0 font-weight-bold text-persian-dark">Venda <span class="badge bg-info"
+                                        id="statusVenda">Nova venda</span></h6>
                             </div>
                             <div class="card-body">
                                 <input id="codVenda" name="codVenda" type="hidden" />
@@ -101,12 +102,12 @@
                                     </div>
                                     <div class="col-md-6 col-lg-3">
                                         <label class="mb-0" for="vlrImpostoProduto"><b>Imposto do Produto</b></label>
-                                        <input id="vlrImpostoProduto" name="vlrImpostoProduto" type="text"
+                                        <input id="vlrImpostoProduto" name="vlrImpostoP" type="text"
                                             class="form-control mt-0" />
                                     </div>
                                     <div class="col-md-6 col-lg-3">
                                         <label class="mb-0" for="vlrImpostoServico"><b>Imposto do Serviço</b></label>
-                                        <input id="vlrImpostoServico" name="vlrImpostoServico" type="text"
+                                        <input id="vlrImpostoServico" name="vlrImpostoS" type="text"
                                             class="form-control mt-0" />
                                     </div>
                                 </div>
@@ -124,8 +125,7 @@
                                     </div>
                                     <div class="col-md-5 col-lg-3">
                                         <label class="mb-0" for="nroPlaca"><b>Placa</b></label>
-                                        <input id="nroPlaca" name="nroPlaca" type="text"
-                                            class="form-control mt-0" />
+                                        <input id="nroPlaca" name="nroPlaca" type="text" class="form-control mt-0" />
                                     </div>
                                     <div class="col-md-4 col-lg-3">
                                         <label class="mb-0" for="vlrKmRodado"><b>Km Rodado</b></label>
@@ -136,7 +136,8 @@
                                 <div class="row">
                                     <div class="col-md-12 col-lg-12">
                                         <label class="mt-0" for="txtObservacao"><b>Observação:</b></label>
-                                        <textarea id="txtObservacao" name="txtObservacao" rows="3" class="form-control"></textarea>
+                                        <textarea id="txtObservacao" name="txtObservacao" rows="3"
+                                            class="form-control"></textarea>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -144,12 +145,18 @@
                                         <button class="btn btn-success btn-block" id="btnSalvar">Salvar</button>
                                     </div>
                                 </div>
+                                <p><b>Produto</b></p>
+                                <button class="btn btn-link" id="btnAdicionais"><i
+                                        class="fa-plus">Adicionais</i></button>
+                                        <hr class="solid">
+                                    <div id="modalCadProdutos"></div>    
                             </div>
                         </div>
-
                     </div>
+
                 </div>
             </div>
+        </div>
         </div>
         <div id="modalVenda"></div>
         <a class="scroll-to-top rounded" href="#page-top">

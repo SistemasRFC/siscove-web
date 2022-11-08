@@ -142,14 +142,12 @@ $(document).ready(function () {
         }
 
         var vlrImpostoP = $("#vlrImpostoProduto").val().replace(',','.');
-        var vlrImpostoS = $("#vlrImpostoServico").val().replace(',',',');
-        var vlrDesconto = $("#vlrDesconto").val().repalce(',',',');
+        var vlrImpostoS = $("#vlrImpostoServico").val().replace(',','.');
 
         var dados = JSON.stringify({
             nroStatusVenda: $("#nroStatusVenda").val(),
             codCliente: $("#codCliente").val(),
             codVendedor: $("#codVendedor").val(),
-             vlrDesconto: parseFloat(vlrDesconto),
             nroPlaca: $("#nroPlaca").val(),
             codVeiculo: $("#codVeiculo").val(),
             txtObservacao: $("#txtObservacao").val(),
@@ -164,7 +162,6 @@ $(document).ready(function () {
                 nroStatusVenda: $("#nroStatusVenda").val(),
                 codCliente: $("#codCliente").val(),
                 codVendedor: $("#codVendedor").val(),
-                vlrDesconto: parseFloat(vlrDesconto),
                 nroPlaca: $("#nroPlaca").val(),
                 codVeiculo: $("#codVeiculo").val(),
                 txtObservacao: $("#txtObservacao").val(),
@@ -192,8 +189,6 @@ $(document).ready(function () {
                         timer: 2000,
                         showConfirmButton: false
                     });
-                    getListaVenda();
-                    $("#modalVenda").modal("hide");
                 } else {
                     swal("", "Venda não pôde ser salva!", "error");
                 }
