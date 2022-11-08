@@ -76,8 +76,8 @@ function preencherCampos(index) {
         $(".fisica").hide('fade');
     } else {
         $("#indTipoClienteF").prop('checked', true);
-        $(".juridica").show('fade');
-        $(".fisica").hide('fade');
+        $(".juridica").hide('fade');
+        $(".fisica").show('fade');
     }
     $("#nmeBairro").val(dados.nmeBairro);
     $("#codCliente").val(dados.codCliente);

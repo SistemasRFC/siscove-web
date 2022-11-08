@@ -3,11 +3,11 @@ $(document).ready(function () {
     getListarClientes();
     $(".indTipoCliente").click(function () {
         if ($(this).val() == 'F') {
-            $(".fisica").show();
-            $(".juridica").hide();
-        } else {
             $(".fisica").hide();
             $(".juridica").show();
+        } else {
+            $(".fisica").show();
+            $(".juridica").hide();
         }
     })
     $("#nroCep").blur(function () {
@@ -49,7 +49,7 @@ $("#btnSalvar").click(function () {
     }
 
     var cliente = "F";
-    if($("#indTipoClienteJ").is(":checked")){
+    if ($("#indTipoClienteJ").is(":checked")) {
         cliente = "J";
     }
 
@@ -75,7 +75,7 @@ $("#btnSalvar").click(function () {
     if ($("#codCliente").val() > 0) {
         dados = JSON.stringify({
             dscProduto: $("#dscProduto").val(),
-            dscCliente: $("#codCliente").val(),
+            dscCliente: $("#dscCliente").val(),
             nroCep: $("#nroCep").val(),
             nmeBairro: $("#nmeBairro").val(),
             txtLocalidade: $("#txtLocalidade").val(),
@@ -88,8 +88,8 @@ $("#btnSalvar").click(function () {
             nroIe: $("#nroIe").val(),
             codClienteFinal: $("#codClienteFinal").val(),
             txtEmail: $("#txtEmail").val(),
-            indTipoCliente: cliente,
-            codCliente: $("#codCliente").val()
+            codCliente: $("#codCliente").val(),
+            indTipoCliente: cliente
         })
     }
 
