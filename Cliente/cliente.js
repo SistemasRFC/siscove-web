@@ -1,15 +1,12 @@
 $(document).ready(function () {
     $("#modalCliente").load("cadCliente.html")
 
-
     $("#btnNovo").click(function () {
         limparCampos();
         $(".fisica").hide();
         $(".juridica").hide()
         $("#clienteModal").modal("show");
-
     })
-
     $("#btnProcurar").click(function () {
         getListarClientes();
     })
@@ -30,6 +27,7 @@ function getListarClientes() {
         success: function (data) {
             dadosRetorno = data.objeto;
             montaTabelaCliente();
+            
         },
         error: (err) => {
             
@@ -65,6 +63,7 @@ function montaTabelaCliente() {
     tabela += '</table>';
     $("#tabelaCliente").DataTable();
     $("#divTabela").html(tabela);
+    
 }
 
 function preencherCampos(index) {
@@ -79,16 +78,16 @@ function preencherCampos(index) {
         $(".juridica").hide('fade');
         $(".fisica").show('fade');
     }
-    $("#nmeBairro").val(dados.nmeBairro);
     $("#codCliente").val(dados.codCliente);
     $("#codTipoCliente").val(dados.codTipoCliente)
     $("#nroCep").val(dados.nroCep);
+    $("#dtaNascimento").val(dados.dtaNascimento); 
     $("#txtLogradouro").val(dados.txtLogradouro);
-    $("#txtComplemento").val(dados.txtComplemento)
+    $("#txtComplemento").val(dados.txtComplemento);
+    $("#nmeBairro").val(dados.nmeBairro);
     $("#txtLocalidade").val(dados.txtLocalidade);
     $("#sglUf").val(dados.sglUf);
     $("#txtEmail").val(dados.txtEmail);
-    $("#dtaNascimento").val(dados.dtaNascimento);
     $("#nroIe").val(dados.nroIe);
     $("#nroCnpj").val(dados.nroCnpj);
     $("#nroCpf").val(dados.nroCpf);

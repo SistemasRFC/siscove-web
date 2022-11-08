@@ -54,13 +54,20 @@
                                     <div class="card-body">
                                         <button class="btn btn-primary" id="btnNovo">Novo</button>
                                         <br></br>
-                                        <div class="input-group">
-                                            <input type="search" class="form-control rounded" placeholder="Pesquisar"
-                                                id="Termo" aria-label="Search" aria-describedby="search-addon" />
-                                            </input>
-                                            <button class="badge bg-secondary" type="button"  id="btnProcurar">
-                                                <i class="fa fa-search"></i>
-                                            </button>
+                                        <div class="row align-items-end">
+                                            <div class="col-md-10 col-lg-8">
+                                                <label for="Termo" class="mb-0">Nome </label>
+                                                <input type="search" class="form-control rounded "
+                                                    placeholder="Pesquisar" id="Termo" aria-label="Search"
+                                                    aria-describedby="search-addon" />
+                                                </input>
+                                            </div>
+                                            <div class="col-md-2 col-lg-2">
+
+                                                <button class="btn btn-secondary btn-block btn-lg mb-1" id="btnProcurar">
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                         <div id="divTabela"></div>
                                     </div>
