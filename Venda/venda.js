@@ -3,6 +3,7 @@ $(document).ready(function () {
     $("#vlrImpostoProduto").val('0,0684');
     $("#vlrImpostoServico").val('0,1026');
     criarComboVendedores();
+    criarComboFuncionarios();
 
     // $("#modalVenda").load("../Venda/venda.html", dadosVendaSelected)
 
@@ -107,6 +108,41 @@ $(document).ready(function () {
             return {
                 value: item.codVeiculo,
                 text: item.dscVeiculo,
+            };
+        },
+        events: {
+            search: function (qry, callback) {
+                $.ajax(
+                    {
+                        type: "GET",
+                        url: "http://localhost:8080/veiculo/listar/byTermo/" + qry,
+
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
+                        },
+                        data: qry
+                    }
+                ).done(function (res) {
+                    callback(res)
+                });
+            }
+        }
+
+    });
+
+
+    $('.pesquisaAutoComplete').on('autocomplete.select', function (evt, item) {
+        $("#dscProduto").val(item.dscProduto);
+        $("#codProduto").val(item.codProduto);
+
+    });
+
+    $(".pesquisaAutoComplete").autoComplete({
+        resolver: 'custom',
+        formatResult: function (item) {
+            return {
+                value: item.codProduto,
+                text: item.dscProduto,
             };
         },
         events: {
@@ -244,4 +280,39 @@ function limparCampos() {
 function editarCampos() {
     $(".precisaEditar").val('');
     $(".precisaEditar").html('');
+}
+
+function criarComboFuncionarios() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/venda/produto/listar/funcionarios",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
+        },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            if (data.retorno) {
+                montarComboFuncionarios(data.objeto)
+            } else {
+                swal("", data.mensagem, "error");
+            }
+        },
+        error: function (err) {
+            swal("", "Erro ao consultar Funcionario!", "error");
+        }
+    });
+
+}
+
+function montarComboFuncionarios(obj) {
+    var html = "<select id='codFunciionario' class='form-control dropdown-toggle'>";
+    html += "<option value='0'>Selecione</option>"
+    if (obj.length > 0) {
+        for (var i in obj) {
+            html += "<option value=" + obj[i].codUsuario + ">" + obj[i].nmeUsuarioCompleto + "</option>"
+        }
+    }
+    html += "</select>";
+    $("#comboFuncionario").html(html);
 }
