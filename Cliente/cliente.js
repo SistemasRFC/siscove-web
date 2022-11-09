@@ -112,8 +112,8 @@ function limparCampos() {
     $("#nroTelefoneCelular").val("");
     $("#nroTelefoneContato").val("");
     $("#codTipoCliente").val("");
-    $("#indTipoClienteJ").prop("checked", false),
     $("#indTipoClienteF").prop("checked", false),
+    $("#indTipoClienteJ").prop("checked", false),
         $("#codCliente").val(0);
 }
 
