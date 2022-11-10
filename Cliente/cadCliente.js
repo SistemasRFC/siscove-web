@@ -10,13 +10,6 @@ $(document).ready(function () {
             $(".juridica").hide();
         }
     })
-    $(".codClienteFinal").click(function () {
-
-        if ($(this).val() != '') {
-            $(".fisica").hide();
-            $(".juridica").hide();
-        }
-    })
     $("#nroCep").blur(function () {
         getCep($("#nroCep").val());
     });

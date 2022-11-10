@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
     $("#modalCliente").load("cadCliente.html")
 
@@ -9,6 +10,7 @@ $(document).ready(function () {
     })
     $("#btnProcurar").click(function () {
         getListarClientes();
+        limparCampos();
     })
 })
 
@@ -27,10 +29,10 @@ function getListarClientes() {
         success: function (data) {
             dadosRetorno = data.objeto;
             montaTabelaCliente();
-            
+            limparCampos();
         },
         error: (err) => {
-            
+
         }
     });
 }
@@ -49,7 +51,7 @@ function montaTabelaCliente() {
 
     for (var i in dados) {
         tabela += "<tr>";
-        tabela += "<td width='25%'>" + dados[i].nroCpf +  dados[i].nroCnpj + "</td>";
+        tabela += "<td width='25%'>" + dados[i].nroCpf + dados[i].nroCnpj + "</td>";
         tabela += "<td width='50%'>" + dados[i].dscCliente + "</td>";
         tabela += "<td width='25%'  style='text-align:center;'>";
         tabela += "    <a href='javascript:preencherCampos(" + i + ")'>";
@@ -63,7 +65,7 @@ function montaTabelaCliente() {
     tabela += '</table>';
     $("#tabelaCliente").DataTable();
     $("#divTabela").html(tabela);
-    
+
 }
 
 function preencherCampos(index) {
@@ -78,10 +80,22 @@ function preencherCampos(index) {
         $(".juridica").hide('fade');
         $(".fisica").show('fade');
     }
+    $("#dscCliente").val(dados.dscCliente);
+    if (dados.indTipoCliente == "") {
+        $("#indTipoCliente").prop('checked', true);
+        $(".juridica").hide('fade');
+        $(".fisica").hide('fade');
+    }
+    $("#dscCliente").val(dados.dscCliente);
+    if (dados.indTipoCliente == "-1") {
+        $("#indTipoCliente").prop('checked', true);
+        $(".juridica").hide('fade');
+        $(".fisica").hide('fade');
+    }
     $("#codCliente").val(dados.codCliente);
     $("#codTipoCliente").val(dados.codTipoCliente)
     $("#nroCep").val(dados.nroCep);
-    $("#dtaNascimento").val(dados.dtaNascimento); 
+    $("#dtaNascimento").val(dados.dtaNascimento);
     $("#txtLogradouro").val(dados.txtLogradouro);
     $("#txtComplemento").val(dados.txtComplemento);
     $("#nmeBairro").val(dados.nmeBairro);
@@ -113,7 +127,6 @@ function limparCampos() {
     $("#nroTelefoneContato").val("");
     $("#codTipoCliente").val("");
     $("#indTipoClienteF").prop("checked", false),
-    $("#indTipoClienteJ").prop("checked", false),
+        $("#indTipoClienteJ").prop("checked", false),
         $("#codCliente").val(0);
 }
-
