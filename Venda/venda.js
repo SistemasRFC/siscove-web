@@ -5,8 +5,6 @@ $(document).ready(function () {
     criarComboVendedores();
     criarComboFuncionarios();
 
-    // $("#modalVenda").load("../Venda/venda.html", dadosVendaSelected)
-
     // $("#btnNovoVenda").click(function () {
     //     limparCamposVenda();
     //     $("#vendaModal").modal("show"); 
@@ -131,13 +129,13 @@ $(document).ready(function () {
     });
 
 
-    $('.pesquisaAutoComplete').on('autocomplete.select', function (evt, item) {
+    $('.pesquisaDinamicaAutoComplete').on('autocomplete.select', function (evt, item) {
         $("#dscProduto").val(item.dscProduto);
         $("#codProduto").val(item.codProduto);
 
     });
 
-    $(".pesquisaAutoComplete").autoComplete({
+    $(".pesquisaDinamicaAutoComplete").autoComplete({
         resolver: 'custom',
         formatResult: function (item) {
             return {
@@ -150,7 +148,7 @@ $(document).ready(function () {
                 $.ajax(
                     {
                         type: "GET",
-                        url: "http://localhost:8080/veiculo/listar/byTermo/" + qry,
+                        url: "http://localhost:8080/produtos/listar/byProduto/" + qry,
 
                         beforeSend: function (xhr) {
                             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
@@ -285,7 +283,7 @@ function editarCampos() {
 function criarComboFuncionarios() {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/venda/produto/listar/funcionarios",
+        url: "http://localhost:8080/usuario/listar/funcionarios",
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },
@@ -306,11 +304,11 @@ function criarComboFuncionarios() {
 }
 
 function montarComboFuncionarios(obj) {
-    var html = "<select id='codFunciionario' class='form-control dropdown-toggle'>";
+    var html = "<select id='codUsuario' class='form-control dropdown-toggle'>";
     html += "<option value='0'>Selecione</option>"
     if (obj.length > 0) {
         for (var i in obj) {
-            html += "<option value=" + obj[i].codUsuario + ">" + obj[i].nmeUsuarioCompleto + "</option>"
+            html += "<option value=" + obj[i].codUsuario + ">" + obj[i].nmeUsuario + "</option>"
         }
     }
     html += "</select>";
