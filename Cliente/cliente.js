@@ -50,7 +50,6 @@ function montaTabelaCliente() {
 
     for (var i in dados) {
         tabela += "<tr>";
-        tabela += "<tr>";
         if (dados[i].nroCpf != null && dados[i].nroCpf !='') {
             tabela += "     <td width='10'>" + dados[i].nroCpf + "</td>";
         }else if (dados[i].nroCnpj != null && dados[i].nroCnpj !='')  {
@@ -58,7 +57,6 @@ function montaTabelaCliente() {
         }else{
             tabela += "     <td width='10'></td>";
         }
-        // tabela += "<td width='25%'>" + dados[i].nroCpf + dados[i].nroCnpj + "</td>";
         tabela += "<td width='50%'>" + dados[i].dscCliente + "</td>";
         tabela += "<td width='25%'  style='text-align:center;'>";
         tabela += "    <a href='javascript:preencherCampos(" + i + ")'>";
