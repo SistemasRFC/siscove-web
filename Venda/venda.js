@@ -303,14 +303,69 @@ function criarComboFuncionarios() {
 
 }
 
-function montarComboFuncionarios(obj) {
-    var html = "<select id='codUsuario' class='form-control dropdown-toggle'>";
-    html += "<option value='0'>Selecione</option>"
-    if (obj.length > 0) {
-        for (var i in obj) {
-            html += "<option value=" + obj[i].codUsuario + ">" + obj[i].nmeUsuario + "</option>"
+function getListaProduto() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/venda/produto/listar",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
+        },
+        success: function (data) {
+            dadosRetorno = data.objeto;
+            montaTabela(data.objeto);
+        },
+        error: (err) => {
+            swal("", "Venda não confirmada!!!", "error");
         }
+    });
+}
+
+function montaTabela(dados) {
+    var tabela = '';
+        tabela += "<table class='table table-hover table-striped table-bordered table-white'";
+        tabela += "    id='tabelaVendaProduto'>";
+        tabela += "    <thead>";
+        tabela += "        <tr align='center'>";
+        tabela += "            <th width='50%'>Descrição</th>";         
+        tabela += "            <th width='30%'>Ativo</th>";       
+        tabela += "            <th width='10%'>Editar</th>";
+        tabela += "        </tr>";
+        tabela += "    </thead>";
+        tabela += "    <tbody>";
+    for (var i in dados) {
+        var simNao = dados[i].indAtiva=='S'?'Sim':'Não';
+        tabela += "     <tr>";
+        tabela += "     <td width='50'>" + dados[i].dscProduto+ "</td>";    
+        tabela += "     <td width='30%'>" + simNao + "</td>";
+        tabela += "     <td width='10%'  style='text-align:center;'>";
+        tabela += "         <a href='javascript:preencherCampos(" + i + ")'>";
+        tabela += "             <i class='fas  fa-pen'></i>";
+        tabela += "         </a>";
+        tabela += "     </td>";
+        tabela += "     </tr>";
     }
-    html += "</select>";
-    $("#comboFuncionario").html(html);
+    tabela += "</tbody>";
+    tabela += "</table>";
+    $("#divTabela").html(tabela);
+    $("#tabelaMarca").DataTable();
+
+}
+
+function preencherCampos(index) {
+    var dados = dadosRetorno[index];
+    
+    if (dados.indAtiva == 'S') {
+        $("#indAtiva").prop('checked', true);
+    } else {
+        $("#indAtiva").prop('checked', false);
+    }
+
+    $("#codProduto").val(dados.codProduto);
+    $("#dscProduto").val(dados.dscProduto);
+}
+
+function limparCampos() {
+    $("#dscProduto").val("");
+    $("#indAtiva").prop("checked", false),
+    $("#codProduto").val(0);
 }

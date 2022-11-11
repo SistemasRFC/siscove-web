@@ -135,7 +135,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 col-lg-12">
-                                        <label class="mt-0" for="txtObservacao"><b>Observação:</b></label>
+                                        <label class="mb-0" for="txtObservacao"><b>Observação</b></label>
                                         <textarea id="txtObservacao" name="txtObservacao" rows="3"
                                             class="form-control"></textarea>
                                     </div>
@@ -146,71 +146,73 @@
                                     </div>
                                 </div>
 
-                                <p><b>Produto</b></p>
-                                <button class="btn btn-link" id="btnAdicionais"><i
-                                        class="fa-plus">Adicionais</i></button>
-                                <hr class="solid">
-                                <div class="card shadow mt-2 mb-4">
-                                    <div
-                                        class="card-header d-flex flex-row align-items-center justify-content-between bg-dark">
-                                        <input id="nroSequencial" name="nroSequencial" type="hidden" />
-                                        <h6 class="m-0 font-weight-bold text-persian-dark"><b>Produtos</b>
+                                <p class="mb-0">
+                                    <b style="color: #444;">Produto</b>
+                                    <button class="btn btn-link" id="btnAdicionais"><i
+                                    class="fa-plus"></i> Adicionar</button>
+                                </p>
+                                <hr class="mt-0" style="border-top: 2px solid #444;">
+                                <input id="codProduto" name="codProduto" type="hidden" />
+                                <div class="row align-items-center">
+                                    <div class="col-md-5 col-lg-6">
+                                        <label class="mb-0" for="dscProduto"><b>Pesquisa Dinâmica</b></label>
+                                        <input id="dscProduto" name="dscProduto" type="text"
+                                            class="form-control pesquisaDinamicaAutoComplete mt-0" />
                                     </div>
-                                    <div class="card-body">
-                                        <input id="codProduto" name="codProduto" type="hidden" />
-                                        <div class="row align-items-center">
-                                            <div class="col-md-5 col-lg-6 pr-0">
-                                                <input id="codProduto" name="codProduto" type="hidden">
-                                                <label class="mb-0" for="dscProduto"><b>Pesquisa Dinâmica</b></label>
-                                                <input id="dscProduto" name="dscProduto" type="text"
-                                                    class="form-control pesquisaDinamicaAutoComplete mt-0" />
-                                            </div>
-                                            <button class="btn btn-primary" id="btnNovoCliente"><i
-                                                    class="fa-solid fa-plus"></i> Novo </button>
-                                        </div>
-                                        <div class="row align-items-center">
-                                            <div class="col-md-4 col-lg-3 pr-0">
-                                                <input id="qtdVendida" name="qtdVendida" type="hidden">
-                                                <label class="mb-0" for="qtdVendida"><b>Quantidade</b></label>
-                                                <input id="qtdVendida" name="qtdVendida" type="text"
-                                                    class="form-control mt-0" />
-                                            </div>
-                                            <div class="col-md-4 col-lg-3">
-                                                <label class="mb-0" for="vrlVenda"><b>Valor</b></label>
-                                                <input id="vrlVenda" name="vrlVenda" type="text"
-                                                    class="form-control mt-0" />
-                                            </div>
-                                            <div class="col-md-2 col-lg-3">
-                                                <label class="mb-0" for="vlrDesconto"><b>Desconto</b></label>
-                                                <input id="vlrDesconto" name="vlrDesconto" type="text"
-                                                    class="form-control mt-0" />
-                                            </div>
-                                            <div class="col-md-2 col-lg-3">
-                                                <label class="mb-0" for="codUsuario"><b>Funcionario</b></label>
-                                                <input id="codUsuario" name="codUsuario" type="text"
-                                                    class="form-control mt-0" />
-                                                <div id="comboFuncionario"></div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12 col-lg-10">
-                                                <label class="mt-0" for="txtObservacao"><b>Observação:</b></label>
-                                                <textarea id="txtObservacao" name="txtObservacao" rows="3"
-                                                    class="form-control"></textarea>
-                                            </div>
-                                            <button class="btn btn-primary" id="btnAdicionar"><i class="fa-solid"></i>
-                                                Adicionar </button>
-                                        </div>
+                                    <div class="col-md-2 col-lg-2 px-0">
+                                        <button class="btn btn-link" id="btnNovoProduto"><i
+                                                class="fa-solid fa-plus"></i> Novo Produto</button>
+                                        <div id="modalCadProduto"></div>
                                     </div>
                                 </div>
+                                <div class="row align-items-center">
+                                    <div class="col-md-4 col-lg-3 pr-0">
+                                        <input id="qtdVendida" name="qtdVendida" type="hidden">
+                                        <label class="mb-0" for="qtdVendida"><b>Quantidade</b></label>
+                                        <input id="qtdVendida" name="qtdVendida" type="text"
+                                            class="form-control mt-0" />
+                                    </div>
+                                    <div class="col-md-4 col-lg-3">
+                                        <label class="mb-0" for="vrlVenda"><b>Valor</b></label>
+                                        <input id="vrlVenda" name="vrlVenda" type="text"
+                                            class="form-control mt-0" />
+                                    </div>
+                                    <div class="col-md-2 col-lg-3">
+                                        <label class="mb-0" for="vlrDesconto"><b>Desconto</b></label>
+                                        <input id="vlrDesconto" name="vlrDesconto" type="text"
+                                            class="form-control mt-0" />
+                                    </div>
+                                    <div class="col-md-2 col-lg-3">
+                                        <label class="mb-0" for="codFuncionario"><b>Funcionario</b></label>
+                                        <div id="comboFuncionarios"></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-12">
+                                        <label class="mb-0" for="txtObservacao"><b>Observação</b></label>
+                                        <textarea id="txtObservacao" name="txtObservacao" rows="2"
+                                        class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row my-2">
+                                    <div class="col-12 btn-group">
+                                        <button class="btn btn-secondary" id="btnCancelar">
+                                            Cancelar </button>
+                                        <button class="btn btn-success" id="btnAdicionar">
+                                            Adicionar </button>
+                                    </div>
+                                </div>
+                                <br></br>
+                                        <div id="divTabela"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <a class="scroll-to-top rounded" href="#page-top">
-                <i class="fas fa-angle-up"></i>
-            </a>
+        </div>
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
     </content>
 </body>
 
