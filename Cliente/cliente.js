@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
     $("#modalCliente").load("cadCliente.html")
 
@@ -10,7 +9,7 @@ $(document).ready(function () {
     })
     $("#btnProcurar").click(function () {
         getListarClientes();
-        limparCampos();
+
     })
 })
 
@@ -29,7 +28,6 @@ function getListarClientes() {
         success: function (data) {
             dadosRetorno = data.objeto;
             montaTabelaCliente();
-            limparCampos();
         },
         error: (err) => {
 
@@ -40,31 +38,39 @@ function getListarClientes() {
 function montaTabelaCliente() {
     var dados = dadosRetorno;
     var tabela = '';
-    tabela += '<table class="table table-hover table-striped table-bordered table-white" id="tabelaCliente">';
+    tabela += "<table class='table table-hover table-striped table-bordered table-white'";
+    tabela += "    id='tabelaCliente'>";
     tabela += '<thead>';
     tabela += '    <tr align="center">';
     tabela += '        <td width="20%">CPF/CNPJ</td>';
     tabela += '        <td width="25%">Nome</td>';
+    tabela += '        <td width="25%">Ação</td>';
     tabela += '    </tr>';
     tabela += '</thead>';
-    tabela += '<tbody id="corpoTabela">';
 
     for (var i in dados) {
         tabela += "<tr>";
-        tabela += "<td width='25%'>" + dados[i].nroCpf + dados[i].nroCnpj + "</td>";
+        tabela += "<tr>";
+        if (dados[i].nroCpf != null && dados[i].nroCpf !='') {
+            tabela += "     <td width='10'>" + dados[i].nroCpf + "</td>";
+        }else if (dados[i].nroCnpj != null && dados[i].nroCnpj !='')  {
+            tabela += "     <td width='10'>" + dados[i].nroCnpj  + "</td>";
+        }else{
+            tabela += "     <td width='10'></td>";
+        }
+        // tabela += "<td width='25%'>" + dados[i].nroCpf + dados[i].nroCnpj + "</td>";
         tabela += "<td width='50%'>" + dados[i].dscCliente + "</td>";
         tabela += "<td width='25%'  style='text-align:center;'>";
         tabela += "    <a href='javascript:preencherCampos(" + i + ")'>";
         tabela += "        <i class='fa  fa-pen'></i>";
-        tabela += "    </a>";
         tabela += "    </a>";
         tabela += "</td>";
         tabela += "</tr>";
     }
     tabela += '</tbody>';
     tabela += '</table>';
-    $("#tabelaCliente").DataTable();
     $("#divTabela").html(tabela);
+    $("#tabelaCliente").DataTable();
 
 }
 
