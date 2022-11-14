@@ -1,9 +1,11 @@
 var dadosRetorno;
-$(document).ready(function () {
+$(document).ready(function (){
     $("#vlrImpostoProduto").val('0,0684');
     $("#vlrImpostoServico").val('0,1026');
     criarComboVendedores();
     criarComboFuncionarios();
+    getListaProdutosVenda();
+    
 
     // $("#btnNovoVenda").click(function () {
     //     limparCamposVenda();
@@ -303,10 +305,33 @@ function criarComboFuncionarios() {
 
 }
 
-function getListaProduto() {
+function montarComboFuncionarios(obj) {
+    var html = "<select id='codUsuario' class='form-control dropdown-toggle'>";
+    html += "<option value='0'>Selecione</option>"
+    if (obj.length > 0) {
+        for (var i in obj) {
+            html += "<option value=" + obj[i].codUsuario + ">" + obj[i].nmeUsuarioCompleto + "</option>"
+        }
+    }
+    html += "</select>";
+    $("#combouFuncionarios").html(html);
+}
+
+function limparCampos() {
+    $(".precisaLimpar").val('');
+    $(".precisaLimpar").html('');
+
+}
+
+function editarCampos() {
+    $(".precisaEditar").val('');
+    $(".precisaEditar").html('');
+}
+
+function getListaProdutosVenda() {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/venda/produto/listar",
+        url: "http://localhost:8080/venda/produto/listar/{codVenda}",
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },
@@ -314,16 +339,25 @@ function getListaProduto() {
             dadosRetorno = data.objeto;
             montaTabela(data.objeto);
         },
+
+        formatResult: function (item) {
+            return {
+                value: item.codVenda,
+                text: item.dscProduto,
+            };
+        },
+
         error: (err) => {
-            swal("", "Venda não confirmada!!!", "error");
+            swal("", "...", "error");
         }
+        
     });
 }
 
 function montaTabela(dados) {
     var tabela = '';
         tabela += "<table class='table table-hover table-striped table-bordered table-white'";
-        tabela += "    id='tabelaVendaProduto'>";
+        tabela += "    id='tabelaProdutosVenda'>";
         tabela += "    <thead>";
         tabela += "        <tr align='center'>";
         tabela += "            <th width='50%'>Descrição</th>";         
@@ -333,7 +367,7 @@ function montaTabela(dados) {
         tabela += "    </thead>";
         tabela += "    <tbody>";
     for (var i in dados) {
-        var simNao = dados[i].indAtiva=='S'?'Sim':'Não';
+        var simNao = dados[i].indAtivo=='S'?'Sim':'Não';
         tabela += "     <tr>";
         tabela += "     <td width='50'>" + dados[i].dscProduto+ "</td>";    
         tabela += "     <td width='30%'>" + simNao + "</td>";
@@ -347,25 +381,27 @@ function montaTabela(dados) {
     tabela += "</tbody>";
     tabela += "</table>";
     $("#divTabela").html(tabela);
-    $("#tabelaMarca").DataTable();
+    $("#tabelaProdutosVenda").DataTable();
 
 }
 
 function preencherCampos(index) {
     var dados = dadosRetorno[index];
     
-    if (dados.indAtiva == 'S') {
-        $("#indAtiva").prop('checked', true);
+    if (dados.indAtivo == 'S') {
+        $("#indAtivo").prop('checked', true);
     } else {
-        $("#indAtiva").prop('checked', false);
+        $("#indAtivo").prop('checked', false);
     }
 
-    $("#codProduto").val(dados.codProduto);
+    $("#codVenda").val(dados.codVenda);
     $("#dscProduto").val(dados.dscProduto);
+   
+
 }
 
 function limparCampos() {
+    $("#indAtivo").prop("checked", false),
+    $("#codVenda").val(0);
     $("#dscProduto").val("");
-    $("#indAtiva").prop("checked", false),
-    $("#codProduto").val(0);
 }
