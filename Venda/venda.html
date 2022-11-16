@@ -51,7 +51,7 @@
                             <div class="card-header d-flex flex-row align-items-center justify-content-between bg-dark">
                                 <h6 class="m-0 font-weight-bold text-persian-dark">Cliente</h6>
 
-                                <button class="btn btn-link" id="btnNovoCliente"><i class="fa-solid fa-plus"></i> Novo
+                                <button class="btn btn-primary" id="btnNovoCliente"><i class="fa-solid fa-plus"></i> Novo
                                     Cliente</button>
                             </div>
                             <div id="modalCadCliente"></div>
@@ -94,7 +94,7 @@
                                         id="statusVenda">Nova venda</span></h6>
                             </div>
                             <div class="card-body">
-                                <input id="codVenda" name="codVenda" type="hidden" />
+                                <input id="codVenda" name="codVenda" type="hidden" value="14" />
                                 <div class="row align-items-center">
                                     <div class="col-md-6 col-lg-5">
                                         <label class="mb-0" for="codVendedor"><b>Vendedor</b></label>
@@ -147,23 +147,27 @@
                                 </div>
 
                                 <p class="mb-0">
-                                    <b style="color: #444;">Produto</b>
+                                    <b style="color: #444;">Produtos</b>
                                     <button class="btn btn-link" id="btnAdicionais"><i
                                     class="fa-plus"></i> Adicionar</button>
                                 </p>
                                 <hr class="mt-0" style="border-top: 2px solid #444;">
                                 <input id="codProduto" name="codProduto" type="hidden" />
                                 <div class="row align-items-center">
-                                    <div class="col-md-5 col-lg-6">
-                                        <label class="mb-0" for="dscProduto"><b>Pesquisa Dinâmica</b></label>
-                                        <input id="dscProduto" name="dscProduto" type="text"
-                                            class="form-control pesquisaDinamicaAutoComplete mt-0" />
+                                    <div class="col-md-12 col-lg-8">
+                                        <label class="mb-0" for="dscProduto"><b>Produto</b></label>
+                                        <div class="input-group">
+                                            <input id="dscProduto" name="dscProduto" type="text"
+                                                class="form-control pesquisaDinamicaAutoComplete mt-0" />
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary" id="btnNovoProduto">
+                                                    <i class="fa-solid fa-plus"></i>
+                                                    Novo Produto
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-md-2 col-lg-2 px-0">
-                                        <button class="btn btn-link" id="btnNovoProduto"><i
-                                                class="fa-solid fa-plus"></i> Novo Produto</button>
-                                        <div id="modalCadProduto"></div>
-                                    </div>
+                                    <div id="modalCadProduto"></div>
                                 </div>
                                 <div class="row align-items-center">
                                     <div class="col-md-4 col-lg-3 pr-0">
@@ -202,8 +206,11 @@
                                             Adicionar </button>
                                     </div>
                                 </div>
-                                <br></br>
+                                <div class="row mt-2">
+                                    <div class="col-12">
                                         <div id="divTabela"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

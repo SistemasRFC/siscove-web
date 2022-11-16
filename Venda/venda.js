@@ -1,10 +1,14 @@
 var dadosRetorno;
 $(document).ready(function (){
+    montaTabelaProdutos(null);
+    $("#codVenda").change(function() {
+        getListaProdutosVenda();
+    });
+
     $("#vlrImpostoProduto").val('0,0684');
     $("#vlrImpostoServico").val('0,1026');
     criarComboVendedores();
     criarComboFuncionarios();
-    getListaProdutosVenda();
     
 
     // $("#btnNovoVenda").click(function () {
@@ -70,8 +74,6 @@ $(document).ready(function (){
                 text: item.nroCpf ? item.nroCpf : item.nroCnpj,
             };
         },
-
-
 
         events: {
             search: function (qry, callback) {
@@ -306,7 +308,7 @@ function criarComboFuncionarios() {
 }
 
 function montarComboFuncionarios(obj) {
-    var html = "<select id='codUsuario' class='form-control dropdown-toggle'>";
+    var html = "<select id='codFuncionario' class='form-control dropdown-toggle'>";
     html += "<option value='0'>Selecione</option>"
     if (obj.length > 0) {
         for (var i in obj) {
@@ -314,7 +316,7 @@ function montarComboFuncionarios(obj) {
         }
     }
     html += "</select>";
-    $("#combouFuncionarios").html(html);
+    $("#comboFuncionarios").html(html);
 }
 
 function limparCampos() {
@@ -329,59 +331,64 @@ function editarCampos() {
 }
 
 function getListaProdutosVenda() {
+    var codVenda = $("#codVenda").val();
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/venda/produto/listar/{codVenda}",
+        url: "http://localhost:8080/venda/produto/listar/" + codVenda,
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
         success: function (data) {
-            dadosRetorno = data.objeto;
-            montaTabela(data.objeto);
+            if (data.retorno) {
+                montaTabelaProdutos(data.objeto)
+            } else {
+                swal("", data.mensagem, "error");
+            }
         },
-
-        formatResult: function (item) {
-            return {
-                value: item.codVenda,
-                text: item.dscProduto,
-            };
-        },
-
         error: (err) => {
-            swal("", "...", "error");
+            swal("", "Erro ao buscar os produtos da venda " + codVenda, "error");
         }
         
     });
 }
 
-function montaTabela(dados) {
+function montaTabelaProdutos(dados) {
     var tabela = '';
         tabela += "<table class='table table-hover table-striped table-bordered table-white'";
         tabela += "    id='tabelaProdutosVenda'>";
         tabela += "    <thead>";
         tabela += "        <tr align='center'>";
-        tabela += "            <th width='50%'>Descrição</th>";         
-        tabela += "            <th width='30%'>Ativo</th>";       
-        tabela += "            <th width='10%'>Editar</th>";
+        tabela += "            <th>Produto</th>";         
+        tabela += "            <th>Marca</th>";       
+        tabela += "            <th>Ações</th>";
         tabela += "        </tr>";
         tabela += "    </thead>";
         tabela += "    <tbody>";
     for (var i in dados) {
-        var simNao = dados[i].indAtivo=='S'?'Sim':'Não';
         tabela += "     <tr>";
-        tabela += "     <td width='50'>" + dados[i].dscProduto+ "</td>";    
-        tabela += "     <td width='30%'>" + simNao + "</td>";
-        tabela += "     <td width='10%'  style='text-align:center;'>";
-        tabela += "         <a href='javascript:preencherCampos(" + i + ")'>";
+        tabela += "     <td>" + dados[i].produto.dscProduto+ "</td>";    
+        tabela += "     <td>" + (dados[i].produto.marca?.dscMarca || 'serviço') + "</td>";
+        tabela += "     <td style='text-align:center;'>";
+        tabela += "         <button class='btn btn-link' href='javascript:preencherCamposProduto(" + i + ")'>";
         tabela += "             <i class='fas  fa-pen'></i>";
-        tabela += "         </a>";
+        tabela += "         </button>";
+        tabela += "         <button class='btn btn-link' style='color: red;' href='javascript:preencherCampos(" + i + ")'>";
+        tabela += "             <i class='fas  fa-trash'></i>";
+        tabela += "         </button>";
         tabela += "     </td>";
         tabela += "     </tr>";
     }
     tabela += "</tbody>";
     tabela += "</table>";
     $("#divTabela").html(tabela);
-    $("#tabelaProdutosVenda").DataTable();
+    $("#tabelaProdutosVenda").DataTable({
+        "filter": false,
+        "ordering": false,
+        "info": false,
+        "paging": false
+    });
 
 }
 
