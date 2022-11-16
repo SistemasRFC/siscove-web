@@ -26,13 +26,13 @@ function montaTabelaEntrada() {
     tabela += '<table class="table table-hover table-striped table-bordered table-white" id="tabelaEntrada">';
     tabela += '<thead>';
     tabela += '    <tr align="center">';
-    tabela += '        <td>Codigo </td>'
-    tabela += '        <td>Data </td>'
-    tabela += '        <td>Fornecedor </td>'
-    tabela += '        <td>Valor Total </td>'
-    tabela += '    </tr>';
-    tabela += '</thead>';
-    tabela += '<tbody>';
+    tabela += '        <th>Codigo </th>'
+    tabela += '        <th>Data </th>'
+    tabela += '        <th>Fornecedor </th>'
+    tabela += '        <th>Valor Total </th>'
+    tabela += "        </tr>";
+    tabela += "    </thead>";
+    tabela += "    <tbody>";
 
     for (var i in dados) {
         tabela += "<tr>";
@@ -51,8 +51,8 @@ function montaTabelaEntrada() {
     }
     tabela += "</tbody>";
     tabela += "</table>";
-    $("#tabelaEntrada").DataTable();
     $("#tabelaEntradaAberta").html(tabela);
+    $("#tabelaEntrada").DataTable();
     swal.close();
     $("#entradaModal").modal("show");
 }
