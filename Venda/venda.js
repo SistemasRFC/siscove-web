@@ -1,7 +1,7 @@
 var dadosRetorno;
-$(document).ready(function (){
+$(document).ready(function () {
     montaTabelaProdutos(null);
-    $("#codVenda").change(function() {
+    $("#codVenda").change(function () {
         getListaProdutosVenda();
     });
 
@@ -9,13 +9,28 @@ $(document).ready(function (){
     $("#vlrImpostoServico").val('0,1026');
     criarComboVendedores();
     criarComboFuncionarios();
-    
 
-    // $("#btnNovoVenda").click(function () {
-    //     limparCamposVenda();
-    //     $("#vendaModal").modal("show"); 
 
-    // });
+    $("#btnCancelar").click(function () {
+        limparCampos();
+        $("#modalCadProduto").modal("hidden");
+
+    });
+
+    $("#btnAdicionar").click(function () {
+        limparCampos();
+        $("#modalCadProduto").modal("show");
+
+    });
+
+    $("#btnAdicionais").click(function (){
+        if ($("#codProduto").prop('checked')){
+            $(".divProduto").show();
+            $("#dscProduto").val('');
+        } else {
+            $(".divProduto").hidden();
+        }
+    })
 
     $('.clienteAutoComplete').on('autocomplete.select', function (evt, item) {
         $("#codCliente").val(item.codCliente);
@@ -179,8 +194,8 @@ $(document).ready(function (){
             return false;
         }
 
-        var vlrImpostoP = $("#vlrImpostoProduto").val().replace(',','.');
-        var vlrImpostoS = $("#vlrImpostoServico").val().replace(',','.');
+        var vlrImpostoP = $("#vlrImpostoProduto").val().replace(',', '.');
+        var vlrImpostoS = $("#vlrImpostoServico").val().replace(',', '.');
 
         var dados = JSON.stringify({
             nroStatusVenda: $("#nroStatusVenda").val(),
@@ -190,7 +205,7 @@ $(document).ready(function (){
             codVeiculo: $("#codVeiculo").val(),
             txtObservacao: $("#txtObservacao").val(),
             vlrKmRodado: $("#vlrKmRodado").val(),
-            vlrImpostoProduto: parseFloat(vlrImpostoP), 
+            vlrImpostoProduto: parseFloat(vlrImpostoP),
             vlrImpostoServico: parseFloat(vlrImpostoS),
         })
 
@@ -203,9 +218,9 @@ $(document).ready(function (){
                 nroPlaca: $("#nroPlaca").val(),
                 codVeiculo: $("#codVeiculo").val(),
                 txtObservacao: $("#txtObservacao").val(),
-                vlrKmRodado: $("#vlrKmRodado").val(), 
+                vlrKmRodado: $("#vlrKmRodado").val(),
                 vlrImpostoProduto: parseFloat(vlrImpostoP),
-                 vlrImpostoServico: parseFloat(vlrImpostoS),
+                vlrImpostoServico: parseFloat(vlrImpostoS),
             })
         }
 
@@ -350,25 +365,25 @@ function getListaProdutosVenda() {
         error: (err) => {
             swal("", "Erro ao buscar os produtos da venda " + codVenda, "error");
         }
-        
+
     });
 }
 
 function montaTabelaProdutos(dados) {
     var tabela = '';
-        tabela += "<table class='table table-hover table-striped table-bordered table-white'";
-        tabela += "    id='tabelaProdutosVenda'>";
-        tabela += "    <thead>";
-        tabela += "        <tr align='center'>";
-        tabela += "            <th>Produto</th>";         
-        tabela += "            <th>Marca</th>";       
-        tabela += "            <th>Ações</th>";
-        tabela += "        </tr>";
-        tabela += "    </thead>";
-        tabela += "    <tbody>";
+    tabela += "<table class='table table-hover table-striped table-bordered table-white'";
+    tabela += "    id='tabelaProdutosVenda'>";
+    tabela += "    <thead>";
+    tabela += "        <tr align='center'>";
+    tabela += "            <th>Produto</th>";
+    tabela += "            <th>Marca</th>";
+    tabela += "            <th>Ações</th>";
+    tabela += "        </tr>";
+    tabela += "    </thead>";
+    tabela += "    <tbody>";
     for (var i in dados) {
         tabela += "     <tr>";
-        tabela += "     <td>" + dados[i].produto.dscProduto+ "</td>";    
+        tabela += "     <td>" + dados[i].produto.dscProduto + "</td>";
         tabela += "     <td>" + (dados[i].produto.marca?.dscMarca || 'serviço') + "</td>";
         tabela += "     <td style='text-align:center;'>";
         tabela += "         <button class='btn btn-link' href='javascript:preencherCamposProduto(" + i + ")'>";
@@ -394,7 +409,7 @@ function montaTabelaProdutos(dados) {
 
 function preencherCampos(index) {
     var dados = dadosRetorno[index];
-    
+
     if (dados.indAtivo == 'S') {
         $("#indAtivo").prop('checked', true);
     } else {
@@ -403,12 +418,22 @@ function preencherCampos(index) {
 
     $("#codVenda").val(dados.codVenda);
     $("#dscProduto").val(dados.dscProduto);
-   
+    $("#qtdVendida").val(dados.qtdVendida);
+    $("#vlrVenda").val(dados.vlrVenda);
+    $("#vlrDesconto").val(dados.vlrDesconto);
+    $("#codFuncionario").val(dados.codFuncionario);
+    $("#txtObservacao").val(dados.txtObservacao);
+
 
 }
 
 function limparCampos() {
     $("#indAtivo").prop("checked", false),
-    $("#codVenda").val(0);
+        $("#codVenda").val(0);
     $("#dscProduto").val("");
+    $("#qtdVendida").val("");
+    $("vlrVenda").val("");
+    $("#vlrDesconto").val("");
+    $("#codFuncionario").val("");
+    $("#txtObservacao")
 }
