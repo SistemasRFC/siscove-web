@@ -2,6 +2,7 @@ $(document).ready(function () {
     getListaDepositoAtivos();
     getListarAtivos();
 
+
     $("#nroSequencial").change(function () {
         if ($("#nroSequencial").val() != 0) {
             getListarEntradaEstoque($("#nroSequencial").val());
@@ -17,6 +18,25 @@ $(document).ready(function () {
     $("#btnCancelar").click(function () {
 
         LimparCamposCalculo();
+    });
+
+    //desabilita o botão no início
+    document.getElementById("botao").disabled = true;
+
+    //cria um event listener que escuta mudanças no input
+    document.getElementById("nroNotaFiscal").addEventListener("nroNotaFiscal", function (event) {
+
+        //busca conteúdo do input
+        var conteudo = document.getElementById("nroNotaFiscal").value;
+
+        //valida conteudo do input 
+        if (conteudo !== null && conteudo !== '') {
+            //habilita o botão
+            document.getElementById("botao").disabled = false;
+        } else {
+            //desabilita o botão se o conteúdo do input ficar em branco
+            document.getElementById("botao").disabled = true;
+        }
     });
 
 
@@ -37,7 +57,6 @@ $(document).ready(function () {
         $("#codProduto").val(item.codProduto);
         $('.basicAutoSelectSelected').html(item ? JSON.stringify(item) : 'null');
     });
-
 
     var dadosRetorno;
     $("#btnSalvar").click(function () {
@@ -77,6 +96,7 @@ $(document).ready(function () {
                 },
                 codUsuario: $("#codUsuario").val(),
                 txtObservacao: $("#txtObservacao").val(),
+                codProduto: $("#codProduto").val()
             })
         }
         $.ajax({
@@ -151,6 +171,7 @@ $(document).ready(function () {
             vlrMinimo: $("#vlrMinimo").val(),
             vlrUnitario: $("#vlrUnitario").val(),
             qtdEntrada: $("#qtdEntrada").val(),
+            codUsuario: $("#codUsuario").val()
         })
         if ($("#codUsuario").val() > 0) {
             dados = JSON.stringify({
@@ -337,15 +358,4 @@ function calcular() {
     $('#vlrMinimo').val(1.25 * valor2);
     $('#vlrVenda').val(1.35 * valor2);
 
-}
-
-// $('#btnSalvar').click(function () {
-
-//     $('#BtnAddProduto').css('display', 'block');
-
-// });
-
-function btnSalvar() {
-    alert('btnSalvar ');
-    document.getElementById('BtnAddProduto').click();
 }
