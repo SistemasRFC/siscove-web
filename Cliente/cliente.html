@@ -49,18 +49,25 @@
                                 <div class="card shadow mb-4">
                                     <div
                                         class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-dark">
-                                        <h6 class="m-0 font-weight-bold text-persian-dark">Clientes </h6>
+                                        <h6 class="m-0 font-weight-bold text-persian-dark"> Fornecedor </h6>
                                     </div>
                                     <div class="card-body">
                                         <button class="btn btn-primary" id="btnNovo">Novo</button>
                                         <br></br>
-                                        <div class="input-group">
-                                            <input type="search" class="form-control rounded" placeholder="Pesquisar"
-                                                id="Termo" aria-label="Search" aria-describedby="search-addon" />
-                                            </input>
-                                            <button class="search_button" type="button" id="btnProcurar">
-                                                <i class="fa fa-search"></i>
-                                            </button>
+                                        <div class="row align-items-end">
+                                            <div class="col-md-10 col-lg-8">
+                                                <label for="Termo" class="mb-0">Nome </label>
+                                                <input type="search" class="form-control rounded "
+                                                    placeholder="Pesquisar" id="Termo" aria-label="Search"
+                                                    aria-describedby="search-addon" />
+                                                </input>
+                                            </div>
+                                            <div class="col-md-2 col-lg-2">
+                                                <button class="btn btn-secondary btn-block btn-lg mb-1" id="btnProcurar"
+                                                    type="submit">
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                         <div id="divTabela"></div>
                                     </div>

@@ -3,13 +3,16 @@ $(document).ready(function () {
     getListarClientes();
     $(".indTipoCliente").click(function () {
         if ($(this).val() == 'F') {
-            $(".fisica").show();
-            $(".juridica").hide();
-        } else {
             $(".fisica").hide();
             $(".juridica").show();
+        } else {
+            $(".fisica").show();
+            $(".juridica").hide();
         }
     })
+    $("#nroCep").blur(function () {
+        getCep($("#nroCep").val());
+    });
 });
 
 var dadosRetorno;
@@ -46,7 +49,7 @@ $("#btnSalvar").click(function () {
     }
 
     var cliente = "F";
-    if($("#indTipoClienteJ").is(":checked")){
+    if ($("#indTipoClienteJ").is(":checked")) {
         cliente = "J";
     }
 
@@ -55,14 +58,16 @@ $("#btnSalvar").click(function () {
         dscCliente: $("#dscCliente").val(),
         nroCep: $("#nroCep").val(),
         txtLogradouro: $("#txtLogradouro").val(),
-        txtComplemento: $("#txtComplemento").val(),
         txtLocalidade: $("#txtLocalidade").val(),
+        txtComplemento: $("#txtComplemento").val(),
+        nmeBairro: $("#nmeBairro").val(),
         sglUf: $("#sglUf").val(),
         nroTelefoneContato: $("#nroTelefoneContato").val(),
         nroTelefoneCelular: $("#nroTelefoneCelular").val(),
         nroCpf: $("#nroCpf").val(),
         nroCnpj: $("#nroCnpj").val(),
         nroIe: $("#nroIe").val(),
+        dtaNascimento: $("#dtaNascimento").val(),
         codClienteFinal: $("#codClienteFinal").val(),
         dtaNascimento: $("#dtaNascimento").val(),
         txtEmail: $("#txtEmail").val(),
@@ -72,10 +77,13 @@ $("#btnSalvar").click(function () {
     if ($("#codCliente").val() > 0) {
         dados = JSON.stringify({
             dscProduto: $("#dscProduto").val(),
-            dscCliente: $("#codCliente").val(),
+            dscCliente: $("#dscCliente").val(),
+            dtaNascimento: $("#dtaNascimento").val(),
             nroCep: $("#nroCep").val(),
-            nmeBairro: $("#nmeBairro").val(),
+            txtLogradouro: $("#txtLogradouro").val(),
             txtLocalidade: $("#txtLocalidade").val(),
+            txtComplemento: $("#txtComplemento").val(),
+            nmeBairro: $("#nmeBairro").val(),
             sglUf: $("#sglUf").val(),
             nroTelefoneContato: $("#nroTelefoneContato").val(),
             nroTelefoneCelular: $("#nroTelefoneCelular").val(),
@@ -84,8 +92,8 @@ $("#btnSalvar").click(function () {
             nroIe: $("#nroIe").val(),
             codClienteFinal: $("#codClienteFinal").val(),
             txtEmail: $("#txtEmail").val(),
-            indTipoCliente: cliente,
-            codCliente: $("#codCliente").val()
+            codCliente: $("#codCliente").val(),
+            indTipoCliente: cliente
         })
     }
 
@@ -119,3 +127,24 @@ $("#btnSalvar").click(function () {
     });
 
 });
+
+function getCep(nroCep) {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/consulta/cep/" + nroCep,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
+        },
+        success: function (dados) {
+            dados = dados.objeto;
+            $("#txtLogradouro").val(dados.logradouro)
+            $("#txtComplemento").val(dados.complemento)
+            $("#nmeBairro").val(dados.bairro)
+            $("#txtLocalidade").val(dados.localidade)
+            $("#sglUf").val(dados.uf)
+        },
+        error: (err) => {
+            swal("", "Erro!!!", "error");
+        }
+    });
+}
