@@ -12,6 +12,7 @@
     <script src="../Resources/jquery/jquery-3.6.0.min.js"></script>
     <script src="../Shared/header-component.js"></script>
     <script src="../Shared/FuncoesGerais.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="../Shared/navegacao-component.js"></script>
     <script src="Entrada.js"></script>
     <!-- bootstrap -->
@@ -58,53 +59,60 @@
                                 <input id="nroSequencial" name="nroSequencial" type="hidden" value="0" />
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-sm-12">
+                                        <div class="col-sm-12 ">
                                             <button class="btn btn-primary" id="btnNovo">Novo</button>
-                                            <button class="btn btn-warning" id="btnTipoEntrada">Entradas Em
-                                                Aberto</button>
+                                            <button class="btn btn-warning" id="btnTipoEntrada">Entradas Em Aberto
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-6 Fechada">
-                                            <label for="codFornecedor">Fornecedor</label>
-                                            <select id="codFornecedor" class="form-control">
-                                            </select>
+                                        <div class="col-sm-6 ">
+                                            <p for="codFornecedor">Fornecedor
+                                                <select id="codFornecedor" class="form-control">
+                                                </select>
+                                            </p>
                                         </div>
-                                        <div class="col-sm-6 Fechada">
-                                            <label for="codDeposito">Deposito</label>
-                                            <select id="codDeposito" class="form-control">
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-8 Fechada">
-                                            <label for="nroNotaFiscal">Chave Nota Fiscal</label>
-                                            <input id="nroNotaFiscal" name="nroNotaFiscal" type="text" 
-                                                class="form-control" />
-                                        </div>
-                                        <div class="col-sm-4 Fechada">
-                                            <label for="dtaEntrada">Data da Entrada</label>
-                                            <input id="dtaEntrada" name="dtaEntrada" type="datetime-local"
-                                                class="form-control" />
+                                        <div class="col-sm-6 ">
+                                            <p for="codDeposito">Deposito
+                                                <select id="codDeposito" class="form-control">
+                                                </select>
+                                            </p>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-12 Fechada">
+                                        <div class="col-sm-8">
+                                            <p for="nroNotaFiscal">Chave Nota Fiscal
+                                                <input id="nroNotaFiscal" name="nroNotaFiscal" type="text"
+                                                    class="form-control" />
+                                            </p>
+                                        </div>
+                                        <div class="col-sm-4 ">
+                                            <p for="dtaEntrada">Data da Entrada</label>
+                                                <input id="dtaEntrada" name="dtaEntrada" type="datetime-local"
+                                                    class="form-control" />
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 ">
                                             <div class="form-group">
-                                                <label for="txtObservacao">OBSERVAÇÃO</label>
-                                                <textarea id="txtObservacao" name="txtObservacao" rows="4"
-                                                    class="form-control">
-                                                </textarea>
+                                                <p for="txtObservacao">OBSERVAÇÃO
+                                                    <textarea id="txtObservacao" name="txtObservacao" rows="4"
+                                                        class="form-control">
+                                                    </textarea>
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-lg-12 " align=" right"></div>
+                                        <div class="col-lg-12" align="rigth"></div>
                                         <button id="btnSalvar" class='btn btn-success'>
-                                            <span class="icon text-white-100">
-                                                <i class="fas fa-check"></i>
-                                            </span>
-                                            <span class="text">Salvar</span>
+                                            <p>
+                                                <span class="icon text-white-100">
+                                                    <i class="fas fa-check"></i>
+                                                </span>
+                                                <span class="text">Salvar</span>
+                                            </p>
                                         </button>
                                     </div>
                                     <div id="linha">
@@ -114,14 +122,14 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-lg-12">
-                                            <a class="btn btn-link " data-toggle="collapse" href="#collapseExample"
+                                        <div class="col-lg-12 fechada">
+                                            <p class="btn btn-link " data-toggle="collapse" href="#collapseExample"
                                                 aria-expanded="false" class="button" id="botao"
                                                 aria-controls="collapseExample">
                                                 Produtos
                                                 <i class="fas fa-plus"></i>
                                                 Adicionar Produto
-                                            </a>
+                                            </p>
                                             <div class="row">
                                                 <div class="col-lg-12">
                                                     <div class="collapse" id="collapseExample">
@@ -136,7 +144,7 @@
                                                                 <!-- <input class="form-control basicAutoComplete" type="text" placeholder="Pesquisar" autocomplete="off"> -->
                                                             </div>
                                                         </div>
-                                                        <div class="row servico">
+                                                        <div class="row">
                                                             <div class="col-sm-3">
                                                                 <label for="qtdEntrada">Quantidade</label>
                                                                 <input id="qtdEntrada" name="qtdEntrada" type="number"
@@ -187,7 +195,7 @@
                                     <div class="row">
                                     </div>
                                     <div class="col-sm-12 fechada">
-                                        <button class="btn btn-dark" id="btnFechar">Fechar Entrada</button>
+                                        <button class="btn btn-dark" id="btnTipoEntradaF">Fechar Entrada</button>
                                     </div>
                                 </div>
                             </div>

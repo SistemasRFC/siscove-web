@@ -2,6 +2,14 @@ $(document).ready(function () {
     getListaDepositoAtivos();
     getListarAtivos();
 
+    $(document).ready(function () {
+        $("#btnTipoEntradaF").click(function () {
+            $("p").hide();
+        });
+        $("#btnNovo").click(function () {
+            $("p").show();
+        });
+    });
 
     $("#nroSequencial").change(function () {
         if ($("#nroSequencial").val() != 0) {
@@ -20,27 +28,6 @@ $(document).ready(function () {
         LimparCamposCalculo();
     });
 
-    //desabilita o botão no início
-    document.getElementById("botao").disabled = true;
-
-    //cria um event listener que escuta mudanças no input
-    document.getElementById("nroNotaFiscal").addEventListener("nroNotaFiscal", function (event) {
-
-        //busca conteúdo do input
-        var conteudo = document.getElementById("nroNotaFiscal").value;
-
-        //valida conteudo do input 
-        if (conteudo !== null && conteudo !== '') {
-            //habilita o botão
-            document.getElementById("botao").disabled = false;
-        } else {
-            //desabilita o botão se o conteúdo do input ficar em branco
-            document.getElementById("botao").disabled = true;
-        }
-    });
-
-
-
     $("#btnTipoEntrada").click(function () {
         swal({
 
@@ -57,21 +44,20 @@ $(document).ready(function () {
         $("#codProduto").val(item.codProduto);
         $('.basicAutoSelectSelected').html(item ? JSON.stringify(item) : 'null');
     });
-
     var dadosRetorno;
     $("#btnSalvar").click(function () {
-        // if ($("#codFornecedor").val() == '') {
-        //     swal('', 'Por favor preencha o Fornecedor !', 'warning');
-        //     return false;
-        // }
-        // if ($("#codDeposito").val() == '') {
-        //     swal('', 'Por favor preencha o Deposito !', 'warning');
-        //     return false;
-        // }
-        // if ($("#nroNotaFiscal").val() == '') {
-        //     swal('', 'Por favor preencha o Numero da Nota Fiscal !', 'warning');
-        //     return false;
-        // }
+        if ($("#codFornecedor").val() == '') {
+            swal('', 'Por favor preencha o Fornecedor !', 'warning');
+            return false;
+        }
+        if ($("#codDeposito").val() == '') {
+            swal('', 'Por favor preencha o Deposito !', 'warning');
+            return false;
+        }
+        if ($("#nroNotaFiscal").val() == '') {
+            swal('', 'Por favor preencha o Numero da Nota Fiscal !', 'warning');
+            return false;
+        }
         var dados = JSON.stringify({
             fornecedorDto: {
                 codFornecedor: $("#codFornecedor").val(),
@@ -134,7 +120,6 @@ $(document).ready(function () {
             }
         });
     });
-
     function getListarEntradaEstoque(nroSequencial) {
         $.ajax({
             type: "GET",
@@ -151,7 +136,6 @@ $(document).ready(function () {
             }
         });
     }
-
     $("#btnAdicionar").click(function () {
         if ($("#codProduto").val() == '') {
             swal('', 'Por favor preencha o Produto !', 'warning');
@@ -213,7 +197,6 @@ $(document).ready(function () {
             }
         });
     });
-
     function montaTabela() {
         var dados = dadosRetorno;
         var tabela = '';
@@ -249,7 +232,6 @@ $(document).ready(function () {
         $("#tabelaProdutos").html(tabela);
         $("#tabelaEntradas").DataTable();
     }
-
     function LimparCamposCalculo() {
         $("#dscProduto").val(""),
             $("#vlrVenda").val(""),
@@ -259,7 +241,6 @@ $(document).ready(function () {
             $("#vlrMinimo").val(""),
             $("#codProduto").val(0);
     }
-
     function limparCampos() {
         $("#codFornecedor").val(""),
             $("#btnProcurar").val(""),
@@ -269,7 +250,6 @@ $(document).ready(function () {
             $("#nroNotaFiscal").val(""),
             $("#codProduto").val(0);
     }
-
     function getListarAtivos() {
         $.ajax({
             type: "GET",
@@ -286,7 +266,6 @@ $(document).ready(function () {
             }
         });
     }
-
     function montaComboFornecedor(dados) {
         var tabela = '';
         tabela += '<option value="">Selecione </option>';
@@ -295,7 +274,6 @@ $(document).ready(function () {
         }
         $("#codFornecedor").html(tabela);
     }
-
     function getListaDepositoAtivos() {
         $.ajax({
             type: "GET",
@@ -322,9 +300,7 @@ $(document).ready(function () {
             tabela += '<option value="' + dados[i].codDeposito + '">' + dados[i].dscDeposito + ' </option>';
         }
         $("#codDeposito").html(tabela);
-
     }
-
     $(".basicAutoComplete").autoComplete({
         resolver: 'custom',
         formatResult: function (item) {
@@ -336,7 +312,6 @@ $(document).ready(function () {
         events: {
             search: function (qry, callback) {
                 $.ajax(
-
                     {
                         type: "GET",
                         url: "http://localhost:8080/produtos/listar/byTermo/" + qry,
@@ -357,5 +332,4 @@ function calcular() {
     var valor2 = parseFloat($('#vlrUnitario').val());
     $('#vlrMinimo').val(1.25 * valor2);
     $('#vlrVenda').val(1.35 * valor2);
-
 }
