@@ -1,44 +1,139 @@
-var dadosRetorno;
-$(document).ready(function () {
-    montaTabelaProdutos(null);
-    $("#codVenda").change(function () {
-        getListaProdutosVenda();
+var dadosRetornoProdutos;
+$(function() {
+    $("#codVenda").change(function() {
+        if ($("#codVenda").val() > 0){
+            $("#btnAdicionais").prop('disabled', false);
+            getListaProdutosVenda();
+        } else {
+            $("#btnAdicionais").prop('disabled', true);
+            montaTabelaProdutos(null);
+        }
     });
 
-    $("#vlrImpostoProduto").val('0,0684');
-    $("#vlrImpostoServico").val('0,1026');
-    criarComboVendedores();
-    criarComboFuncionarios();
+    $("#btnSalvar").click(function () {
+        salvarVenda();
+    });
 
+    $("#btnAdicionais").click(function () {
+        $("#divCodVenda").show('fade');
+    });
 
     $("#btnCancelar").click(function () {
-        limparCampos();
-        $("#modalCadProduto").modal("hidden");
-
+        $("#divCodVenda").hide('fade');
+        limparCamposProduto();
     });
 
-    $("#btnAdicionar").click(function () {
-        limparCampos();
-        $("#modalCadProduto").modal("show");
+    $("#btnAdicionar").click(function (){
+        adicionarProduto();
 
-    });
+    })
+});
 
-    $("#btnAdicionais").click(function (){
-        if ($("#codProduto").prop('checked')){
-            $(".divProduto").show();
-            $("#dscProduto").val('');
-        } else {
-            $(".divProduto").hidden();
-        }
+function salvarVenda() {
+    if ($("#codCliente").val() == '') {
+        swal('', 'Por favor informe o cliente.', 'warning');
+        return false;
+    }
+
+    if ($("#codVendedor").val() == '') {
+        swal('', 'Por favor informe o vendedor.', 'warning');
+        return false;
+    }
+
+    var vlrImpostoP = $("#vlrImpostoProduto").val().replace(',', '.');
+    var vlrImpostoS = $("#vlrImpostoServico").val().replace(',', '.');
+
+    var dados = JSON.stringify({
+        nroStatusVenda: $("#nroStatusVenda").val(),
+        codCliente: $("#codCliente").val(),
+        codVendedor: $("#codVendedor").val(),
+        nroPlaca: $("#nroPlaca").val(),
+        codVeiculo: $("#codVeiculo").val(),
+        txtObservacao: $("#txtObservacao").val(),
+        vlrKmRodado: $("#vlrKmRodado").val(),
+        vlrImpostoProduto: parseFloat(vlrImpostoP),
+        vlrImpostoServico: parseFloat(vlrImpostoS),
     })
 
+    if ($("#codVenda").val() > 0) {
+        dados = JSON.stringify({
+            codVenda: $("#codVenda").val(),
+            nroStatusVenda: $("#nroStatusVenda").val(),
+            codCliente: $("#codCliente").val(),
+            codVendedor: $("#codVendedor").val(),
+            nroPlaca: $("#nroPlaca").val(),
+            codVeiculo: $("#codVeiculo").val(),
+            txtObservacao: $("#txtObservacao").val(),
+            vlrKmRodado: $("#vlrKmRodado").val(),
+            vlrImpostoProduto: parseFloat(vlrImpostoP),
+            vlrImpostoServico: parseFloat(vlrImpostoS),
+        })
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/venda/salvar",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
+        },
+        data: dados,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            if (data.retorno) {
+                swal({
+                    title: "",
+                    text: "Venda salva!",
+                    type: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            } else {
+                swal("", "Venda não pôde ser salva!", "error");
+            }
+        },
+        error: function (err) {
+            swal("", "Não foi possível salvar a venda!", "error");
+        }
+    });
+}
+
+function adicionarProduto() {
+    var dados = JSON.stringify({
+        dscProduto: $("#dscProduto").val(),
+        qtdVendida: $("#qtdVendida").val(),
+        codVendedor: $("#codVendedor").val(),
+        nroPlaca: $("#nroPlaca").val(),
+        codVeiculo: $("#codVeiculo").val(),
+        txtObservacao: $("#txtObservacao").val(),
+    })
+
+    if ($("#codVenda").val() > 0) {
+        dados = JSON.stringify({
+            codVenda: $("#codVenda").val(),
+            nroStatusVenda: $("#nroStatusVenda").val(),
+            codCliente: $("#codCliente").val(),
+            codVendedor: $("#codVendedor").val(),
+            nroPlaca: $("#nroPlaca").val(),
+            codVeiculo: $("#codVeiculo").val(),
+            txtObservacao: $("#txtObservacao").val(),
+            vlrKmRodado: $("#vlrKmRodado").val(),
+            vlrImpostoProduto: parseFloat(vlrImpostoP),
+            vlrImpostoServico: parseFloat(vlrImpostoS),
+        })
+    }
+}
+
+function limparCamposVenda() {
+}
+
+function criarCampoCliente() {
     $('.clienteAutoComplete').on('autocomplete.select', function (evt, item) {
         $("#codCliente").val(item.codCliente);
         $("#nroDoc").val(item.nroCpf);
         $("#nroCelular").html(item.nroTelefoneCelular);
         $("#nroTelefone").html(item.nroTelefoneContato);
         $("#txtEndereco").html(item.txtLogradouro);
-
     });
 
     $(".clienteAutoComplete").autoComplete({
@@ -52,11 +147,9 @@ $(document).ready(function () {
         events: {
             search: function (qry, callback) {
                 $.ajax(
-
                     {
                         type: "GET",
                         url: "http://localhost:8080/cliente/listar/byTermo/" + qry,
-
                         beforeSend: function (xhr) {
                             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
                         },
@@ -67,10 +160,10 @@ $(document).ready(function () {
                 });
             }
         }
-
     });
+}
 
-
+function criarCampoCpfCnpj() {
     $('.cpfCnpjAutoComplete').on('autocomplete.select', function (evt, item) {
         $("#codCliente").val(item.codCliente);
         $("#dscCliente").val(item.dscCliente);
@@ -89,15 +182,12 @@ $(document).ready(function () {
                 text: item.nroCpf ? item.nroCpf : item.nroCnpj,
             };
         },
-
         events: {
             search: function (qry, callback) {
                 $.ajax(
-
                     {
                         type: "GET",
                         url: "http://localhost:8080/cliente/listar/byCpfCnpj/" + qry,
-
                         beforeSend: function (xhr) {
                             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
                         },
@@ -108,15 +198,13 @@ $(document).ready(function () {
                 });
             }
         }
-
     });
+}
 
-
-
+function criarCampoVeiculo() {
     $('.veiculoAutoComplete').on('autocomplete.select', function (evt, item) {
         $("#dscVeiculo").val(item.dscVeiculo);
         $("#codVeiculo").val(item.codVeiculo);
-
     });
 
     $(".veiculoAutoComplete").autoComplete({
@@ -133,7 +221,6 @@ $(document).ready(function () {
                     {
                         type: "GET",
                         url: "http://localhost:8080/veiculo/listar/byTermo/" + qry,
-
                         beforeSend: function (xhr) {
                             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
                         },
@@ -144,14 +231,13 @@ $(document).ready(function () {
                 });
             }
         }
-
     });
+}
 
-
+function criarCampoProduto() {
     $('.pesquisaDinamicaAutoComplete').on('autocomplete.select', function (evt, item) {
-        $("#dscProduto").val(item.dscProduto);
         $("#codProduto").val(item.codProduto);
-
+        $("#dscProduto").val(item.dscProduto);
     });
 
     $(".pesquisaDinamicaAutoComplete").autoComplete({
@@ -168,7 +254,6 @@ $(document).ready(function () {
                     {
                         type: "GET",
                         url: "http://localhost:8080/produtos/listar/byProduto/" + qry,
-
                         beforeSend: function (xhr) {
                             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
                         },
@@ -179,79 +264,8 @@ $(document).ready(function () {
                 });
             }
         }
-
     });
-
-    $("#btnSalvar").click(function () {
-
-        if ($("#codCliente").val() == '') {
-            swal('', 'Por favor informe o cliente.', 'warning');
-            return false;
-        }
-
-        if ($("#codVendedor").val() == '') {
-            swal('', 'Por favor informe o vendedor.', 'warning');
-            return false;
-        }
-
-        var vlrImpostoP = $("#vlrImpostoProduto").val().replace(',', '.');
-        var vlrImpostoS = $("#vlrImpostoServico").val().replace(',', '.');
-
-        var dados = JSON.stringify({
-            nroStatusVenda: $("#nroStatusVenda").val(),
-            codCliente: $("#codCliente").val(),
-            codVendedor: $("#codVendedor").val(),
-            nroPlaca: $("#nroPlaca").val(),
-            codVeiculo: $("#codVeiculo").val(),
-            txtObservacao: $("#txtObservacao").val(),
-            vlrKmRodado: $("#vlrKmRodado").val(),
-            vlrImpostoProduto: parseFloat(vlrImpostoP),
-            vlrImpostoServico: parseFloat(vlrImpostoS),
-        })
-
-        if ($("#codVenda").val() > 0) {
-            dados = JSON.stringify({
-                codVenda: $("#codVenda").val(),
-                nroStatusVenda: $("#nroStatusVenda").val(),
-                codCliente: $("#codCliente").val(),
-                codVendedor: $("#codVendedor").val(),
-                nroPlaca: $("#nroPlaca").val(),
-                codVeiculo: $("#codVeiculo").val(),
-                txtObservacao: $("#txtObservacao").val(),
-                vlrKmRodado: $("#vlrKmRodado").val(),
-                vlrImpostoProduto: parseFloat(vlrImpostoP),
-                vlrImpostoServico: parseFloat(vlrImpostoS),
-            })
-        }
-
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:8080/venda/salvar",
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
-            },
-            data: dados,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (data) {
-                if (data.retorno) {
-                    swal({
-                        title: "",
-                        text: "Venda salva!",
-                        type: "success",
-                        timer: 2000,
-                        showConfirmButton: false
-                    });
-                } else {
-                    swal("", "Venda não pôde ser salva!", "error");
-                }
-            },
-            error: function (err) {
-                swal("", "Não foi possível salvar a venda!", "error");
-            }
-        });
-    });
-});
+}
 
 function criarComboVendedores() {
     $.ajax({
@@ -288,17 +302,6 @@ function montarComboVendedores(obj) {
     $("#comboVendedor").html(html);
 }
 
-function limparCampos() {
-    $(".precisaLimpar").val('');
-    $(".precisaLimpar").html('');
-
-}
-
-function editarCampos() {
-    $(".precisaEditar").val('');
-    $(".precisaEditar").html('');
-}
-
 function criarComboFuncionarios() {
     $.ajax({
         type: "GET",
@@ -321,7 +324,7 @@ function criarComboFuncionarios() {
     });
 
 }
-
+ 
 function montarComboFuncionarios(obj) {
     var html = "<select id='codFuncionario' class='form-control dropdown-toggle'>";
     html += "<option value='0'>Selecione</option>"
@@ -332,17 +335,6 @@ function montarComboFuncionarios(obj) {
     }
     html += "</select>";
     $("#comboFuncionarios").html(html);
-}
-
-function limparCampos() {
-    $(".precisaLimpar").val('');
-    $(".precisaLimpar").html('');
-
-}
-
-function editarCampos() {
-    $(".precisaEditar").val('');
-    $(".precisaEditar").html('');
 }
 
 function getListaProdutosVenda() {
@@ -365,7 +357,6 @@ function getListaProdutosVenda() {
         error: (err) => {
             swal("", "Erro ao buscar os produtos da venda " + codVenda, "error");
         }
-
     });
 }
 
@@ -381,19 +372,22 @@ function montaTabelaProdutos(dados) {
     tabela += "        </tr>";
     tabela += "    </thead>";
     tabela += "    <tbody>";
-    for (var i in dados) {
-        tabela += "     <tr>";
-        tabela += "     <td>" + dados[i].produto.dscProduto + "</td>";
-        tabela += "     <td>" + (dados[i].produto.marca?.dscMarca || 'serviço') + "</td>";
-        tabela += "     <td style='text-align:center;'>";
-        tabela += "         <button class='btn btn-link' href='javascript:preencherCamposProduto(" + i + ")'>";
-        tabela += "             <i class='fas  fa-pen'></i>";
-        tabela += "         </button>";
-        tabela += "         <button class='btn btn-link' style='color: red;' href='javascript:preencherCampos(" + i + ")'>";
-        tabela += "             <i class='fas  fa-trash'></i>";
-        tabela += "         </button>";
-        tabela += "     </td>";
-        tabela += "     </tr>";
+    if(dados.length > 0){
+        dadosRetornoProdutos = dados;
+        for (var i in dados) {
+            tabela += "     <tr>";
+            tabela += "     <td>" + dados[i].produto.dscProduto + "</td>";
+            tabela += "     <td>" + (dados[i].produto.marca?.dscMarca || 'serviço') + "</td>";
+            tabela += "     <td style='text-align:center;'>";
+            tabela += "         <button class='btn btn-link' onclick='javascript:editarProduto(" + i + ")'>";
+            tabela += "             <i class='fas fa-pen'></i>";
+            tabela += "         </button>";
+            tabela += "         <button class='btn btn-link' style='color: red;' href='javascript:removerProduto(" + i + ")'>";
+            tabela += "             <i class='fas  fa-trash'></i>";
+            tabela += "         </button>";
+            tabela += "     </td>";
+            tabela += "     </tr>";
+        }
     }
     tabela += "</tbody>";
     tabela += "</table>";
@@ -404,36 +398,38 @@ function montaTabelaProdutos(dados) {
         "info": false,
         "paging": false
     });
-
 }
 
-function preencherCampos(index) {
-    var dados = dadosRetorno[index];
-
-    if (dados.indAtivo == 'S') {
-        $("#indAtivo").prop('checked', true);
-    } else {
-        $("#indAtivo").prop('checked', false);
-    }
-
-    $("#codVenda").val(dados.codVenda);
-    $("#dscProduto").val(dados.dscProduto);
+function editarProduto(index) {
+    var dados = dadosRetornoProdutos[index];
+    $("#dscProduto").val(dados.produto.dscProduto);
     $("#qtdVendida").val(dados.qtdVendida);
     $("#vlrVenda").val(dados.vlrVenda);
     $("#vlrDesconto").val(dados.vlrDesconto);
-    $("#codFuncionario").val(dados.codFuncionario);
-    $("#txtObservacao").val(dados.txtObservacao);
-
-
+    $("#codFuncionario").val(dados.funcionario.codUsuario);
+    $("#txtObservacaoProd").val(dados.txtObservacao);
+    $("#divCodVenda").show('fade');
 }
 
-function limparCampos() {
-    $("#indAtivo").prop("checked", false),
-        $("#codVenda").val(0);
+function limparCamposProduto() {
     $("#dscProduto").val("");
     $("#qtdVendida").val("");
-    $("vlrVenda").val("");
+    $("#vlrVenda").val("");
     $("#vlrDesconto").val("");
-    $("#codFuncionario").val("");
-    $("#txtObservacao")
+    $("#codFuncionario").val("0");
+    $("#txtObservacaoProd").val("");
 }
+
+$(document).ready(function () {
+    $("#divCodVenda").hide();
+    $("#codVenda").change();
+
+    $("#vlrImpostoProduto").val('0,0684');
+    $("#vlrImpostoServico").val('0,1026');
+    criarComboVendedores();
+    criarComboFuncionarios();
+    criarCampoCliente();
+    criarCampoCpfCnpj();
+    criarCampoVeiculo();
+    criarCampoProduto();
+});
