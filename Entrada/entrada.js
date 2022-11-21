@@ -1,22 +1,17 @@
 $(document).ready(function () {
     getListaDepositoAtivos();
     getListarAtivos();
+    $("#nroSequencial").change();
 
-    $(document).ready(function () {
-        $("#btnTipoEntradaF").click(function () {
-            $("p").hide();
-        });
-        $("#btnNovo").click(function () {
-            $("p").show();
-        });
-    });
-
-    $("#nroSequencial").change(function () {
-        if ($("#nroSequencial").val() != 0) {
-            getListarEntradaEstoque($("#nroSequencial").val());
+    $("#nroSequencial").change(function() {
+        if ($("#nroSequencial").val() > 0){
+            $("#botaoAdicionarProduto").prop('disabled', false);
+            getListaDepositoAtivos();
+        } else {
+            $("#botaoAdicionarProduto").prop('disabled', true);
+            montaTabela(null);
         }
     });
-
     $("#modalEntrada").load("modalEntradasAbertas.html");
 
     $("#btnNovo").click(function () {

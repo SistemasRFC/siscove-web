@@ -15,12 +15,11 @@ var dadosRetorno;
 
 function getListarProdutos() {
     $.ajax({
-        type: "POST",
-        url: "http://localhost:8080/produtos/listar/byTermo",
+        type: "GET",
+        url: "http://localhost:8080/produtos/listar/byTermo/"+$("#Termo").val(),
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },
-        data: $("#Termo").val(),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
