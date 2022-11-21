@@ -3,11 +3,11 @@ $(document).ready(function () {
     getListarClientes();
     $(".indTipoCliente").click(function () {
         if ($(this).val() == 'F') {
-            $(".fisica").show();
-            $(".juridica").hide();
-        } else {
             $(".fisica").hide();
             $(".juridica").show();
+        } else {
+            $(".fisica").show();
+            $(".juridica").hide();
         }
     })
     $("#nroCep").blur(function () {
@@ -49,7 +49,7 @@ $("#btnSalvar").click(function () {
     }
 
     var cliente = "F";
-    if($("#indTipoClienteJ").is(":checked")){
+    if ($("#indTipoClienteJ").is(":checked")) {
         cliente = "J";
     }
 
@@ -58,14 +58,16 @@ $("#btnSalvar").click(function () {
         dscCliente: $("#dscCliente").val(),
         nroCep: $("#nroCep").val(),
         txtLogradouro: $("#txtLogradouro").val(),
-        complemento: $("#txtComplemento").val(),
         txtLocalidade: $("#txtLocalidade").val(),
+        txtComplemento: $("#txtComplemento").val(),
+        nmeBairro: $("#nmeBairro").val(),
         sglUf: $("#sglUf").val(),
         nroTelefoneContato: $("#nroTelefoneContato").val(),
         nroTelefoneCelular: $("#nroTelefoneCelular").val(),
         nroCpf: $("#nroCpf").val(),
         nroCnpj: $("#nroCnpj").val(),
         nroIe: $("#nroIe").val(),
+        dtaNascimento: $("#dtaNascimento").val(),
         codClienteFinal: $("#codClienteFinal").val(),
         dtaNascimento: $("#dtaNascimento").val(),
         txtEmail: $("#txtEmail").val(),
@@ -75,11 +77,13 @@ $("#btnSalvar").click(function () {
     if ($("#codCliente").val() > 0) {
         dados = JSON.stringify({
             dscProduto: $("#dscProduto").val(),
-            dscCliente: $("#codCliente").val(),
+            dscCliente: $("#dscCliente").val(),
+            dtaNascimento: $("#dtaNascimento").val(),
             nroCep: $("#nroCep").val(),
-            nmeBairro: $("#nmeBairro").val(),
+            txtLogradouro: $("#txtLogradouro").val(),
             txtLocalidade: $("#txtLocalidade").val(),
-            complemento: $("#txtComplemento").val(),
+            txtComplemento: $("#txtComplemento").val(),
+            nmeBairro: $("#nmeBairro").val(),
             sglUf: $("#sglUf").val(),
             nroTelefoneContato: $("#nroTelefoneContato").val(),
             nroTelefoneCelular: $("#nroTelefoneCelular").val(),
@@ -88,8 +92,8 @@ $("#btnSalvar").click(function () {
             nroIe: $("#nroIe").val(),
             codClienteFinal: $("#codClienteFinal").val(),
             txtEmail: $("#txtEmail").val(),
-            indTipoCliente: cliente,
-            codCliente: $("#codCliente").val()
+            codCliente: $("#codCliente").val(),
+            indTipoCliente: cliente
         })
     }
 
