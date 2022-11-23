@@ -11,8 +11,12 @@ function getListarEntradaAbertas() {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },
         success: function (data) {
-            dadosRetorno = data.objeto;
-            montaTabelaEntrada(data.objeto);
+            if (data.retorno){
+                dadosRetorno = data.objeto;
+                montaTabelaEntrada(data.objeto);
+            }else{
+                swal("", data.mensagem, "error");
+            }
         },
         error: (err) => {
             swal("", " não confirmado!!!", "error");
@@ -29,6 +33,7 @@ function montaTabelaEntrada() {
     tabela += '        <th>Codigo </th>'
     tabela += '        <th>Data </th>'
     tabela += '        <th>Fornecedor </th>'
+    tabela += '        <th>Deposito </th>'
     tabela += '        <th>Valor Total </th>'
     tabela += "        </tr>";
     tabela += "    </thead>";
@@ -38,11 +43,8 @@ function montaTabelaEntrada() {
         tabela += "<tr>";
         tabela += "     <td>" + dados[i].nroSequencial + "</td>";
         tabela += "     <td>" + dados[i].dtaEntrada + "</td>";
-        if (dados[i].fornecedorDto == null) {
-            tabela += "     <td></td>";
-        } else {
-            tabela += "     <td>" + dados[i].fornecedorDto.dscFornecedor + "</td>";
-        }
+        tabela += "     <td>" + dados[i].dscFornecedor + "</td>";
+        tabela += "     <td>" + dados[i].dscDeposito + "</td>";
         tabela += "     <td>" + dados[i].vlrTotal + "</td>";
         tabela += "    </a>";
 
