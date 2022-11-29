@@ -100,25 +100,43 @@ function salvarVenda() {
 
 function adicionarProduto() {
     var dados = JSON.stringify({
-        dscProduto: $("#dscProduto").val(),
+        codVenda: $("#codVenda").val(),
+        codProduto: $("#codProduto").val(),
         qtdVendida: $("#qtdVendida").val(),
-        codVendedor: $("#codVendedor").val(),
-        nroPlaca: $("#nroPlaca").val(),
-        codVeiculo: $("#codVeiculo").val(),
-        txtObservacao: $("#txtObservacao").val(),
-    })
+        vlrVenda: $("#vlrVenda").val(),
+        vlrDesconto: $("#vlrDesconto").val(),
+        codFuncionario: $("#codFuncionario").val(),
+        txtObservacao: $("#txtObservacaoProd").val(),
+        nroSequencial: $("#nroSequencial").val(),
+        indEstoque: $("#indEstoque").val(),
+    });
 
-    if ($("#codProduto").val() > 0) {
-        dados = JSON.stringify({
-            codVenda: $("#codProduto").val(),
-            qtdVendida: $("#qtdVendida").val(),
-            codVendedor: $("#codVendedor").val(),
-            nroPlaca: $("#nroPlaca").val(),
-            codVeiculo: $("#codVeiculo").val(),
-            txtObservacao: $("#txtObservacao").val(),
-            codProduto: $("#codProduto").val(),
-        })
-    }
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/venda/produto/salvar",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
+        },
+        data: dados,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            if (data.retorno) {
+                swal({
+                    title: "",
+                    text: "Produto adicionado!",
+                    type: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            } else {
+                swal("", "Produto não adicionado!", "error");
+            }
+        },
+        error: function (err) {
+            swal("", "Não foi possível adicionar o produto!", "error");
+        }
+    });
 }
 
 function limparCamposVenda() {
@@ -235,6 +253,8 @@ function criarCampoProduto() {
     $('.pesquisaDinamicaAutoComplete').on('autocomplete.select', function (evt, item) {
         $("#codProduto").val(item.codProduto);
         $("#dscProduto").val(item.dscProduto);
+        $("#nroSequencial").val(item.nroSequencial);
+        $("#indEstoque").val(item.qtdEstoque>0?"S":"N");
     });
 
     $(".pesquisaDinamicaAutoComplete").autoComplete({
@@ -242,7 +262,7 @@ function criarCampoProduto() {
         formatResult: function (item) {
             return {
                 value: item.codProduto,
-                text: item.dscProduto,
+                text: item.dscProduto + '  ' + (item.marca?.dscMarca || ''),
             };
         },
         events: {
@@ -250,7 +270,7 @@ function criarCampoProduto() {
                 $.ajax(
                     {
                         type: "GET",
-                        url: "http://localhost:8080/produtos/listar/byProduto/" + qry,
+                        url: "http://localhost:8080/produtos/listar/autoComplete/" + qry,
                         beforeSend: function (xhr) {
                             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
                         },
@@ -364,7 +384,10 @@ function montaTabelaProdutos(dados) {
     tabela += "    <thead>";
     tabela += "        <tr align='center'>";
     tabela += "            <th>Produto</th>";
+    tabela += "            <th>Quantidade</th>";
     tabela += "            <th>Marca</th>";
+    tabela += "            <th>Valor</th>";
+    tabela += "            <th>Desconto</th>";
     tabela += "            <th>Ações</th>";
     tabela += "        </tr>";
     tabela += "    </thead>";
@@ -374,11 +397,11 @@ function montaTabelaProdutos(dados) {
         for (var i in dados) {
             tabela += "     <tr>";
             tabela += "     <td>" + dados[i].produto.dscProduto + "</td>";
+            tabela += "     <td>" + dados[i].produto.qtdVendida + "</td>";
             tabela += "     <td>" + (dados[i].produto.marca?.dscMarca || 'serviço') + "</td>";
+            tabela += "     <td>" + dados[i].produto.vlrProduto + "</td>";
+            tabela += "     <td>" + dados[i].produto.vlrDesconto + "</td>";
             tabela += "     <td style='text-align:center;'>";
-            tabela += "         <button class='btn btn-link' onclick='javascript:editarProduto(" + i + ")'>";
-            tabela += "             <i class='fas fa-pen'></i>";
-            tabela += "         </button>";
             tabela += "         <button class='btn btn-link' style='color: red;' href='javascript:removerProduto(" + i + ")'>";
             tabela += "             <i class='fas  fa-trash'></i>";
             tabela += "         </button>";
@@ -397,17 +420,6 @@ function montaTabelaProdutos(dados) {
     });
 }
 
-function editarProduto(index) {
-    var dados = dadosRetornoProdutos[index];
-    $("#dscProduto").val(dados.produto.dscProduto);
-    $("#qtdVendida").val(dados.qtdVendida);
-    $("#vlrVenda").val(dados.vlrVenda);
-    $("#vlrDesconto").val(dados.vlrDesconto);
-    $("#codFuncionario").val(dados.funcionario.codUsuario);
-    $("#txtObservacaoProd").val(dados.txtObservacao);
-    $("#divCodVenda").show('fade');
-}
-
 function limparCamposProduto() {
     $("#dscProduto").val("");
     $("#qtdVendida").val("");
@@ -420,7 +432,6 @@ function limparCamposProduto() {
 $(document).ready(function () {
     $("#divCodVenda").hide();
     $("#codVenda").change();
-
     $("#vlrImpostoProduto").val('0,0684');
     $("#vlrImpostoServico").val('0,1026');
     criarComboVendedores();
