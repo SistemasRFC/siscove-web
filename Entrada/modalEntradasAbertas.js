@@ -42,10 +42,10 @@ function montaTabelaEntrada() {
     for (var i in dados) {
         tabela += "<tr>";
         tabela += "     <td>" + dados[i].nroSequencial + "</td>";
-        tabela += "     <td>" + dados[i].dtaEntrada + "</td>";
+        tabela += "     <td>" + dados[i].dtaEntradaFormatada + "</td>";
         tabela += "     <td>" + dados[i].dscFornecedor + "</td>";
         tabela += "     <td>" + dados[i].dscDeposito + "</td>";
-        tabela += "     <td>" + dados[i].vlrTotal + "</td>";
+        tabela += "     <td>" + dados[i].vlrTotalFormatada + "</td>";
         tabela += "    </a>";
 
         tabela += "</td>";

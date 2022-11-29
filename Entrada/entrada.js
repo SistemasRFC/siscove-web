@@ -102,7 +102,7 @@ $(document).ready(function () {
                         $('#BtnAddProduto').prop('disabled', true);
                     }
                     );
-                    if ($("#nroSequencial").val() != 0) {
+                    if ($("#nroSequencial").val() > 0) {
                         getListarEntradaEstoque($("#nroSequencial").val());
                     }
 
