@@ -27,6 +27,10 @@ $(function () {
         adicionarProduto();
 
     })
+
+    $("#btnRemoverProduto").click(function(){
+        removerProduto();
+    })
 });
 
 function salvarVenda() {
@@ -384,10 +388,12 @@ function montaTabelaProdutos(dados) {
     tabela += "    <thead>";
     tabela += "        <tr align='center'>";
     tabela += "            <th>Produto</th>";
-    tabela += "            <th>Quantidade</th>";
     tabela += "            <th>Marca</th>";
+    tabela += "            <th>Funcionário</th>";
     tabela += "            <th>Valor</th>";
+    tabela += "            <th>Quantidade</th>";
     tabela += "            <th>Desconto</th>";
+    tabela +="             <th>Total</th>";
     tabela += "            <th>Ações</th>";
     tabela += "        </tr>";
     tabela += "    </thead>";
@@ -397,10 +403,12 @@ function montaTabelaProdutos(dados) {
         for (var i in dados) {
             tabela += "     <tr>";
             tabela += "     <td>" + dados[i].produto.dscProduto + "</td>";
-            tabela += "     <td>" + dados[i].produto.qtdVendida + "</td>";
             tabela += "     <td>" + (dados[i].produto.marca?.dscMarca || 'serviço') + "</td>";
-            tabela += "     <td>" + dados[i].produto.vlrProduto + "</td>";
-            tabela += "     <td>" + dados[i].produto.vlrDesconto + "</td>";
+            tabela += "     <td>"+ dados[i].dscFuncionario + "</td>";
+            tabela += "     <td>"+ dados [i].vlrVenda + "</td>";
+            tabela += "     <td>"+ dados [i].qtdVendida + "</td>";
+            tabela += "     <td>"+ dados [i].vlrDesconto + "</td>";
+            tabela += "     <td>"+ dados [i].vlrTotal + "</td>";
             tabela += "     <td style='text-align:center;'>";
             tabela += "         <button class='btn btn-link' style='color: red;' href='javascript:removerProduto(" + i + ")'>";
             tabela += "             <i class='fas  fa-trash'></i>";
@@ -427,6 +435,10 @@ function limparCamposProduto() {
     $("#vlrDesconto").val("");
     $("#codFuncionario").val("0");
     $("#txtObservacaoProd").val("");
+}
+
+function removerProduto() {
+   
 }
 
 $(document).ready(function () {
