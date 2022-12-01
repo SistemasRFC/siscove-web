@@ -5,10 +5,10 @@ $(document).ready(function () {
 
     $("#nroSequencial").change(function() {
         if ($("#nroSequencial").val() > 0){
-            $("#botaoAdicionarProduto").prop('disabled', false);
+            $("#btnSalvar").prop('disabled', false);
             getListaDepositoAtivos();
         } else {
-            $("#botaoAdicionarProduto").prop('disabled', true);
+            $("#btnSalvar").prop('disabled', true);
             montaTabela(null);
         }
     });
