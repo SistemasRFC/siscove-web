@@ -1,25 +1,22 @@
 $(document).ready(function () {
+    $("#modalEntrada").load("modalEntradasAbertas.html");
     getListaDepositoAtivos();
     getListarAtivos();
-    $("#nroSequencial").change();
-
-    $("#nroSequencial").change(function() {
-        if ($("#nroSequencial").val() > 0){
-            $("#btnSalvar").prop('disabled', false);
+    
+    $("#nroSequencial").change(function () {
+        if ($("#nroSequencial").val() > 0) {
+            $("#botaoAdicionarProduto").prop('disabled', false);
             getListaDepositoAtivos();
+            getListaEntradaEstoqueByNroSequencial($("#nroSequencial").val());
         } else {
-            $("#btnSalvar").prop('disabled', true);
+            $("#botaoAdicionarProduto").prop('disabled', true);
             montaTabela(null);
         }
     });
-    $("#modalEntrada").load("modalEntradasAbertas.html");
-
     $("#btnNovo").click(function () {
         limparCampos();
     });
-
     $("#btnCancelar").click(function () {
-
         LimparCamposCalculo();
     });
 
@@ -33,7 +30,6 @@ $(document).ready(function () {
         });
         getListarEntradaAbertas();
     });
-
     $('.basicAutoComplete').on('autocomplete.select', function (evt, item) {
         console.log(item)
         $("#codProduto").val(item.codProduto);
@@ -53,6 +49,7 @@ $(document).ready(function () {
             swal('', 'Por favor preencha o Numero da Nota Fiscal !', 'warning');
             return false;
         }
+
         var dados = JSON.stringify({
             fornecedorDto: {
                 codFornecedor: $("#codFornecedor").val(),
@@ -98,14 +95,6 @@ $(document).ready(function () {
                         timer: 2000,
                         showConfirmButton: false
                     });
-                    $('#btnSalvar').on('click', function () {
-                        $('#BtnAddProduto').prop('disabled', true);
-                    }
-                    );
-                    if ($("#nroSequencial").val() > 0) {
-                        getListarEntradaEstoque($("#nroSequencial").val());
-                    }
-
                 } else {
                     swal("", "Produto não salvo!!!", "error");
                 }
@@ -115,7 +104,7 @@ $(document).ready(function () {
             }
         });
     });
-    function getListarEntradaEstoque(nroSequencial) {
+    function getListaEntradaEstoqueByNroSequencial(nroSequencial) {
         $.ajax({
             type: "GET",
             url: "http://localhost:8080/entrada/estoque/listar/" + nroSequencial,
@@ -127,7 +116,7 @@ $(document).ready(function () {
                 montaTabela(data.objeto);
             },
             error: (err) => {
-                swal("", " não confirmado!!!", "error");
+                swal("", "Não confirmado!!!", "error");
             }
         });
     }
