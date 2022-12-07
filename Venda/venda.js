@@ -10,6 +10,18 @@ $(function () {
         }
     });
 
+    $("#btnNovoCliente").click(function() {
+        adicionarNovoCliente();
+    })
+
+    $("#btnNovoVeiculo").click(function() {
+        adicionarNovoVeiculo();
+    })
+
+    $("#btnNovoProduto").click(function() {
+        adicionarNovoProduto();
+    })
+
     $("#btnSalvar").click(function () {
         salvarVenda();
     });
@@ -106,13 +118,12 @@ function adicionarProduto() {
     var dados = JSON.stringify({
         codVenda: $("#codVenda").val(),
         codProduto: $("#codProduto").val(),
+        dscProduto: $("#dscProduto").val(),
         qtdVendida: $("#qtdVendida").val(),
         vlrVenda: $("#vlrVenda").val(),
         vlrDesconto: $("#vlrDesconto").val(),
         codFuncionario: $("#codFuncionario").val(),
         txtObservacao: $("#txtObservacaoProd").val(),
-        nroSequencial: $("#nroSequencial").val(),
-        indEstoque: $("#indEstoque").val(),
     });
 
     $.ajax({
@@ -133,8 +144,9 @@ function adicionarProduto() {
                     timer: 2000,
                     showConfirmButton: false
                 });
+                getListaProdutosVenda();
             } else {
-                swal("", "Produto não adicionado!", "error");
+                swal("", data.mensagem, "error");
             }
         },
         error: function (err) {
@@ -143,8 +155,7 @@ function adicionarProduto() {
     });
 }
 
-function limparCamposVenda() {
-}
+
 
 function criarCampoCliente() {
     $('.clienteAutoComplete').on('autocomplete.select', function (evt, item) {
@@ -219,6 +230,7 @@ function criarCampoCpfCnpj() {
         }
     });
 }
+
 
 function criarCampoVeiculo() {
     $('.veiculoAutoComplete').on('autocomplete.select', function (evt, item) {
@@ -404,11 +416,11 @@ function montaTabelaProdutos(dados) {
             tabela += "     <tr>";
             tabela += "     <td>" + dados[i].produto.dscProduto + "</td>";
             tabela += "     <td>" + (dados[i].produto.marca?.dscMarca || 'serviço') + "</td>";
-            tabela += "     <td>"+ dados[i].dscFuncionario + "</td>";
+            tabela += "     <td>"+ dados[i].funcionario.nmeUsuarioCompleto + "</td>";
             tabela += "     <td>"+ dados [i].vlrVenda + "</td>";
             tabela += "     <td>"+ dados [i].qtdVendida + "</td>";
             tabela += "     <td>"+ dados [i].vlrDesconto + "</td>";
-            tabela += "     <td>"+ dados [i].vlrTotal + "</td>";
+            tabela += "     <td>"+ dados [i].vlrTotalProduto + "</td>";
             tabela += "     <td style='text-align:center;'>";
             tabela += "         <button class='btn btn-link' style='color: red;' href='javascript:removerProduto(" + i + ")'>";
             tabela += "             <i class='fas  fa-trash'></i>";
@@ -437,10 +449,6 @@ function limparCamposProduto() {
     $("#txtObservacaoProd").val("");
 }
 
-function removerProduto() {
-   
-}
-
 $(document).ready(function () {
     $("#divCodVenda").hide();
     $("#codVenda").change();
@@ -453,3 +461,8 @@ $(document).ready(function () {
     criarCampoVeiculo();
     criarCampoProduto();
 });
+
+function adicionarNovoVeiculo() {
+    $("#codVeiculo").val(0);
+    $("#dscVeiculo").val("");
+}
