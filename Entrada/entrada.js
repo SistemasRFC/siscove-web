@@ -2,7 +2,7 @@ $(document).ready(function () {
     $("#modalEntrada").load("modalEntradasAbertas.html");
     getListaDepositoAtivos();
     getListarAtivos();
-    
+
     $("#nroSequencial").change(function () {
         if ($("#nroSequencial").val() > 0) {
             $("#botaoAdicionarProduto").prop('disabled', false);
@@ -61,6 +61,9 @@ $(document).ready(function () {
             dtaEntrada: $("#dtaEntrada").val(),
             txtObservacao: $("#txtObservacao").val(),
             codUsuario: $("#codUsuario").val(),
+            nroSequencial: $("#nroSequencial").val(),
+            codClienteFinal: $("#codClienteFinal").val(),
+
         })
         if ($("#nroSequencial").val() > 0) {
             dados = JSON.stringify({
@@ -75,6 +78,7 @@ $(document).ready(function () {
                 codUsuario: $("#codUsuario").val(),
                 txtObservacao: $("#txtObservacao").val(),
                 codProduto: $("#codProduto").val()
+
             })
         }
         $.ajax({
@@ -141,16 +145,16 @@ $(document).ready(function () {
             qtdEntrada: $("#qtdEntrada").val(),
             codUsuario: $("#codUsuario").val()
         })
-        if ($("#codUsuario").val() > 0) {
+        if ($("#nroSequencial").val() > 0) {
             dados = JSON.stringify({
                 produto: {
                     codProduto: $("#codProduto").val(),
                 },
-                nroSequencial: $("#nroSequencial").val(),
                 vlrVenda: $("#vlrVenda").val(),
                 vlrMinimo: $("#vlrMinimo").val(),
                 vlrUnitario: $("#vlrUnitario").val(),
                 qtdEntrada: $("#qtdEntrada").val(),
+                codUsuario: $("#codUsuario").val(),
             })
         }
         $.ajax({
@@ -234,6 +238,7 @@ $(document).ready(function () {
             $("#nroNotaFiscal").val(""),
             $("#codProduto").val(0);
     }
+
     function getListarAtivos() {
         $.ajax({
             type: "GET",
@@ -317,3 +322,19 @@ function calcular() {
     $('#vlrMinimo').val(1.25 * valor2);
     $('#vlrVenda').val(1.35 * valor2);
 }
+function preencherCampos(index) {
+    var dados = dadosRetorno[index];
+
+    if (dados.indEntrada == 'A') {
+        $("#indEntrada").prop('checked', true);
+    } else {
+        $("#indEntrada").prop('checked', false);
+    }
+
+    $("#codFornecedor").val(dados.codFornecedor);
+    $("#codDeposito").val(dados.codDeposito);
+    $("#vlrTotalFormatada").val(dados.vlrTotalFormatada)
+    $("#dtaEntradaFormatada").val(dados.dtaEntradaFormatada)
+    $("#nroSequencial").val(dados.nroSequencial)
+}
+

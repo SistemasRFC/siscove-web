@@ -11,10 +11,10 @@ function getListarEntradaAbertas() {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },
         success: function (data) {
-            if (data.retorno){
+            if (data.retorno) {
                 dadosRetorno = data.objeto;
                 montaTabelaEntrada(data.objeto);
-            }else{
+            } else {
                 swal("", data.mensagem, "error");
             }
         },
@@ -46,7 +46,9 @@ function montaTabelaEntrada() {
         tabela += "     <td>" + dados[i].dscFornecedor + "</td>";
         tabela += "     <td>" + dados[i].dscDeposito + "</td>";
         tabela += "     <td>" + dados[i].vlrTotalFormatada + "</td>";
+        
         tabela += "    </a>";
+        tabela += "         <a href='javascript:preencherCampos(" + i + ")'>";
 
         tabela += "</td>";
         tabela += "</tr>";
@@ -57,5 +59,6 @@ function montaTabelaEntrada() {
     $("#tabelaEntrada").DataTable();
     swal.close();
     $("#entradaModal").modal("show");
+
 }
 
