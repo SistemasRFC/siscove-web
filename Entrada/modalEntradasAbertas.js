@@ -40,16 +40,13 @@ function montaTabelaEntrada() {
     tabela += "    <tbody>";
 
     for (var i in dados) {
-        tabela += "<tr>";
+        tabela += "<tr class='preenche' id='"+i+"'>";
         tabela += "     <td>" + dados[i].nroSequencial + "</td>";
         tabela += "     <td>" + dados[i].dtaEntradaFormatada + "</td>";
         tabela += "     <td>" + dados[i].dscFornecedor + "</td>";
         tabela += "     <td>" + dados[i].dscDeposito + "</td>";
         tabela += "     <td>" + dados[i].vlrTotalFormatada + "</td>";
-        
         tabela += "    </a>";
-        tabela += "         <a href='javascript:preencherCampos(" + i + ")'>";
-
         tabela += "</td>";
         tabela += "</tr>";
     }
@@ -59,6 +56,10 @@ function montaTabelaEntrada() {
     $("#tabelaEntrada").DataTable();
     swal.close();
     $("#entradaModal").modal("show");
-
+    $(".preenche").click(function(){
+        var id = $(this).attr('id');
+        preencherCampos(id);
+        $("#entradaModal").modal("hide");
+    })
 }
 

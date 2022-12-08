@@ -50,7 +50,7 @@ $(document).ready(function () {
             return false;
         }
 
-        var dados = JSON.stringify({
+        var dados = {
             fornecedorDto: {
                 codFornecedor: $("#codFornecedor").val(),
             },
@@ -61,26 +61,13 @@ $(document).ready(function () {
             dtaEntrada: $("#dtaEntrada").val(),
             txtObservacao: $("#txtObservacao").val(),
             codUsuario: $("#codUsuario").val(),
-            nroSequencial: $("#nroSequencial").val(),
             codClienteFinal: $("#codClienteFinal").val(),
-
-        })
-        if ($("#nroSequencial").val() > 0) {
-            dados = JSON.stringify({
-                depositoDto: {
-                    codDeposito: $("#codDeposito").val(),
-                },
-                nroNotaFiscal: $("#nroNotaFiscal").val(),
-                dtaEntrada: $("#dtaEntrada").val(),
-                fornecedorDto: {
-                    codFornecedor: $("#codFornecedor").val(),
-                },
-                codUsuario: $("#codUsuario").val(),
-                txtObservacao: $("#txtObservacao").val(),
-                codProduto: $("#codProduto").val()
-
-            })
+            indEntrada: $("#indEntrada").val()
         }
+        if ($("#nroSequencial").val() > 0) {
+            dados.nroSequencial = $("#nroSequencial").val();
+        }
+        dados = JSON.stringify(dados);
         $.ajax({
             type: "POST",
             url: "http://localhost:8080/entrada/salvar",
@@ -230,13 +217,14 @@ $(document).ready(function () {
             $("#codProduto").val(0);
     }
     function limparCampos() {
-        $("#codFornecedor").val(""),
-            $("#btnProcurar").val(""),
-            $("#codDeposito").val(""),
-            $("#dtaEntrada").val(""),
-            $("#txtObservacao").val(""),
-            $("#nroNotaFiscal").val(""),
-            $("#codProduto").val(0);
+        $("#codFornecedor").val("");
+        $("#btnProcurar").val("");
+        $("#codDeposito").val("");
+        $("#dtaEntrada").val("");
+        $("#txtObservacao").val("");
+        $("#nroNotaFiscal").val("");
+        $("#codProduto").val(0);
+        $("#nroSequencial").val(0);
     }
 
     function getListarAtivos() {
@@ -284,8 +272,8 @@ $(document).ready(function () {
     }
     function montaComboDeposito(dados) {
         var tabela = '';
+        tabela += '<option value="">Selecione </option>';
         for (var i in dados) {
-            tabela += '<option value="">Selecione </option>';
             tabela += '<option value="' + dados[i].codDeposito + '">' + dados[i].dscDeposito + ' </option>';
         }
         $("#codDeposito").html(tabela);
@@ -325,16 +313,16 @@ function calcular() {
 function preencherCampos(index) {
     var dados = dadosRetorno[index];
 
-    if (dados.indEntrada == 'A') {
-        $("#indEntrada").prop('checked', true);
-    } else {
-        $("#indEntrada").prop('checked', false);
-    }
-
-    $("#codFornecedor").val(dados.codFornecedor);
+    $("#indEntrada").val(dados.indEntrada);
     $("#codDeposito").val(dados.codDeposito);
-    $("#vlrTotalFormatada").val(dados.vlrTotalFormatada)
-    $("#dtaEntradaFormatada").val(dados.dtaEntradaFormatada)
-    $("#nroSequencial").val(dados.nroSequencial)
+    $("#dtaEntradaFormatada").val(dados.dtaEntrada);
+    $("#nroSequencial").val(dados.nroSequencial);
+    $("#dtaEntrada").val(dados.dtaEntrada.substring(0,10));
+    $("#txtObservacao").val(dados.txtObservacao);
+    $("#codFornecedor").val(dados.codFornecedor);
+    $("#nroNotaFiscal").val(dados.nroNotaFiscal);
+    $("#codUsuario").val(dados.codUsuario);
+    $("#codClienteFinal").val(dados.codClienteFinal);
 }
+
 
