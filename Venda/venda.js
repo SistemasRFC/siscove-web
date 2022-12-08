@@ -39,10 +39,8 @@ $(function () {
         adicionarProduto();
 
     })
+    
 
-    $("#btnRemoverProduto").click(function(){
-        removerProduto();
-    })
 });
 
 function salvarVenda() {
@@ -114,18 +112,20 @@ function salvarVenda() {
     });
 }
 
+
 function adicionarProduto() {
     var dados = JSON.stringify({
         codVenda: $("#codVenda").val(),
         codProduto: $("#codProduto").val(),
         dscProduto: $("#dscProduto").val(),
         qtdVendida: $("#qtdVendida").val(),
+        nroSequencial: $("#nroSequencial").val(),
         vlrVenda: $("#vlrVenda").val(),
         vlrDesconto: $("#vlrDesconto").val(),
         codFuncionario: $("#codFuncionario").val(),
         txtObservacao: $("#txtObservacaoProd").val(),
     });
-
+    
     $.ajax({
         type: "POST",
         url: "http://localhost:8080/venda/produto/salvar",
@@ -449,6 +449,46 @@ function limparCamposProduto() {
     $("#txtObservacaoProd").val("");
 }
 
+function adicionarNovoProduto() {
+    $("#codVenda").val("");
+    $("#codProduto").val("");
+    $("#dscProduto").val("");
+    $("#qtdVendida").val("");
+    $("#nroSequencial").val("");
+    $("#vlrVenda").val("");
+    $("#vlrDesconto").val("");
+    $("#codFuncionario").val("0");
+    $("#txtObservacao").val(""); 
+}
+
+function adicionarNovoVeiculo() {
+    $("#codVeiculo").val("");
+    $("#dscVeiculo").val("");
+    $("#nroPlaca").val("");
+    $("#vlrKmRodado").val("");
+    $("#txtObservacao").val("");
+}
+
+function adicionarNovoCliente() {
+    $("#codCliente").val("");
+    $("#dscCliente").val("");
+    $("#nroDoc").val("");
+    $("#nroTelefoneContato").val("");
+    $("#nroTelefoneCelular").val("");
+    $("#nroCep").val("");
+}
+
+function removerProduto(){
+    $("#dscProduto").val("");
+    $("dscMarca").val("");
+    $("#nmeUsuarioCompleto").val("");
+    $("#vrVenda").val("");
+    $("#qtdVendida").val("");
+    $("#vlrDesconto").val("");
+    $("#vlrTotalProduto").val("");
+}
+
+
 $(document).ready(function () {
     $("#divCodVenda").hide();
     $("#codVenda").change();
@@ -462,7 +502,4 @@ $(document).ready(function () {
     criarCampoProduto();
 });
 
-function adicionarNovoVeiculo() {
-    $("#codVeiculo").val(0);
-    $("#dscVeiculo").val("");
-}
+
