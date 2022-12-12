@@ -39,6 +39,11 @@ $(function () {
         adicionarProduto();
 
     })
+
+    $("").click(function () {
+        removerProduto();
+        
+    })
     
 
 });
@@ -401,10 +406,10 @@ function montaTabelaProdutos(dados) {
     tabela += "        <tr align='center'>";
     tabela += "            <th>Produto</th>";
     tabela += "            <th>Marca</th>";
-    tabela += "            <th>Funcionário</th>";
     tabela += "            <th>Valor</th>";
     tabela += "            <th>Quantidade</th>";
     tabela += "            <th>Desconto</th>";
+    tabela += "            <th>Funcionario</th>";
     tabela +="             <th>Total</th>";
     tabela += "            <th>Ações</th>";
     tabela += "        </tr>";
@@ -416,10 +421,10 @@ function montaTabelaProdutos(dados) {
             tabela += "     <tr>";
             tabela += "     <td>" + dados[i].produto.dscProduto + "</td>";
             tabela += "     <td>" + (dados[i].produto.marca?.dscMarca || 'serviço') + "</td>";
+            tabela += "     <td>"+ dados[i].vlrVenda+ "</td>";
+            tabela += "     <td>"+ dados[i].qtdVendida + "</td>";
+            tabela += "     <td>"+ dados[i].vlrDesconto + "</td>";
             tabela += "     <td>"+ dados[i].funcionario.nmeUsuarioCompleto + "</td>";
-            tabela += "     <td>"+ dados [i].vlrVenda + "</td>";
-            tabela += "     <td>"+ dados [i].qtdVendida + "</td>";
-            tabela += "     <td>"+ dados [i].vlrDesconto + "</td>";
             tabela += "     <td>"+ dados [i].vlrTotalProduto + "</td>";
             tabela += "     <td style='text-align:center;'>";
             tabela += "         <button class='btn btn-link' style='color: red;' href='javascript:removerProduto(" + i + ")'>";
@@ -449,43 +454,16 @@ function limparCamposProduto() {
     $("#txtObservacaoProd").val("");
 }
 
-function adicionarNovoProduto() {
-    $("#codVenda").val("");
-    $("#codProduto").val("");
-    $("#dscProduto").val("");
-    $("#qtdVendida").val("");
-    $("#nroSequencial").val("");
-    $("#vlrVenda").val("");
-    $("#vlrDesconto").val("");
-    $("#codFuncionario").val("0");
-    $("#txtObservacao").val(""); 
-}
-
-function adicionarNovoVeiculo() {
-    $("#codVeiculo").val("");
-    $("#dscVeiculo").val("");
-    $("#nroPlaca").val("");
-    $("#vlrKmRodado").val("");
-    $("#txtObservacao").val("");
-}
-
-function adicionarNovoCliente() {
-    $("#codCliente").val("");
-    $("#dscCliente").val("");
-    $("#nroDoc").val("");
-    $("#nroTelefoneContato").val("");
-    $("#nroTelefoneCelular").val("");
-    $("#nroCep").val("");
-}
 
 function removerProduto(){
     $("#dscProduto").val("");
-    $("dscMarca").val("");
+    $("#dscMarca").val("");
     $("#nmeUsuarioCompleto").val("");
-    $("#vrVenda").val("");
+    $("#vlrVenda").val("");
     $("#qtdVendida").val("");
     $("#vlrDesconto").val("");
     $("#vlrTotalProduto").val("");
+
 }
 
 
