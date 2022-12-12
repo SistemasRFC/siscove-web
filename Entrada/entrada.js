@@ -1,8 +1,10 @@
 $(document).ready(function () {
     $("#modalEntrada").load("modalEntradasAbertas.html");
+    $("#modalEntrada").load("modalEntradasFechadas.html");
     getListaDepositoAtivos();
     getListarAtivos();
-
+    
+    
     $("#nroSequencial").change(function () {
         if ($("#nroSequencial").val() > 0) {
             $("#botaoAdicionarProduto").prop('disabled', false);
@@ -20,7 +22,7 @@ $(document).ready(function () {
         LimparCamposCalculo();
     });
 
-    $("#btnTipoEntrada").click(function () {
+    $("#btnEntradasAbertas").click(function () {
         swal({
 
             title: "Carregando Lista de Entradas Abertas!",
@@ -30,6 +32,16 @@ $(document).ready(function () {
         });
         getListarEntradaAbertas();
     });
+    $("#btnEntradasFechadas").click(function () {
+        swal({
+
+            title: "Carregando Lista de Entradas Fechadas!",
+            text: "",
+            imageUrl: "../Resources/images/preload.gif",
+            showConfirmButton: false
+        });
+        getListarEntradaFechadas();
+    });
     $('.basicAutoComplete').on('autocomplete.select', function (evt, item) {
         console.log(item)
         $("#codProduto").val(item.codProduto);
@@ -37,63 +49,12 @@ $(document).ready(function () {
     });
     var dadosRetorno;
     $("#btnSalvar").click(function () {
-        if ($("#codFornecedor").val() == '') {
-            swal('', 'Por favor preencha o Fornecedor !', 'warning');
-            return false;
-        }
-        if ($("#codDeposito").val() == '') {
-            swal('', 'Por favor preencha o Deposito !', 'warning');
-            return false;
-        }
-        if ($("#nroNotaFiscal").val() == '') {
-            swal('', 'Por favor preencha o Numero da Nota Fiscal !', 'warning');
-            return false;
-        }
+        salvarEntrada();
+    });
 
-        var dados = {
-            fornecedorDto: {
-                codFornecedor: $("#codFornecedor").val(),
-            },
-            depositoDto: {
-                codDeposito: $("#codDeposito").val(),
-            },
-            nroNotaFiscal: $("#nroNotaFiscal").val(),
-            dtaEntrada: $("#dtaEntrada").val(),
-            txtObservacao: $("#txtObservacao").val(),
-            codUsuario: $("#codUsuario").val(),
-            codClienteFinal: $("#codClienteFinal").val(),
-            indEntrada: $("#indEntrada").val()
-        }
-        if ($("#nroSequencial").val() > 0) {
-            dados.nroSequencial = $("#nroSequencial").val();
-        }
-        dados = JSON.stringify(dados);
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:8080/entrada/salvar",
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
-            },
-            data: dados,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (data) {
-                if (data.retorno) {
-                    swal({
-                        title: "",
-                        text: "Produto salvo!",
-                        type: "success",
-                        timer: 2000,
-                        showConfirmButton: false
-                    });
-                } else {
-                    swal("", "Produto não salvo!!!", "error");
-                }
-            },
-            error: function (err) {
-                swal("", "Erro ao salvar Produto!!!", "error");
-            }
-        });
+    $("#btnFecharEntrada").click(function () {
+        $("#indEntrada").val('F');
+        salvarEntrada();
     });
     function getListaEntradaEstoqueByNroSequencial(nroSequencial) {
         $.ajax({
@@ -305,6 +266,73 @@ $(document).ready(function () {
         }
     });
 });
+
+function salvarEntrada(){
+    if ($("#codFornecedor").val() == '') {
+        swal('', 'Por favor preencha o Fornecedor !', 'warning');
+        return false;
+    }
+    if ($("#codDeposito").val() == '') {
+        swal('', 'Por favor preencha o Deposito !', 'warning');
+        return false;
+    }
+    if ($("#nroNotaFiscal").val() == '') {
+        swal('', 'Por favor preencha o Numero da Nota Fiscal !', 'warning');
+        return false;
+    }
+
+    var dados = {
+        fornecedorDto: {
+            codFornecedor: $("#codFornecedor").val(),
+        },
+        depositoDto: {
+            codDeposito: $("#codDeposito").val(),
+        },
+        nroNotaFiscal: $("#nroNotaFiscal").val(),
+        dtaEntrada: $("#dtaEntrada").val(),
+        txtObservacao: $("#txtObservacao").val(),
+        codUsuario: $("#codUsuario").val(),
+        codClienteFinal: $("#codClienteFinal").val(),
+        indEntrada: $("#indEntrada").val()
+    }
+    if ($("#nroSequencial").val() > 0) {
+        dados.nroSequencial = $("#nroSequencial").val();
+    }
+    dados = JSON.stringify(dados);
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/entrada/salvar",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
+        },
+        data: dados,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            if  ($("#indEntrada").val()=='A') {
+                swal({
+                    title: "",
+                    text: "Dados da Entrada Salvos!",
+                    type: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            } else {
+                swal({
+                    title: "",
+                    text: "Entrada Fechada!",
+                    type: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            }
+        },
+        error: function (err) {
+            swal("", "Erro ao salvar Entrada!!!", "error");
+        }
+    });
+}
+
 function calcular() {
     var valor2 = parseFloat($('#vlrUnitario').val());
     $('#vlrMinimo').val(1.25 * valor2);
@@ -323,6 +351,8 @@ function preencherCampos(index) {
     $("#nroNotaFiscal").val(dados.nroNotaFiscal);
     $("#codUsuario").val(dados.codUsuario);
     $("#codClienteFinal").val(dados.codClienteFinal);
+    
+    $("#entradaModal").modal("hide");
 }
 
 

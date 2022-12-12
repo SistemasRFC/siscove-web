@@ -1,12 +1,12 @@
 // $(document).ready(function () {
-//     getListarEntradaAbertas();
+//     getListarEntradaFechadas();
 
 // })
 
-function getListarEntradaAbertas() {
+function getListarEntradaFechadas() {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/entrada/listar/abertas",
+        url: "http://localhost:8080/entrada/listar/fechadas",
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },
@@ -24,10 +24,11 @@ function getListarEntradaAbertas() {
     });
 }
 
+
 function montaTabelaEntrada() {
     var dados = dadosRetorno;
     var tabela = '';
-    tabela += '<table class="table table-hover table-striped table-bordered table-white" id="tabelaEntrada">';
+    tabela += '<table class="table table-hover table-striped table-bordered table-white" id="tabelaEntradaF">';
     tabela += '<thead>';
     tabela += '    <tr align="center">';
     tabela += '        <th>Codigo </th>'
@@ -53,12 +54,14 @@ function montaTabelaEntrada() {
         tabela += "    </a>";
         tabela += "</td>";
         tabela += "</tr>";
+        
     }
     tabela += "</tbody>";
     tabela += "</table>";
-    $("#tabelaEntradaAberta").html(tabela);
-    $("#tabelaEntrada").DataTable();
+    $("#tabelaEntradaFechada").html(tabela);
+    $("#tabelaEntradaF").DataTable();
     swal.close();
+    
     $("#entradaModal").modal("show");
 }
 

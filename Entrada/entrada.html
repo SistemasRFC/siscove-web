@@ -49,8 +49,17 @@
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <h1 class="h3 mb-0 text-gray-800">Movimentações</h1>
                         </div>
+
                         <div class="col-xl-12 col-lg-12">
                             <div class="card shadow mb-4">
+                                <div class="row">
+                                    <div class="col-sm-12 ">
+                                        <button class="btn btn-warning" id="btnEntradasFechadas">Entradas
+                                            Fechadas</button>
+                                        <button class="btn btn-warning" id="btnEntradasAbertas">Entradas Em Aberto
+                                        </button>
+                                    </div>
+                                </div>
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-secondary">
                                     <h6 class="m-0 font-weight-bold text-persian-dark">Entrada Estoque</h6>
@@ -64,7 +73,7 @@
                                     <div class="row">
                                         <div class="col-sm-12 ">
                                             <button class="btn btn-primary" id="btnNovo">Novo</button>
-                                            <button class="btn btn-warning" id="btnTipoEntrada">Entradas Em Aberto
+
                                             </button>
                                         </div>
                                     </div>
@@ -88,8 +97,7 @@
                                         </div>
                                         <div class="col-sm-4 ">
                                             <label for="dtaEntrada">Data da Entrada</label>
-                                            <input id="dtaEntrada" name="dtaEntrada" type="date"
-                                                class="form-control" />
+                                            <input id="dtaEntrada" name="dtaEntrada" type="date" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="row">
@@ -122,10 +130,10 @@
                                     <div class="row">
                                         <div class="col-lg-12 fechada">
                                             <p class="btn btn-link " data-toggle="collapse" href="#collapseExample"
-                                                aria-expanded="false" class="button" id="botaoAdicionarProduto" 
+                                                aria-expanded="false" class="button" id="botaoAdicionarProduto"
                                                 aria-controls="collapseExample">
                                                 Produtos
-                                                <i class="fas fa-plus"></i>
+                                                <i class="fas fa-plus" class="btn btn-link"></i>
                                                 Adicionar Produto
                                             </p>
                                             <div class="row">
@@ -166,18 +174,20 @@
                                                         </div>
                                                         <br>
                                                         <div class="row">
-                                                            <div class="col-sm-12">
+                                                            <div class="col-lg-12">
                                                                 <button class="btn btn-secondary" data-toggle="collapse"
                                                                     data-target="#collapseExample" aria-expanded="false"
                                                                     aria-controls="collapseExample"
-                                                                    id="btnCancelar">Cancelar
+                                                                    id="btnCancelar">
+                                                                    <p style="width:600;height:10" class="text">Cancelar</p>
                                                                 </button>
 
-                                                                <button class="btn btn-success"
-                                                                    id="btnAdicionar">Salvar
+                                                                <button id="btnAdicionar" class="btn btn-success">
+                                                                    <p style="width:600;height:10" class="text">Salvar</p>
                                                                 </button>
                                                             </div>
                                                         </div>
+                                                        <br>
                                                     </div>
                                                 </div>
                                             </div>
@@ -191,17 +201,17 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                    <div class="col-sm-12 fechada">
-                                        <button class="btn btn-dark" id="btnTipoEntradaF">Fechar Entrada</button>
+                                        <div class="col-sm-12 fechada">
+                                            <button class="btn btn-dark" id="btnFecharEntrada">Fechar Entrada</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div id="modalEntrada"></div>
                 </div>
-                <div id="modalEntrada"></div>
             </div>
-        </div>
 
     </content>
 </body>
