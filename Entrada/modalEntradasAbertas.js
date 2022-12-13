@@ -13,7 +13,7 @@ function getListarEntradaAbertas() {
         success: function (data) {
             if (data.retorno) {
                 dadosRetorno = data.objeto;
-                montaTabelaEntrada(data.objeto);
+                montaTabelaEntradaAberta(data.objeto);
             } else {
                 swal("", data.mensagem, "error");
             }
@@ -24,7 +24,7 @@ function getListarEntradaAbertas() {
     });
 }
 
-function montaTabelaEntrada() {
+function montaTabelaEntradaAberta() {
     var dados = dadosRetorno;
     var tabela = '';
     tabela += '<table class="table table-hover table-striped table-bordered table-white" id="tabelaEntrada">';
@@ -59,6 +59,6 @@ function montaTabelaEntrada() {
     $("#tabelaEntradaAberta").html(tabela);
     $("#tabelaEntrada").DataTable();
     swal.close();
-    $("#entradaModal").modal("show");
+    $("#entradaModalAberta").modal("show");
 }
 

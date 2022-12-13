@@ -1,8 +1,9 @@
 $(document).ready(function () {
-    $("#modalEntrada").load("modalEntradasAbertas.html");
-    $("#modalEntrada").load("modalEntradasFechadas.html");
+    $("#modalEntradasAbertas").load("modalEntradasAbertas.html");
+    $("#modalEntradasFechadas").load("modalEntradasFechadas.html");
     getListaDepositoAtivos();
-    getListarAtivos();
+    getListarFornecedorAtivos("codFornecedor");
+    getListarFornecedorAtivos("codFornecedorModalFechada");
     
     
     $("#nroSequencial").change(function () {
@@ -188,7 +189,7 @@ $(document).ready(function () {
         $("#nroSequencial").val(0);
     }
 
-    function getListarAtivos() {
+    function getListarFornecedorAtivos(nomeCombo) {
         $.ajax({
             type: "GET",
             url: "http://localhost:8080/fornecedor/listar/ativos",
@@ -196,21 +197,20 @@ $(document).ready(function () {
                 xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
             },
             success: function (data) {
-                dadosRetorno = data.objeto;
-                montaComboFornecedor(data.objeto);
+                montaComboFornecedor(data.objeto, nomeCombo);
             },
             error: (err) => {
                 swal("", "Fornecedor não confirmado!!!", "error");
             }
         });
     }
-    function montaComboFornecedor(dados) {
+    function montaComboFornecedor(dados,nomeCombo) {
         var tabela = '';
         tabela += '<option value="">Selecione </option>';
         for (var i in dados) {
             tabela += '<option value="' + dados[i].codFornecedor + '">' + dados[i].dscFornecedor + ' </option>';
         }
-        $("#codFornecedor").html(tabela);
+        $("#"+nomeCombo).html(tabela);
     }
     function getListaDepositoAtivos() {
         $.ajax({
@@ -352,7 +352,8 @@ function preencherCampos(index) {
     $("#codUsuario").val(dados.codUsuario);
     $("#codClienteFinal").val(dados.codClienteFinal);
     
-    $("#entradaModal").modal("hide");
+    $("#entradaModalFechada").modal("hide");
+    $("#entradaModalAberta").modal("hide");
 }
 
 

@@ -1,7 +1,12 @@
-// $(document).ready(function () {
-//     getListarEntradaFechadas();
+$(document).ready(function () {
+    //     getListarEntradaFechadas();
 
-// })
+    // })
+    $("#btnProcurar").click(function () {
+        getListarEntradaFechadas();
+
+    })
+})
 
 function getListarEntradaFechadas() {
     $.ajax({
@@ -10,10 +15,13 @@ function getListarEntradaFechadas() {
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },
+        data: $("#Termo").val(),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
         success: function (data) {
             if (data.retorno) {
                 dadosRetorno = data.objeto;
-                montaTabelaEntrada(data.objeto);
+                montaTabelaEntradaFechada(data.objeto);
             } else {
                 swal("", data.mensagem, "error");
             }
@@ -25,7 +33,7 @@ function getListarEntradaFechadas() {
 }
 
 
-function montaTabelaEntrada() {
+function montaTabelaEntradaFechada() {
     var dados = dadosRetorno;
     var tabela = '';
     tabela += '<table class="table table-hover table-striped table-bordered table-white" id="tabelaEntradaF">';
@@ -54,14 +62,15 @@ function montaTabelaEntrada() {
         tabela += "    </a>";
         tabela += "</td>";
         tabela += "</tr>";
-        
+
     }
     tabela += "</tbody>";
     tabela += "</table>";
     $("#tabelaEntradaFechada").html(tabela);
     $("#tabelaEntradaF").DataTable();
     swal.close();
-    
-    $("#entradaModal").modal("show");
+
+    $("#entradaModalFechada").modal("show");
+
 }
 
