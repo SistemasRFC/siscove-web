@@ -39,13 +39,7 @@ $(function () {
         adicionarProduto();
 
     })
-
-    $("").click(function () {
-        removerProduto();
-        
-    })
     
-
 });
 
 function salvarVenda() {
@@ -427,9 +421,9 @@ function montaTabelaProdutos(dados) {
             tabela += "     <td>"+ dados[i].funcionario.nmeUsuarioCompleto + "</td>";
             tabela += "     <td>"+ dados [i].vlrTotalProduto + "</td>";
             tabela += "     <td style='text-align:center;'>";
-            tabela += "         <button class='btn btn-link' style='color: red;' href='javascript:removerProduto(" + i + ")'>";
+            tabela += "         <a class='btn btn-link' style='color: red;' href='javascript:removerProduto(" + i + ")'>";
             tabela += "             <i class='fas  fa-trash'></i>";
-            tabela += "         </button>";
+            tabela += "         </a>";
             tabela += "     </td>";
             tabela += "     </tr>";
         }
@@ -455,14 +449,30 @@ function limparCamposProduto() {
 }
 
 
-function removerProduto(){
-    $("#dscProduto").val("");
-    $("#dscMarca").val("");
-    $("#nmeUsuarioCompleto").val("");
-    $("#vlrVenda").val("");
-    $("#qtdVendida").val("");
-    $("#vlrDesconto").val("");
-    $("#vlrTotalProduto").val("");
+function removerProduto(indice){
+    var nroSequencial = dadosRetornoProdutos[indice].nroSequencial;
+    var codVenda = dadosRetornoProdutos[indice].codVenda;
+    var codProduto = dadosRetornoProdutos[indice].codProduto;
+    $.ajax({
+        type: "DELETE",
+        url: "http://localhost:8080/venda/produto/excluir/"+nroSequencial+"/"+codVenda+"/"+codProduto,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
+        },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            if (data.retorno) {
+                montaTabelaProdutos(data.objeto);
+                swal("", "Produto removido com sucesso!", "success");
+            } else {
+                swal("", data.mensagem, "error");
+            }
+        },
+        error: function (err) {
+            swal("", "Erro ao excluir Vendedor!", "error");
+        }
+    });
 
 }
 
