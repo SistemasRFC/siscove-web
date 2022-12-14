@@ -5,8 +5,10 @@ $(document).ready(function () {
     getListarFornecedorAtivos("codFornecedor");
     getListarFornecedorAtivos("codFornecedorModalFechada");
     
+    $("#botaoAdicionarProduto").prop('disabled', true);
     
-    $("#nroSequencial").change(function () {
+    $("#nroSequencial").onchange(function () {
+        alert($("#nroSequencial").val())
         if ($("#nroSequencial").val() > 0) {
             $("#botaoAdicionarProduto").prop('disabled', false);
             getListaDepositoAtivos();
@@ -34,14 +36,8 @@ $(document).ready(function () {
         getListarEntradaAbertas();
     });
     $("#btnEntradasFechadas").click(function () {
-        swal({
 
-            title: "Carregando Lista de Entradas Fechadas!",
-            text: "",
-            imageUrl: "../Resources/images/preload.gif",
-            showConfirmButton: false
-        });
-        getListarEntradaFechadas();
+        $("#entradaModalFechada").modal("show");
     });
     $('.basicAutoComplete').on('autocomplete.select', function (evt, item) {
         console.log(item)
@@ -50,13 +46,14 @@ $(document).ready(function () {
     });
     var dadosRetorno;
     $("#btnSalvar").click(function () {
-        salvarEntrada();
+        salvarEntrada(adicionarProduto);
     });
 
     $("#btnFecharEntrada").click(function () {
         $("#indEntrada").val('F');
         salvarEntrada();
     });
+    
     function getListaEntradaEstoqueByNroSequencial(nroSequencial) {
         $.ajax({
             type: "GET",
@@ -83,27 +80,30 @@ $(document).ready(function () {
             return false;
         }
         var dados = JSON.stringify({
-            produto: {
+            fornecedorDto: {
+                codFornecedor: $("#codFornecedor").val(),
+            },
+            ProdutoDto: {
                 codProduto: $("#codProduto").val(),
             },
             nroSequencial: $("#nroSequencial").val(),
-
             vlrVenda: $("#vlrVenda").val(),
             vlrMinimo: $("#vlrMinimo").val(),
             vlrUnitario: $("#vlrUnitario").val(),
             qtdEntrada: $("#qtdEntrada").val(),
             codUsuario: $("#codUsuario").val()
         })
-        if ($("#nroSequencial").val() > 0) {
+        if ($("#codProduto").val() > 0) {
             dados = JSON.stringify({
                 produto: {
                     codProduto: $("#codProduto").val(),
                 },
-                vlrVenda: $("#vlrVenda").val(),
+                VlrVenda: $("#VlrVenda").val(),
                 vlrMinimo: $("#vlrMinimo").val(),
                 vlrUnitario: $("#vlrUnitario").val(),
                 qtdEntrada: $("#qtdEntrada").val(),
                 codUsuario: $("#codUsuario").val(),
+                nroSequencial: $("#nroSequencial").val()
             })
         }
         $.ajax({
@@ -293,7 +293,8 @@ function salvarEntrada(){
         txtObservacao: $("#txtObservacao").val(),
         codUsuario: $("#codUsuario").val(),
         codClienteFinal: $("#codClienteFinal").val(),
-        indEntrada: $("#indEntrada").val()
+        indEntrada: $("#indEntrada").val(),
+        vlrTotal: $("#vlrTotal").val()
     }
     if ($("#nroSequencial").val() > 0) {
         dados.nroSequencial = $("#nroSequencial").val();

@@ -9,15 +9,20 @@ $(document).ready(function () {
 })
 
 function getListarEntradaFechadas() {
+    swal({
+
+        title: "Carregando Lista de Entradas Fechadas!",
+        text: "",
+        imageUrl: "../Resources/images/preload.gif",
+        showConfirmButton: false
+    });
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/entrada/listar/fechadas",
+        url: "http://localhost:8080/entrada/listar/fechadas/" + $("#codFornecedorModalFechada").val(),
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },
-        data: $("#Termo").val(),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
+
         success: function (data) {
             if (data.retorno) {
                 dadosRetorno = data.objeto;
@@ -70,7 +75,7 @@ function montaTabelaEntradaFechada() {
     $("#tabelaEntradaF").DataTable();
     swal.close();
 
-    $("#entradaModalFechada").modal("show");
+
 
 }
 
