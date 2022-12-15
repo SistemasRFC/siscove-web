@@ -4,14 +4,13 @@ $(document).ready(function () {
     getListaDepositoAtivos();
     getListarFornecedorAtivos("codFornecedor");
     getListarFornecedorAtivos("codFornecedorModalFechada");
-    
+
     $("#botaoAdicionarProduto").prop('disabled', true);
-    
-    $("#nroSequencial").onchange(function () {
-        alert($("#nroSequencial").val())
+
+    $("#nroSequencial").change(function () {
         if ($("#nroSequencial").val() > 0) {
             $("#botaoAdicionarProduto").prop('disabled', false);
-            getListaDepositoAtivos();
+
             getListaEntradaEstoqueByNroSequencial($("#nroSequencial").val());
         } else {
             $("#botaoAdicionarProduto").prop('disabled', true);
@@ -46,14 +45,14 @@ $(document).ready(function () {
     });
     var dadosRetorno;
     $("#btnSalvar").click(function () {
-        salvarEntrada(adicionarProduto);
+        salvarEntrada();
     });
 
     $("#btnFecharEntrada").click(function () {
         $("#indEntrada").val('F');
         salvarEntrada();
     });
-    
+
     function getListaEntradaEstoqueByNroSequencial(nroSequencial) {
         $.ajax({
             type: "GET",
@@ -80,9 +79,6 @@ $(document).ready(function () {
             return false;
         }
         var dados = JSON.stringify({
-            fornecedorDto: {
-                codFornecedor: $("#codFornecedor").val(),
-            },
             ProdutoDto: {
                 codProduto: $("#codProduto").val(),
             },
@@ -90,6 +86,7 @@ $(document).ready(function () {
             vlrVenda: $("#vlrVenda").val(),
             vlrMinimo: $("#vlrMinimo").val(),
             vlrUnitario: $("#vlrUnitario").val(),
+            vlrTotal: $("#vlrTotal").val(),
             qtdEntrada: $("#qtdEntrada").val(),
             codUsuario: $("#codUsuario").val()
         })
@@ -146,6 +143,7 @@ $(document).ready(function () {
         tabela += '        <th >Valor Custo </th>';
         tabela += '        <th >Valor Mínimo </th>';
         tabela += '        <th >Valor Venda </th>';
+        tabela += '        <th >Editar </th>';
         tabela += '    </tr>';
         tabela += '</thead>';
 
@@ -161,6 +159,9 @@ $(document).ready(function () {
             tabela += "     <td width='10'>" + dados[i].vlrUnitario + "</td>";
             tabela += "     <td width='10'>" + dados[i].vlrMinimo + "</td>";
             tabela += "     <td width='10'>" + dados[i].vlrVenda + "</td>";
+            tabela += "     <td width='10%'  style='text-align:center;'>";
+            tabela += "         <a href='javascript:preencherCampos(" + i + ")'>";
+            tabela += "             <i class='fa  fa-pen'></i>";
             tabela += "</td>";
             tabela += "</tr>";
         }
@@ -176,15 +177,19 @@ $(document).ready(function () {
             $("#qtdEntrada").val(""),
             $("#vlrProduto").val(""),
             $("#vlrMinimo").val(""),
+            $("#vlrTotal").val(""),
+
             $("#codProduto").val(0);
     }
     function limparCampos() {
         $("#codFornecedor").val("");
-        $("#btnProcurar").val("");
         $("#codDeposito").val("");
+        $("#btnProcurar").val("");
         $("#dtaEntrada").val("");
         $("#txtObservacao").val("");
         $("#nroNotaFiscal").val("");
+        $("#nroSequencial").val("");
+        $("#nroSequencial").change();
         $("#codProduto").val(0);
         $("#nroSequencial").val(0);
     }
@@ -204,13 +209,13 @@ $(document).ready(function () {
             }
         });
     }
-    function montaComboFornecedor(dados,nomeCombo) {
+    function montaComboFornecedor(dados, nomeCombo) {
         var tabela = '';
         tabela += '<option value="">Selecione </option>';
         for (var i in dados) {
             tabela += '<option value="' + dados[i].codFornecedor + '">' + dados[i].dscFornecedor + ' </option>';
         }
-        $("#"+nomeCombo).html(tabela);
+        $("#" + nomeCombo).html(tabela);
     }
     function getListaDepositoAtivos() {
         $.ajax({
@@ -267,7 +272,7 @@ $(document).ready(function () {
     });
 });
 
-function salvarEntrada(){
+function salvarEntrada() {
     if ($("#codFornecedor").val() == '') {
         swal('', 'Por favor preencha o Fornecedor !', 'warning');
         return false;
@@ -282,9 +287,7 @@ function salvarEntrada(){
     }
 
     var dados = {
-        fornecedorDto: {
-            codFornecedor: $("#codFornecedor").val(),
-        },
+
         depositoDto: {
             codDeposito: $("#codDeposito").val(),
         },
@@ -310,7 +313,7 @@ function salvarEntrada(){
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
-            if  ($("#indEntrada").val()=='A') {
+            if ($("#indEntrada").val() == 'A') {
                 swal({
                     title: "",
                     text: "Dados da Entrada Salvos!",
@@ -344,15 +347,23 @@ function preencherCampos(index) {
 
     $("#indEntrada").val(dados.indEntrada);
     $("#codDeposito").val(dados.codDeposito);
-    $("#dtaEntradaFormatada").val(dados.dtaEntrada);
-    $("#nroSequencial").val(dados.nroSequencial);
-    $("#dtaEntrada").val(dados.dtaEntrada.substring(0,10));
-    $("#txtObservacao").val(dados.txtObservacao);
     $("#codFornecedor").val(dados.codFornecedor);
+    $("#dtaEntradaFormatada").val(dados.dtaEntrada);
+    $("#dtaEntrada").val(dados.dtaEntrada.substring(0, 10));
+    $("#txtObservacao").val(dados.txtObservacao);
     $("#nroNotaFiscal").val(dados.nroNotaFiscal);
     $("#codUsuario").val(dados.codUsuario);
     $("#codClienteFinal").val(dados.codClienteFinal);
-    
+    $("#nroSequencial").val(dados.nroSequencial);
+    $("#dscProduto").val("dscProduto"),
+    $("#vlrVenda").val("vlrVenda"),
+    $("#vlrUnitario").val("vlrUnitario"),
+    $("#qtdEntrada").val("qtdEntrada"),
+    $("#vlrProduto").val("vlrProduto"),
+    $("#vlrMinimo").val("vlrMinimo"),
+    $("#vlrTotal").val("vlrTotal"),
+    $("#codProduto").val(0);
+    $("#nroSequencial").change();
     $("#entradaModalFechada").modal("hide");
     $("#entradaModalAberta").modal("hide");
 }
