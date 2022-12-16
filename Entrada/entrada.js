@@ -1,3 +1,4 @@
+var dadosRetornoProdutos;
 $(document).ready(function () {
     $("#modalEntradasAbertas").load("modalEntradasAbertas.html");
     $("#modalEntradasFechadas").load("modalEntradasFechadas.html");
@@ -147,23 +148,25 @@ $(document).ready(function () {
         tabela += '    </tr>';
         tabela += '</thead>';
 
+         dadosRetornoProdutos = dados;
         for (var i in dados) {
-            tabela += "<tr>";
-            tabela += "     <td width='10'>" + dados[i].nroSequencial + "</td>";
+            tabela += "<tr class='remove' id='" + i + "'>";
+            tabela += "     <td>" + dados[i].nroSequencial + "</td>";
             if (dados[i].produto == null) {
-                tabela += "     <td width='50'></td>";
+                tabela += "     <td></td>";
             } else {
-                tabela += "     <td width='30'>" + dados[i].produto.dscProduto + "</td>";
+                tabela += "     <td>" + dados[i].produto.dscProduto + "</td>";
             }
-            tabela += "     <td width='10'>" + dados[i].qtdEntrada + "</td>";
-            tabela += "     <td width='10'>" + dados[i].vlrUnitario + "</td>";
-            tabela += "     <td width='10'>" + dados[i].vlrMinimo + "</td>";
-            tabela += "     <td width='10'>" + dados[i].vlrVenda + "</td>";
-            tabela += "     <td width='10%'  style='text-align:center;'>";
-            tabela += "         <a href='javascript:preencherCampos(" + i + ")'>";
-            tabela += "             <i class='fa  fa-pen'></i>";
+            tabela += "     <td>" + dados[i].qtdEntrada + "</td>";
+            tabela += "     <td>" + dados[i].vlrUnitario + "</td>";
+            tabela += "     <td>" + dados[i].vlrMinimo + "</td>";
+            tabela += "     <td>" + dados[i].vlrVenda + "</td>";
+            tabela += "     <td style='text-align:center;'>";
+            tabela += "         <a href='javascript:removerProduto(" + i + ")'>";
+            tabela += "             <i class='fa  fa-trash'></i>";
             tabela += "</td>";
             tabela += "</tr>";
+
         }
         tabela += "</tbody>";
         tabela += "</table>";
@@ -355,17 +358,33 @@ function preencherCampos(index) {
     $("#codUsuario").val(dados.codUsuario);
     $("#codClienteFinal").val(dados.codClienteFinal);
     $("#nroSequencial").val(dados.nroSequencial);
-    $("#dscProduto").val("dscProduto"),
-    $("#vlrVenda").val("vlrVenda"),
-    $("#vlrUnitario").val("vlrUnitario"),
-    $("#qtdEntrada").val("qtdEntrada"),
-    $("#vlrProduto").val("vlrProduto"),
-    $("#vlrMinimo").val("vlrMinimo"),
-    $("#vlrTotal").val("vlrTotal"),
-    $("#codProduto").val(0);
     $("#nroSequencial").change();
     $("#entradaModalFechada").modal("hide");
     $("#entradaModalAberta").modal("hide");
+} 
+function removerProduto(indece) {
+    var nroSequencial = dadosRetornoProdutos[indece].nroSequencial;
+    var produto = dadosRetornoProdutos[indece].produto;
+    
+    $.ajax({
+        type: "DELETE",
+        url: "http://localhost:8080/entrada/estoque/remover/"+nroSequencial+"/"+produto.codProduto,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
+        },
+        // data: dados,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            if (data.retorno) {
+                montaTabela(dada.objeto);
+                swal("","Produto Removido com sucesso!", "success");
+            } else {
+                swal("", data.mensage, "error");
+            }
+        },
+        error: function (err) {
+            swal("", "Erro ao Deletar o Produto!", "error");
+        }
+    });
 }
-
-
