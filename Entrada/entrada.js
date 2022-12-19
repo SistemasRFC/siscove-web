@@ -1,4 +1,5 @@
-var dadosRetornoProdutos;
+
+var dadosRetorno;
 $(document).ready(function () {
     $("#modalEntradasAbertas").load("modalEntradasAbertas.html");
     $("#modalEntradasFechadas").load("modalEntradasFechadas.html");
@@ -44,7 +45,6 @@ $(document).ready(function () {
         $("#codProduto").val(item.codProduto);
         $('.basicAutoSelectSelected').html(item ? JSON.stringify(item) : 'null');
     });
-    var dadosRetorno;
     $("#btnSalvar").click(function () {
         salvarEntrada();
     });
@@ -54,22 +54,6 @@ $(document).ready(function () {
         salvarEntrada();
     });
 
-    function getListaEntradaEstoqueByNroSequencial(nroSequencial) {
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:8080/entrada/estoque/listar/" + nroSequencial,
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
-            },
-            success: function (data) {
-                dadosRetorno = data.objeto;
-                montaTabela(data.objeto);
-            },
-            error: (err) => {
-                swal("", "Não confirmado!!!", "error");
-            }
-        });
-    }
     $("#btnAdicionar").click(function () {
         if ($("#codProduto").val() == '') {
             swal('', 'Por favor preencha o Produto !', 'warning');
@@ -132,121 +116,7 @@ $(document).ready(function () {
             }
         });
     });
-    function montaTabela() {
-        var dados = dadosRetorno;
-        var tabela = '';
-        tabela += '<table class="table table-hover table-striped table-bordered table-white" id="tabelaEntradas">';
-        tabela += '<thead>';
-        tabela += '    <tr align="center">';
-        tabela += '        <th >Codigo </th>';
-        tabela += '        <th >Produto </th>';
-        tabela += '        <th >Quantidade </th>';
-        tabela += '        <th >Valor Custo </th>';
-        tabela += '        <th >Valor Mínimo </th>';
-        tabela += '        <th >Valor Venda </th>';
-        tabela += '        <th >Editar </th>';
-        tabela += '    </tr>';
-        tabela += '</thead>';
 
-         dadosRetornoProdutos = dados;
-        for (var i in dados) {
-            tabela += "<tr class='remove' id='" + i + "'>";
-            tabela += "     <td>" + dados[i].nroSequencial + "</td>";
-            if (dados[i].produto == null) {
-                tabela += "     <td></td>";
-            } else {
-                tabela += "     <td>" + dados[i].produto.dscProduto + "</td>";
-            }
-            tabela += "     <td>" + dados[i].qtdEntrada + "</td>";
-            tabela += "     <td>" + dados[i].vlrUnitario + "</td>";
-            tabela += "     <td>" + dados[i].vlrMinimo + "</td>";
-            tabela += "     <td>" + dados[i].vlrVenda + "</td>";
-            tabela += "     <td style='text-align:center;'>";
-            tabela += "         <a href='javascript:removerProduto(" + i + ")'>";
-            tabela += "             <i class='fa  fa-trash'></i>";
-            tabela += "</td>";
-            tabela += "</tr>";
-
-        }
-        tabela += "</tbody>";
-        tabela += "</table>";
-        $("#tabelaProdutos").html(tabela);
-        $("#tabelaEntradas").DataTable();
-    }
-    function LimparCamposCalculo() {
-        $("#dscProduto").val(""),
-            $("#vlrVenda").val(""),
-            $("#vlrUnitario").val(""),
-            $("#qtdEntrada").val(""),
-            $("#vlrProduto").val(""),
-            $("#vlrMinimo").val(""),
-            $("#vlrTotal").val(""),
-
-            $("#codProduto").val(0);
-    }
-    function limparCampos() {
-        $("#codFornecedor").val("");
-        $("#codDeposito").val("");
-        $("#btnProcurar").val("");
-        $("#dtaEntrada").val("");
-        $("#txtObservacao").val("");
-        $("#nroNotaFiscal").val("");
-        $("#nroSequencial").val("");
-        $("#nroSequencial").change();
-        $("#codProduto").val(0);
-        $("#nroSequencial").val(0);
-    }
-
-    function getListarFornecedorAtivos(nomeCombo) {
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:8080/fornecedor/listar/ativos",
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
-            },
-            success: function (data) {
-                montaComboFornecedor(data.objeto, nomeCombo);
-            },
-            error: (err) => {
-                swal("", "Fornecedor não confirmado!!!", "error");
-            }
-        });
-    }
-    function montaComboFornecedor(dados, nomeCombo) {
-        var tabela = '';
-        tabela += '<option value="">Selecione </option>';
-        for (var i in dados) {
-            tabela += '<option value="' + dados[i].codFornecedor + '">' + dados[i].dscFornecedor + ' </option>';
-        }
-        $("#" + nomeCombo).html(tabela);
-    }
-    function getListaDepositoAtivos() {
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:8080/deposito/listar/ativos",
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
-            },
-            success: function (data) {
-                if (data.retorno) {
-                    montaComboDeposito(data.objeto);
-                } else {
-                    swal("", data.mensagem, "error");
-                }
-            },
-            error: (err) => {
-                swal("", "Deposito não confirmado!!!", "error");
-            }
-        });
-    }
-    function montaComboDeposito(dados) {
-        var tabela = '';
-        tabela += '<option value="">Selecione </option>';
-        for (var i in dados) {
-            tabela += '<option value="' + dados[i].codDeposito + '">' + dados[i].dscDeposito + ' </option>';
-        }
-        $("#codDeposito").html(tabela);
-    }
     $(".basicAutoComplete").autoComplete({
         resolver: 'custom',
         formatResult: function (item) {
@@ -275,6 +145,147 @@ $(document).ready(function () {
     });
 });
 
+function getListaEntradaEstoqueByNroSequencial(nroSequencial) {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/entrada/estoque/listar/" + nroSequencial,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
+        },
+        success: function (data) {
+            dadosRetorno = data.objeto;
+            montaTabela();
+        },
+        error: (err) => {
+            swal("", "Não confirmado!!!", "error");
+        }
+    });
+}
+
+function montaTabela() {
+    var dados = dadosRetorno;
+    var tabela = '';
+    tabela += '<table class="table table-hover table-striped table-bordered table-white" id="tabelaEntradas">';
+    tabela += '<thead>';
+    tabela += '    <tr align="center">';
+    tabela += '        <th >Codigo </th>';
+    tabela += '        <th >Produto </th>';
+    tabela += '        <th >Quantidade </th>';
+    tabela += '        <th >Valor Custo </th>';
+    tabela += '        <th >Valor Mínimo </th>';
+    tabela += '        <th >Valor Venda </th>';
+    tabela += '        <th >Editar </th>';
+    tabela += '    </tr>';
+    tabela += '</thead>';
+
+    for (var i in dados) {
+        tabela += "<tr class='remove' id='" + i + "'>";
+        tabela += "     <td>" + dados[i].nroSequencial + "</td>";
+        if (dados[i].produto == null) {
+            tabela += "     <td></td>";
+        } else {
+            tabela += "     <td>" + dados[i].produto.dscProduto + "</td>";
+        }
+        tabela += "     <td>" + dados[i].qtdEntrada + "</td>";
+        tabela += "     <td>" + dados[i].vlrUnitario + "</td>";
+        tabela += "     <td>" + dados[i].vlrMinimo + "</td>";
+        tabela += "     <td>" + dados[i].vlrVenda + "</td>";
+        tabela += "     <td style='text-align:center;'>";
+        tabela += "         <a href='javascript:removerProduto(" + i + ")'>";
+        tabela += "             <i class='fa  fa-trash'></i>";
+        tabela += "</td>";
+        tabela += "</tr>";
+
+    }
+    tabela += "</tbody>";
+    tabela += "</table>";
+    $("#tabelaProdutos").html(tabela);
+    $("#tabelaEntradas").DataTable();
+}
+
+function LimparCamposCalculo() {
+    $("#dscProduto").val(""),
+        $("#vlrVenda").val(""),
+        $("#vlrUnitario").val(""),
+        $("#qtdEntrada").val(""),
+        $("#vlrProduto").val(""),
+        $("#vlrMinimo").val(""),
+        $("#vlrTotal").val(""),
+        $("codFornecedorModalFechada").val("");
+    $("#codProduto").val(0);
+}
+
+function limparCampos() {
+    $("#codFornecedor").val("");
+    $("#codDeposito").val("");
+    $("#btnProcurar").val("");
+    $("#dtaEntrada").val("");
+    $("#txtObservacao").val("");
+    $("#nroNotaFiscal").val("");
+    $("#nroSequencial").val("");
+    $("#nroSequencial").change();
+    $("#codProduto").val(0);
+    $("#nroSequencial").val(0);
+    $("#codFornecedorModalFechada").val("");
+    $("#tabelaProdutos").html("");
+    $("#tabelaEntradaFechada").html("");
+
+}
+
+function getListarFornecedorAtivos(nomeCombo) {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/fornecedor/listar/ativos",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
+        },
+        success: function (data) {
+            montaComboFornecedor(data.objeto, nomeCombo);
+        },
+        error: (err) => {
+            swal("", "Fornecedor não confirmado!!!", "error");
+        }
+    });
+}
+
+function montaComboFornecedor(dados, nomeCombo) {
+    var tabela = '';
+    tabela += '<option value="">Selecione </option>';
+    for (var i in dados) {
+        tabela += '<option value="' + dados[i].codFornecedor + '">' + dados[i].dscFornecedor + ' </option>';
+    }
+    $("#" + nomeCombo).html(tabela);
+}
+
+function getListaDepositoAtivos() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/deposito/listar/ativos",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
+        },
+        success: function (data) {
+            if (data.retorno) {
+                montaComboDeposito(data.objeto);
+            } else {
+                swal("", data.mensagem, "error");
+            }
+        },
+        error: (err) => {
+            swal("", "Deposito não confirmado!!!", "error");
+        }
+    });
+}
+
+function montaComboDeposito(dados) {
+    var tabela = '';
+    tabela += '<option value="">Selecione </option>';
+    for (var i in dados) {
+        tabela += '<option value="' + dados[i].codDeposito + '">' + dados[i].dscDeposito + ' </option>';
+    }
+    $("#codDeposito").html(tabela);
+}
+
 function salvarEntrada() {
     if ($("#codFornecedor").val() == '') {
         swal('', 'Por favor preencha o Fornecedor !', 'warning');
@@ -290,7 +301,9 @@ function salvarEntrada() {
     }
 
     var dados = {
-
+        fornecedorDto: {
+            codFornecedor: $("#codFornecedor").val(),
+        },
         depositoDto: {
             codDeposito: $("#codDeposito").val(),
         },
@@ -312,6 +325,7 @@ function salvarEntrada() {
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },
+
         data: dados,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -345,6 +359,7 @@ function calcular() {
     $('#vlrMinimo').val(1.25 * valor2);
     $('#vlrVenda').val(1.35 * valor2);
 }
+
 function preencherCampos(index) {
     var dados = dadosRetorno[index];
 
@@ -361,14 +376,15 @@ function preencherCampos(index) {
     $("#nroSequencial").change();
     $("#entradaModalFechada").modal("hide");
     $("#entradaModalAberta").modal("hide");
-} 
+}
+
 function removerProduto(indece) {
-    var nroSequencial = dadosRetornoProdutos[indece].nroSequencial;
-    var produto = dadosRetornoProdutos[indece].produto;
-    
+    var nroSequencial = dadosRetorno[indece].nroSequencial;
+    var produto = dadosRetorno[indece].produto;
+
     $.ajax({
         type: "DELETE",
-        url: "http://localhost:8080/entrada/estoque/remover/"+nroSequencial+"/"+produto.codProduto,
+        url: "http://localhost:8080/entrada/estoque/remover/" + nroSequencial + "/" + produto.codProduto,
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },
@@ -377,8 +393,10 @@ function removerProduto(indece) {
         dataType: "json",
         success: function (data) {
             if (data.retorno) {
-                montaTabela(dada.objeto);
-                swal("","Produto Removido com sucesso!", "success");
+                dadosRetorno = data.objeto;
+                montaTabela();
+                swal("", "Produto Removido com sucesso!", "success");
+
             } else {
                 swal("", data.mensage, "error");
             }
