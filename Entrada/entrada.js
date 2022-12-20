@@ -1,4 +1,3 @@
-
 var dadosRetorno;
 $(document).ready(function () {
     $("#modalEntradasAbertas").load("modalEntradasAbertas.html");
@@ -71,7 +70,6 @@ $(document).ready(function () {
             vlrVenda: $("#vlrVenda").val(),
             vlrMinimo: $("#vlrMinimo").val(),
             vlrUnitario: $("#vlrUnitario").val(),
-            vlrTotal: $("#vlrTotal").val(),
             qtdEntrada: $("#qtdEntrada").val(),
             codUsuario: $("#codUsuario").val()
         })
@@ -80,7 +78,7 @@ $(document).ready(function () {
                 produto: {
                     codProduto: $("#codProduto").val(),
                 },
-                VlrVenda: $("#VlrVenda").val(),
+                vlrVenda: $("#vlrVenda").val(),
                 vlrMinimo: $("#vlrMinimo").val(),
                 vlrUnitario: $("#vlrUnitario").val(),
                 qtdEntrada: $("#qtdEntrada").val(),
@@ -106,7 +104,9 @@ $(document).ready(function () {
                         timer: 2000,
                         showConfirmButton: false
                     });
-                    adicionarProduto();
+                    
+                    dadosRetorno = data.objeto;
+                    montaTabela();
                 } else {
                     swal("", "Produto não salvo!!!", "error");
                 }
@@ -210,7 +210,6 @@ function LimparCamposCalculo() {
         $("#qtdEntrada").val(""),
         $("#vlrProduto").val(""),
         $("#vlrMinimo").val(""),
-        $("#vlrTotal").val(""),
         $("codFornecedorModalFechada").val("");
     $("#codProduto").val(0);
 }
@@ -313,7 +312,7 @@ function salvarEntrada() {
         codUsuario: $("#codUsuario").val(),
         codClienteFinal: $("#codClienteFinal").val(),
         indEntrada: $("#indEntrada").val(),
-        vlrTotal: $("#vlrTotal").val()
+        vlrVenda: $("#vlrVenda").val(),
     }
     if ($("#nroSequencial").val() > 0) {
         dados.nroSequencial = $("#nroSequencial").val();
