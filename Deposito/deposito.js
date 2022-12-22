@@ -43,6 +43,7 @@ function montaTabela(dados) {
         tabela += "        </tr>";
         tabela += "    </thead>";
         tabela += "    <tbody>";
+        
     for (var i in dados) {
         var simNao = dados[i].indAtivo=='S'?'Sim':'Não';
         tabela += "     <tr>";
