@@ -1,7 +1,4 @@
 $(document).ready(function () {
-    //     getListarEntradaFechadas();
-
-    // })
     $("#btnProcurar").click(function () {
         getListarEntradaFechadas();
 
@@ -62,7 +59,7 @@ function montaTabelaEntradaFechada() {
         tabela += "     <td>" + dados[i].dscDeposito + "</td>";
         tabela += "     <td>" + dados[i].vlrTotalFormatada + "</td>";
         tabela += "     <td width='10%'  style='text-align:center;'>";
-        tabela += "         <a href='javascript:preencherCampos(" + i + ")'>";
+        tabela += "         <a href='javascript:recuperaDados(" + dados[i].nroSequencial + ")'>";
         tabela += "             <i class='fas  fa-file'></i>";
         tabela += "    </a>";
         tabela += "</td>";

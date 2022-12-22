@@ -52,6 +52,7 @@
                         <div class="col-xl-12 col-lg-12">
 
                             <div class="col-sm-12 ">
+                                <button class="btn btn-primary" id="btnNovo">Novo</button>
                                 <button class="btn btn-warning" id="btnEntradasFechadas">Entradas
                                     Fechadas</button>
                                 <button class="btn btn-warning" id="btnEntradasAbertas">Entradas Em Aberto
@@ -59,7 +60,7 @@
                             </div>
 
                         </div>
-                        <div class="col-xl-12 col-lg-12">
+                        <div class="col-xl-12 col-lg-12" id="divConteudo">
                             <div class="card shadow mb-4">
 
                                 <div
@@ -73,32 +74,25 @@
                                 <input id="codClienteFinal" name="codClienteFinal" type="hidden" />
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-sm-12 ">
-                                            <button class="btn btn-primary" id="btnNovo">Novo</button>
-
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="row">
                                         <div class="col-sm-6 ">
                                             <label for="codFornecedor">Fornecedor</label>
-                                            <select id="codFornecedor" class="form-control">
+                                            <select id="codFornecedor" class="form-control bloquear">
                                             </select>
                                         </div>
                                         <div class="col-sm-6 ">
                                             <label for="codDeposito">Deposito</label>
-                                            <select id="codDeposito" class="form-control"></select>
+                                            <select id="codDeposito" class="form-control bloquear"></select>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-8">
                                             <label for="nroNotaFiscal">Chave Nota Fiscal</label>
                                             <input id="nroNotaFiscal" name="nroNotaFiscal" type="text"
-                                                class="form-control" />
+                                                class="form-control bloquear" />
                                         </div>
                                         <div class="col-sm-4 ">
                                             <label for="dtaEntrada">Data da Entrada</label>
-                                            <input id="dtaEntrada" name="dtaEntrada" type="date" class="form-control" />
+                                            <input id="dtaEntrada" name="dtaEntrada" type="date" class="form-control bloquear" />
                                         </div>
                                     </div>
                                     <div class="row">
@@ -106,7 +100,7 @@
                                             <div class="form-group">
                                                 <label for="txtObservacao">OBSERVAÇÃO</label>
                                                 <textarea id="txtObservacao" name="txtObservacao" rows="4"
-                                                    class="form-control">
+                                                    class="form-control bloquear">
                                                     </textarea>
                                             </div>
                                         </div>
@@ -114,7 +108,7 @@
                                     <div class="row">
                                         <div class="col-lg-12" align="rigth"></div>
 
-                                        <button id="btnSalvar" class='btn btn-success'>
+                                        <button id="btnSalvar" class='btn btn-success bloquear'>
                                             <span class="icon text-white-100">
                                                 <i class="fas fa-check"></i>
                                             </span>
@@ -131,10 +125,10 @@
                                     <div class="row">
                                         <div class="col-lg-12 fechada">
                                             <p class="btn btn-link " data-toggle="collapse" href="#collapseExample"
-                                                aria-expanded="false" class="button" id="botaoAdicionarProduto"
+                                                aria-expanded="false" class="button bloquear" id="botaoAdicionarProduto"
                                                 aria-controls="collapseExample">
                                                 Produtos
-                                                <i class="fas fa-plus" class="btn btn-link"></i>
+                                                <i class="fas fa-plus" class="btn btn-link bloquear"></i>
                                                 Adicionar Produto
                                             </p>
                                             <div class="row">
@@ -144,46 +138,45 @@
                                                             <div class="col-sm-12">
                                                                 <label for="codProduto">Produto</label>
                                                                 <input type="hidden" id="codProduto">
-                                                                <input class="form-control basicAutoComplete"
+                                                                <input class="form-control bloquear autoCompleteProduto"
                                                                     type="text" id="dscProduto"
                                                                     placeholder="Informe um Produto"
                                                                     autocomplete="off" />
-                                                                <!-- <input class="form-control basicAutoComplete" type="text" placeholder="Pesquisar" autocomplete="off"> -->
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-sm-3">
                                                                 <label for="qtdEntrada">Quantidade</label>
                                                                 <input id="qtdEntrada" name="qtdEntrada" type="number"
-                                                                    class="form-control" />
+                                                                    class="form-control precisaCalcular bloquear" />
                                                             </div>
                                                             <div class="col-sm-3">
                                                                 <label for="vlrUnitario">Valor Unitario</label>
                                                                 <input id="vlrUnitario" type="number"
-                                                                    class="form-control" onblur="calcular()" />
+                                                                    class="form-control precisaCalcular bloquear" />
                                                             </div>
                                                             <div class="col-sm-3">
                                                                 <label for="vlrMinimo">Valor Minimo</label>
                                                                 <input id="vlrMinimo" type="number"
-                                                                    class="form-control" />
+                                                                    class="form-control bloquear" />
                                                             </div>
                                                             <div class="col-sm-3">
                                                                 <label for="vlrVenda">Venda</label>
                                                                 <input id="vlrVenda" name="vlrVenda" type="number"
-                                                                    class="form-control" />
+                                                                    class="form-control bloquear" />
                                                             </div>
                                                         </div>
                                                         <br>
                                                         <div class="row">
                                                             <div class="col-lg-12">
-                                                                <button class="btn btn-secondary" data-toggle="collapse"
+                                                                <button class="btn btn-secondary bloquear" data-toggle="collapse"
                                                                     data-target="#collapseExample" aria-expanded="false"
                                                                     aria-controls="collapseExample" id="btnCancelar">
 
                                                                     <p style="width:600;height:10" class="text">Cancelar
                                                                     </p>
                                                                 </button>
-                                                                <button id="btnAdicionar" class="btn btn-success">
+                                                                <button id="btnAdicionar" class="btn btn-success bloquear">
                                                                     <p style="width:600;height:10" class="text">
                                                                         Salvar
                                                                     </p>
@@ -204,7 +197,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-12 fechada">
+                                        <div class="col-sm-12 fechada bloquear">
                                             <button class="btn btn-dark" id="btnFecharEntrada">Fechar Entrada</button>
                                         </div>
                                     </div>

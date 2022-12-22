@@ -1,29 +1,9 @@
-var dadosRetorno;
 $(document).ready(function () {
     $("#modalEntradasAbertas").load("modalEntradasAbertas.html");
     $("#modalEntradasFechadas").load("modalEntradasFechadas.html");
     getListaDepositoAtivos();
     getListarFornecedorAtivos("codFornecedor");
     getListarFornecedorAtivos("codFornecedorModalFechada");
-
-    $("#botaoAdicionarProduto").prop('disabled', true);
-
-    $("#nroSequencial").change(function () {
-        if ($("#nroSequencial").val() > 0) {
-            $("#botaoAdicionarProduto").prop('disabled', false);
-
-            getListaEntradaEstoqueByNroSequencial($("#nroSequencial").val());
-        } else {
-            $("#botaoAdicionarProduto").prop('disabled', true);
-            montaTabela(null);
-        }
-    });
-    $("#btnNovo").click(function () {
-        limparCampos();
-    });
-    $("#btnCancelar").click(function () {
-        LimparCamposCalculo();
-    });
 
     $("#btnEntradasAbertas").click(function () {
         swal({
@@ -35,89 +15,55 @@ $(document).ready(function () {
         });
         getListarEntradaAbertas();
     });
+
     $("#btnEntradasFechadas").click(function () {
 
         $("#entradaModalFechada").modal("show");
     });
-    $('.basicAutoComplete').on('autocomplete.select', function (evt, item) {
-        console.log(item)
-        $("#codProduto").val(item.codProduto);
-        $('.basicAutoSelectSelected').html(item ? JSON.stringify(item) : 'null');
-    });
+
     $("#btnSalvar").click(function () {
         salvarEntrada();
     });
-
+    
     $("#btnFecharEntrada").click(function () {
         $("#indEntrada").val('F');
         salvarEntrada();
     });
 
-    $("#btnAdicionar").click(function () {
-        if ($("#codProduto").val() == '') {
-            swal('', 'Por favor preencha o Produto !', 'warning');
-            return false;
-        }
-        if ($("#vlrUnitario").val() == '') {
-            swal('', 'Por favor preencha o Valor Unitario !', 'warning');
-            return false;
-        }
-        var dados = JSON.stringify({
-            ProdutoDto: {
-                codProduto: $("#codProduto").val(),
-            },
-            nroSequencial: $("#nroSequencial").val(),
-            vlrVenda: $("#vlrVenda").val(),
-            vlrMinimo: $("#vlrMinimo").val(),
-            vlrUnitario: $("#vlrUnitario").val(),
-            qtdEntrada: $("#qtdEntrada").val(),
-            codUsuario: $("#codUsuario").val()
-        })
-        if ($("#codProduto").val() > 0) {
-            dados = JSON.stringify({
-                produto: {
-                    codProduto: $("#codProduto").val(),
-                },
-                vlrVenda: $("#vlrVenda").val(),
-                vlrMinimo: $("#vlrMinimo").val(),
-                vlrUnitario: $("#vlrUnitario").val(),
-                qtdEntrada: $("#qtdEntrada").val(),
-                codUsuario: $("#codUsuario").val(),
-                nroSequencial: $("#nroSequencial").val()
-            })
-        }
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:8080/entrada/estoque/adicionar/produto",
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
-            },
-            data: dados,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (data) {
-                if (data.retorno) {
-                    swal({
-                        title: "",
-                        text: "Produto salvo!",
-                        type: "success",
-                        timer: 2000,
-                        showConfirmButton: false
-                    });
-                    
-                    dadosRetorno = data.objeto;
-                    montaTabela();
-                } else {
-                    swal("", "Produto não salvo!!!", "error");
-                }
-            },
-            error: function (err) {
-                swal("", "Erro ao salvar Produto!!!", "error");
-            }
-        });
+    $("#btnNovo").click(function () {
+        limparCamposEntrada();
     });
 
-    $(".basicAutoComplete").autoComplete({
+    $("#botaoAdicionarProduto").prop('disabled', true);
+
+    
+    $("#indEntrada").change(function () {
+        if ($("#indEntrada").val() == "F") {
+            $(".bloquear").attr('disabled', true);
+        } else {
+            $(".bloquear").attr('disabled', false);
+        }
+    });
+
+    $("#nroSequencial").change(function () {
+        if ($("#nroSequencial").val() > 0) {
+            $("#botaoAdicionarProduto").prop('disabled', false);
+        } else {
+            $("#botaoAdicionarProduto").prop('disabled', true);
+            montaTabela(null);
+        }
+    });
+
+    /*
+    * Código para implementar a rotina do autoComplete do produto
+    */
+    $('.autoCompleteProduto').on('autocomplete.select', function (evt, item) {
+        console.log(item)
+        $("#codProduto").val(item.codProduto);
+        $('.basicAutoSelectSelected').html(item ? JSON.stringify(item) : 'null');
+    });
+
+    $(".autoCompleteProduto").autoComplete({
         resolver: 'custom',
         formatResult: function (item) {
             return {
@@ -143,9 +89,46 @@ $(document).ready(function () {
             }
         }
     });
+
+    $(".precisaCalcular").blur(function(){
+        if (($("#vlrUnitario").val()!='' && $("#vlrUnitario").val()!=null)){
+            calcular();
+        }
+    })
+
+    $("#btnAdicionar").click(function () {
+        salvarProduto();
+    });
 });
 
-function getListaEntradaEstoqueByNroSequencial(nroSequencial) {
+function recuperaDados(nroSequencial){
+    recuperaDadosEntrada(nroSequencial);
+    recuperaDadosProdutosEntrada(nroSequencial);
+}
+
+function recuperaDadosEntrada(nroSequencial){
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/entrada/" + nroSequencial,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
+        },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            if (data.retorno) {
+                preencherCampos(data.objeto);
+            } else {
+                swal("", data.mensage, "error");
+            }
+        },
+        error: function (err) {
+            swal("", "Erro ao Deletar o Produto!", "error");
+        }
+    });
+}
+
+function recuperaDadosProdutosEntrada(nroSequencial) {
     $.ajax({
         type: "GET",
         url: "http://localhost:8080/entrada/estoque/listar/" + nroSequencial,
@@ -153,8 +136,7 @@ function getListaEntradaEstoqueByNroSequencial(nroSequencial) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },
         success: function (data) {
-            dadosRetorno = data.objeto;
-            montaTabela();
+            montaTabelaProdutosEntrada(data.objeto);
         },
         error: (err) => {
             swal("", "Não confirmado!!!", "error");
@@ -162,8 +144,7 @@ function getListaEntradaEstoqueByNroSequencial(nroSequencial) {
     });
 }
 
-function montaTabela() {
-    var dados = dadosRetorno;
+function montaTabelaProdutosEntrada(dados) {
     var tabela = '';
     tabela += '<table class="table table-hover table-striped table-bordered table-white" id="tabelaEntradas">';
     tabela += '<thead>';
@@ -181,19 +162,19 @@ function montaTabela() {
     for (var i in dados) {
         tabela += "<tr class='remove' id='" + i + "'>";
         tabela += "     <td>" + dados[i].nroSequencial + "</td>";
-        if (dados[i].produto == null) {
-            tabela += "     <td></td>";
-        } else {
-            tabela += "     <td>" + dados[i].produto.dscProduto + "</td>";
-        }
+        tabela += "     <td>" + dados[i].dscProduto + "</td>";
         tabela += "     <td>" + dados[i].qtdEntrada + "</td>";
         tabela += "     <td>" + dados[i].vlrUnitario + "</td>";
         tabela += "     <td>" + dados[i].vlrMinimo + "</td>";
         tabela += "     <td>" + dados[i].vlrVenda + "</td>";
-        tabela += "     <td style='text-align:center;'>";
-        tabela += "         <a href='javascript:removerProduto(" + i + ")'>";
-        tabela += "             <i class='fa  fa-trash'></i>";
-        tabela += "</td>";
+        if($("#indEntrada").val()== "F"){
+            tabela += "     <td style='text-align:center;'>";
+            tabela += "         <a href='javascript:removerProduto(" + dados[i].nroSequencial + ","+dados[i].codProduto+")' >";
+            tabela += "             <i class='fa  fa-trash'></i>";
+            tabela += "</td>";
+        }else{     
+            tabela += "     <td></td>";
+        }
         tabela += "</tr>";
 
     }
@@ -203,32 +184,22 @@ function montaTabela() {
     $("#tabelaEntradas").DataTable();
 }
 
-function LimparCamposCalculo() {
-    $("#dscProduto").val(""),
-        $("#vlrVenda").val(""),
-        $("#vlrUnitario").val(""),
-        $("#qtdEntrada").val(""),
-        $("#vlrProduto").val(""),
-        $("#vlrMinimo").val(""),
-        $("codFornecedorModalFechada").val("");
-    $("#codProduto").val(0);
-}
-
-function limparCampos() {
-    $("#codFornecedor").val("");
-    $("#codDeposito").val("");
-    $("#btnProcurar").val("");
-    $("#dtaEntrada").val("");
-    $("#txtObservacao").val("");
-    $("#nroNotaFiscal").val("");
-    $("#nroSequencial").val("");
+function preencherCampos(dados) {
+    $("#indEntrada").val(dados.indEntrada);
+    $("#codDeposito").val(dados.codDeposito);
+    $("#codFornecedor").val(dados.codFornecedor);
+    $("#codProduto").val(dados.codProduto);
+    $("#dtaEntradaFormatada").val(dados.dtaEntrada);
+    $("#dtaEntrada").val(dados.dtaEntrada.substring(0, 10));
+    $("#txtObservacao").val(dados.txtObservacao);
+    $("#nroNotaFiscal").val(dados.nroNotaFiscal);
+    $("#codUsuario").val(dados.codUsuario);
+    $("#codClienteFinal").val(dados.codClienteFinal);
+    $("#nroSequencial").val(dados.nroSequencial);
     $("#nroSequencial").change();
-    $("#codProduto").val(0);
-    $("#nroSequencial").val(0);
-    $("#codFornecedorModalFechada").val("");
-    $("#tabelaProdutos").html("");
-    $("#tabelaEntradaFechada").html("");
-
+    $("#indEntrada").change();
+    $("#entradaModalFechada").modal("hide");
+    $("#entradaModalAberta").modal("hide");
 }
 
 function getListarFornecedorAtivos(nomeCombo) {
@@ -300,12 +271,8 @@ function salvarEntrada() {
     }
 
     var dados = {
-        fornecedorDto: {
-            codFornecedor: $("#codFornecedor").val(),
-        },
-        depositoDto: {
-            codDeposito: $("#codDeposito").val(),
-        },
+        codFornecedor: $("#codFornecedor").val(),
+        codDeposito: $("#codDeposito").val(),
         nroNotaFiscal: $("#nroNotaFiscal").val(),
         dtaEntrada: $("#dtaEntrada").val(),
         txtObservacao: $("#txtObservacao").val(),
@@ -324,7 +291,6 @@ function salvarEntrada() {
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },
-
         data: dados,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -353,49 +319,106 @@ function salvarEntrada() {
     });
 }
 
+function limparCamposEntrada() {
+    $("#codFornecedor").val("");
+    $("#codDeposito").val("");
+    $("#btnProcurar").val("");
+    $("#dtaEntrada").val("");
+    $("#txtObservacao").val("");
+    $("#nroNotaFiscal").val("");
+    $("#nroSequencial").val("");
+    $("#nroSequencial").change();
+    $("#codProduto").val(0);
+    $("#nroSequencial").val(0);
+    $("#codFornecedorModalFechada").val("");
+    $("#tabelaProdutos").html("");
+    $("#tabelaEntradaFechada").html("");
+
+}
+
 function calcular() {
     var valor2 = parseFloat($('#vlrUnitario').val());
     $('#vlrMinimo').val(1.25 * valor2);
     $('#vlrVenda').val(1.35 * valor2);
 }
 
-function preencherCampos(index) {
-    var dados = dadosRetorno[index];
+function salvarProduto(){
+    if ($("#codProduto").val() == '') {
+        swal('', 'Por favor preencha o Produto !', 'warning');
+        return false;
+    }
+    if ($("#vlrUnitario").val() == '') {
+        swal('', 'Por favor preencha o Valor Unitario !', 'warning');
+        return false;
+    }
+    dados = {
+        codProduto: $("#codProduto").val(),
+        nroSequencial: $("#nroSequencial").val(),
+        vlrVenda: $("#vlrVenda").val(),
+        vlrMinimo: $("#vlrMinimo").val(),
+        vlrUnitario: $("#vlrUnitario").val(),
+        qtdEntrada: $("#qtdEntrada").val(),
+        codUsuario: $("#codUsuario").val()
+    }
 
-    $("#indEntrada").val(dados.indEntrada);
-    $("#codDeposito").val(dados.codDeposito);
-    $("#codFornecedor").val(dados.codFornecedor);
-    $("#dtaEntradaFormatada").val(dados.dtaEntrada);
-    $("#dtaEntrada").val(dados.dtaEntrada.substring(0, 10));
-    $("#txtObservacao").val(dados.txtObservacao);
-    $("#nroNotaFiscal").val(dados.nroNotaFiscal);
-    $("#codUsuario").val(dados.codUsuario);
-    $("#codClienteFinal").val(dados.codClienteFinal);
-    $("#nroSequencial").val(dados.nroSequencial);
-    $("#nroSequencial").change();
-    $("#entradaModalFechada").modal("hide");
-    $("#entradaModalAberta").modal("hide");
-}
+    if ($("#codProduto").val() > 0) {
+        dados.nroSequencial= $("#nroSequencial").val();
+    }
 
-function removerProduto(indece) {
-    var nroSequencial = dadosRetorno[indece].nroSequencial;
-    var produto = dadosRetorno[indece].produto;
-
+    var dados = JSON.stringify(dados);
     $.ajax({
-        type: "DELETE",
-        url: "http://localhost:8080/entrada/estoque/remover/" + nroSequencial + "/" + produto.codProduto,
+        type: "POST",
+        url: "http://localhost:8080/entrada/estoque/adicionar/produto",
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },
-        // data: dados,
+        data: dados,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
             if (data.retorno) {
-                dadosRetorno = data.objeto;
-                montaTabela();
-                swal("", "Produto Removido com sucesso!", "success");
+                swal({
+                    title: "",
+                    text: "Produto salvo!",
+                    type: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+                recuperaDadosProdutosEntrada($("#nroSequencial").val());
+                limparCamposAdicionarProduto();
+            } else {
+                swal("", "Produto não salvo!!!", "error");
+            }
+        },
+        error: function (err) {
+            swal("", "Erro ao salvar Produto!!!", "error");
+        }
+    });
+}
 
+function limparCamposAdicionarProduto() {
+    $("#dscProduto").val("");
+    $("#vlrVenda").val("");
+    $("#vlrUnitario").val("");
+    $("#qtdEntrada").val("");
+    $("#vlrProduto").val("");
+    $("#vlrMinimo").val("");
+    $("#codProduto").val(0);
+}
+
+function removerProduto(nroSequencial,codProduto) {
+    $.ajax({
+        type: "DELETE",
+        url: "http://localhost:8080/entrada/estoque/remover/" + nroSequencial + "/" + codProduto,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
+        },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            if (data.retorno) {
+                swal("", "Produto Removido com sucesso!", "success");
+                recuperaDadosProdutosEntrada(nroSequencial)
             } else {
                 swal("", data.mensage, "error");
             }
