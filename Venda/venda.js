@@ -1,4 +1,5 @@
 var dadosRetornoProdutos;
+
 $(function () {
     $("#codVenda").change(function () {
         if ($("#codVenda").val() > 0) {
@@ -9,6 +10,28 @@ $(function () {
             montaTabelaProdutos(null);
         }
     });
+
+    $("#btnVendasAbertas").click(function () {
+        getListaVendasAbertas();
+        swal({
+    
+            title: "Carregando Lista de Vendas Abertas!",
+            text: "",
+            imageUrl: "../Resources/images/preload.gif",
+            showConfirmButton: false
+        });
+    
+    });
+
+    function getListaVendasAbertas() {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/venda/listar/abertas",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
+            },
+        });
+    }
 
     $("#btnNovoCliente").click(function() {
         adicionarNovoCliente();
@@ -147,7 +170,7 @@ function adicionarProduto() {
             } else {
                 swal("", data.mensagem, "error");
             }
-        },
+        },  
         error: function (err) {
             swal("", "Não foi possível adicionar o produto!", "error");
         }
@@ -299,6 +322,14 @@ function criarCampoProduto() {
     });
 }
 
+function preencherCampoVendasAbertas(){
+    $("#codProduto").val(dados.codProduto);
+    $("#dscProduto").val(dados.dscProduto);
+    $("#codCliente").val(dados.codCliente);
+    $("#vlrVenda").val(dados.vlrVenda);
+    $("#nroStatusVenda").val(dados.nroStatusVenda);
+}
+
 function criarComboVendedores() {
     $.ajax({
         type: "GET",
@@ -391,8 +422,9 @@ function getListaProdutosVenda() {
         }
     });
 }
+ 
 
-function montaTabelaProdutos(dados) {
+function montaTabelaProdutos(dados) {   
     var tabela = '';
     tabela += "<table class='table table-hover table-striped table-bordered table-white'";
     tabela += "    id='tabelaProdutosVenda'>";
