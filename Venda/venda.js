@@ -1,6 +1,7 @@
 var dadosRetornoProdutos;
 
 $(function () {
+    $("#modalVendasAbertas").load("./vendasAbertas.html");
     $("#codVenda").change(function () {
         if ($("#codVenda").val() > 0) {
             $("#btnAdicionais").prop('disabled', false);
@@ -14,34 +15,24 @@ $(function () {
     $("#btnVendasAbertas").click(function () {
         getListaVendasAbertas();
         swal({
-    
+
             title: "Carregando Lista de Vendas Abertas!",
             text: "",
             imageUrl: "../Resources/images/preload.gif",
             showConfirmButton: false
         });
-    
+
     });
 
-    function getListaVendasAbertas() {
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:8080/venda/listar/abertas",
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
-            },
-        });
-    }
-
-    $("#btnNovoCliente").click(function() {
+    $("#btnNovoCliente").click(function () {
         adicionarNovoCliente();
     })
 
-    $("#btnNovoVeiculo").click(function() {
+    $("#btnNovoVeiculo").click(function () {
         adicionarNovoVeiculo();
     })
 
-    $("#btnNovoProduto").click(function() {
+    $("#btnNovoProduto").click(function () {
         adicionarNovoProduto();
     })
 
@@ -62,7 +53,7 @@ $(function () {
         adicionarProduto();
 
     })
-    
+
 });
 
 function salvarVenda() {
@@ -147,7 +138,7 @@ function adicionarProduto() {
         codFuncionario: $("#codFuncionario").val(),
         txtObservacao: $("#txtObservacaoProd").val(),
     });
-    
+
     $.ajax({
         type: "POST",
         url: "http://localhost:8080/venda/produto/salvar",
@@ -170,7 +161,7 @@ function adicionarProduto() {
             } else {
                 swal("", data.mensagem, "error");
             }
-        },  
+        },
         error: function (err) {
             swal("", "Não foi possível adicionar o produto!", "error");
         }
@@ -292,7 +283,7 @@ function criarCampoProduto() {
         $("#codProduto").val(item.codProduto);
         $("#dscProduto").val(item.dscProduto);
         $("#nroSequencial").val(item.nroSequencial);
-        $("#indEstoque").val(item.qtdEstoque>0?"S":"N");
+        $("#indEstoque").val(item.qtdEstoque > 0 ? "S" : "N");
     });
 
     $(".pesquisaDinamicaAutoComplete").autoComplete({
@@ -322,7 +313,7 @@ function criarCampoProduto() {
     });
 }
 
-function preencherCampoVendasAbertas(){
+function preencherCampoVendasAbertas() {
     $("#codProduto").val(dados.codProduto);
     $("#dscProduto").val(dados.dscProduto);
     $("#codCliente").val(dados.codCliente);
@@ -422,9 +413,9 @@ function getListaProdutosVenda() {
         }
     });
 }
- 
 
-function montaTabelaProdutos(dados) {   
+
+function montaTabelaProdutos(dados) {
     var tabela = '';
     tabela += "<table class='table table-hover table-striped table-bordered table-white'";
     tabela += "    id='tabelaProdutosVenda'>";
@@ -436,7 +427,7 @@ function montaTabelaProdutos(dados) {
     tabela += "            <th>Quantidade</th>";
     tabela += "            <th>Desconto</th>";
     tabela += "            <th>Funcionario</th>";
-    tabela +="             <th>Total</th>";
+    tabela += "             <th>Total</th>";
     tabela += "            <th>Ações</th>";
     tabela += "        </tr>";
     tabela += "    </thead>";
@@ -447,11 +438,11 @@ function montaTabelaProdutos(dados) {
             tabela += "     <tr>";
             tabela += "     <td>" + dados[i].produto.dscProduto + "</td>";
             tabela += "     <td>" + (dados[i].produto.marca?.dscMarca || 'serviço') + "</td>";
-            tabela += "     <td>"+ dados[i].vlrVenda+ "</td>";
-            tabela += "     <td>"+ dados[i].qtdVendida + "</td>";
-            tabela += "     <td>"+ dados[i].vlrDesconto + "</td>";
-            tabela += "     <td>"+ dados[i].funcionario.nmeUsuarioCompleto + "</td>";
-            tabela += "     <td>"+ dados [i].vlrTotalProduto + "</td>";
+            tabela += "     <td>" + dados[i].vlrVenda + "</td>";
+            tabela += "     <td>" + dados[i].qtdVendida + "</td>";
+            tabela += "     <td>" + dados[i].vlrDesconto + "</td>";
+            tabela += "     <td>" + dados[i].funcionario.nmeUsuarioCompleto + "</td>";
+            tabela += "     <td>" + dados[i].vlrTotalProduto + "</td>";
             tabela += "     <td style='text-align:center;'>";
             tabela += "         <a class='btn btn-link' style='color: red;' href='javascript:removerProduto(" + i + ")'>";
             tabela += "             <i class='fas  fa-trash'></i>";
@@ -481,13 +472,13 @@ function limparCamposProduto() {
 }
 
 
-function removerProduto(indice){
+function removerProduto(indice) {
     var nroSequencial = dadosRetornoProdutos[indice].nroSequencial;
     var codVenda = dadosRetornoProdutos[indice].codVenda;
     var codProduto = dadosRetornoProdutos[indice].codProduto;
     $.ajax({
         type: "DELETE",
-        url: "http://localhost:8080/venda/produto/excluir/"+nroSequencial+"/"+codVenda+"/"+codProduto,
+        url: "http://localhost:8080/venda/produto/excluir/" + nroSequencial + "/" + codVenda + "/" + codProduto,
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },

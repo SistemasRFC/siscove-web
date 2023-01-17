@@ -16,6 +16,7 @@
     <script src="../Shared/FuncoesGerais.js"></script>
     <script src="../Shared/navegacao-component.js"></script>
     <script src="venda.js"></script>
+    <script src="vendasAbertas.js"></script>
     <!-- bootstrap -->
     <script src="../Resources/bootstrap-admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../Resources/bootstrap-admin/vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -92,7 +93,7 @@
                         </div>
                         <div class="card shadow mt-2 mb-4">
                             <div class="card-header d-flex flex-row align-items-center justify-content-between bg-dark">
-                                <input id="nroStat usVenda" name="nroStatusVenda" type="hidden" />
+                                <input id="nroStatusVenda" name="nroStatusVenda" type="hidden" />
                                 <h6 class="m-0 font-weight-bold text-persian-dark">Venda <span class="badge bg-info"
                                         id="statusVenda">Nova venda</span></h6>
                             </div>
@@ -224,6 +225,18 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-12 col-lg-12">
+                <div class="card shadow mb-4">
+                    <div class="card-header bg-dark py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-persian-dark">VENDAS</h6>
+                    </div>
+                    <div class="card-body">
+                        <div id="modalVendasAbertas"></div>
                     </div>
                 </div>
             </div>
