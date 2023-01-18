@@ -36,7 +36,7 @@
         src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@master/dist/latest/bootstrap-autocomplete.min.js"></script>
 </head>
 
-<body>
+<body id="page-top">
     <content>
         <navegacao-component></navegacao-component>
         <header-component></header-component>
@@ -88,7 +88,7 @@
                         <br>
                         <div class="row" style="padding-left: 27px;">
                             <div class="col-sm-12">
-                                <button class="btn btn-warning" id="btnVendasAbertas">Vendas Abertas </button>
+                                <button class="btn btn-warning" id="btnVendasAbertas"> Vendas Abertas </button>
                             </div>
                         </div>
                         <div class="card shadow mt-2 mb-4">
@@ -98,7 +98,7 @@
                                         id="statusVenda">Nova venda</span></h6>
                             </div>
                             <div class="card-body">
-                                <input id="codVenda" name="codVenda" type="hidden" value="14313" />
+                                <input id="codVenda" name="codVenda" type="hidden" />
                                 <div class="row align-items-center">
                                     <div class="col-md-6 col-lg-5">
                                         <label class="mb-0" for="codVendedor"><b>Vendedor</b></label>
@@ -229,18 +229,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-xl-12 col-lg-12">
-                <div class="card shadow mb-4">
-                    <div class="card-header bg-dark py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-persian-dark">VENDAS</h6>
-                    </div>
-                    <div class="card-body">
-                        <div id="modalVendasAbertas"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div id="modalVendasAbertas"></div>
         <a class="scroll-to-top rounded" href="#page-top">
             <i class="fas fa-angle-up"></i>
         </a>

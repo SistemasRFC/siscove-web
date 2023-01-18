@@ -432,7 +432,7 @@ function montaTabelaProdutos(dados) {
     tabela += "        </tr>";
     tabela += "    </thead>";
     tabela += "    <tbody>";
-    if (dados.length > 0) {
+    if (dados!=null && dados.length > 0) {
         dadosRetornoProdutos = dados;
         for (var i in dados) {
             tabela += "     <tr>";
