@@ -7,7 +7,6 @@ function getListarEntradaAbertas() {
         },
         success: function (data) {
             if (data.retorno) {
-                dadosRetorno = data.objeto;
                 montaTabelaEntradaAberta(data.objeto);
             } else {
                 swal("", data.mensagem, "error");
@@ -19,8 +18,7 @@ function getListarEntradaAbertas() {
     });
 }
 
-function montaTabelaEntradaAberta() {
-    var dados = dadosRetorno;
+function montaTabelaEntradaAberta(dados) {
     var tabela = '';
     tabela += '<table class="table table-hover table-striped table-bordered table-white" id="tabelaEntrada">';
     tabela += '<thead>';

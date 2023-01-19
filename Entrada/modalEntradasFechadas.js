@@ -22,7 +22,6 @@ function getListarEntradaFechadas() {
 
         success: function (data) {
             if (data.retorno) {
-                dadosRetorno = data.objeto;
                 montaTabelaEntradaFechada(data.objeto);
             } else {
                 swal("", data.mensagem, "error");
@@ -35,8 +34,7 @@ function getListarEntradaFechadas() {
 }
 
 
-function montaTabelaEntradaFechada() {
-    var dados = dadosRetorno;
+function montaTabelaEntradaFechada(dados) {
     var tabela = '';
     tabela += '<table class="table table-hover table-striped table-bordered table-white" id="tabelaEntradaF">';
     tabela += '<thead>';

@@ -53,7 +53,7 @@ function montaTabelaProdutos() {
     for (var i in dados) {
         tabela += "<tr>";
         tabela += "<td width='25%'>" + dados[i].dscProduto + "</td>";
-        tabela += "<td width='25%'>" + dados[i].marca?.dscMarca + "</td>";
+        tabela += "<td width='25%'>" + (dados[i].marca!=null?dados[i].marca.dscMarca:'') + "</td>";
         tabela += "<td width='25%'>" + dados[i].indAtivo + "</td>";
         tabela += "<td width='25%'  style='text-align:center;'>";
         tabela += "    <a href='javascript:preencherCampos(" + i + ")'>";
