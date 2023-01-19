@@ -5,26 +5,29 @@ $(document).ready(function () {
         limparCampos();
         $("#produtosServicosModal").modal("show");
     })
-    
+
     $("#btnProcurar").click(function () {
         getListarProdutos();
     })
 })
-
+$('.basicAutoComplete').on('autocomplete.select', function (evt, item) {
+    console.log(item)
+    $("#codProduto").val(item.codProduto);
+    $('.basicAutoSelectSelected').html(item ? JSON.stringify(item) : 'null');
+});
 var dadosRetorno;
 
 function getListarProdutos() {
     $.ajax({
-        type: "POST",
-        url: "http://localhost:8080/produtos/listar/byTermo",
+        type: "GET",
+        url: "http://localhost:8080/produtos/listar/byTermo/" + $("#Termo").val(),
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("token"));
         },
-        data: $("#Termo").val(),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
-            dadosRetorno = data.objeto;
+            dadosRetorno = data;
             montaTabelaProdutos();
         },
         error: (err) => {
@@ -50,7 +53,7 @@ function montaTabelaProdutos() {
     for (var i in dados) {
         tabela += "<tr>";
         tabela += "<td width='25%'>" + dados[i].dscProduto + "</td>";
-        tabela += "<td width='25%'>" + dados[i].dscMarca + "</td>";
+        tabela += "<td width='25%'>" + (dados[i].marca!=null?dados[i].marca.dscMarca:'') + "</td>";
         tabela += "<td width='25%'>" + dados[i].indAtivo + "</td>";
         tabela += "<td width='25%'  style='text-align:center;'>";
         tabela += "    <a href='javascript:preencherCampos(" + i + ")'>";
@@ -104,7 +107,7 @@ function preencherCampos(index) {
 function limparCampos() {
     $("#dscProduto").val("");
     $("#indComissaoGerencia").val("");
-        $("#indTipoRegistro").val(""),
+    $("#indTipoRegistro").val(""),
         $("#indSituacaoProduto").val(""),
         $("#codMarca").val(""),
         $("#codTipoProduto").val(""),
@@ -112,10 +115,10 @@ function limparCampos() {
         $("#vlrProduto").val(""),
         $("#vlrMinimo").val(""),
         $("#indAtivo").prop('checked', false);
-        $("#indSituacaoProdutoS").prop('checked', false);
-        $("#indSituacaoProdutoN").prop('checked', false);
-        $("#indComissaoGerencia").prop('checked', false);
-        $("#indTipoRegistroP").prop('checked', false);
-        $("#indTipoRegistroS").prop('checked', false);
-        $("#codProduto").val(0);
+    $("#indSituacaoProdutoS").prop('checked', false);
+    $("#indSituacaoProdutoN").prop('checked', false);
+    $("#indComissaoGerencia").prop('checked', false);
+    $("#indTipoRegistroP").prop('checked', false);
+    $("#indTipoRegistroS").prop('checked', false);
+    $("#codProduto").val(0);
 }
