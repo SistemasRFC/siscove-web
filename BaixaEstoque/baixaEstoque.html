@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>Pesquisa de Produtoos</title>
+    <title>Pesquisa de Produtos</title>
     <meta charset="UTF-8">
     <!-- JS -->
     <script src="../Resources/bootstrap-admin/vendor/jquery/jquery.min.js"></script>
@@ -38,7 +38,7 @@
             <div id="content">
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Produtos e Serviços</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Pesquisa de Produtos</h1>
                     </div>
                     <div class="row">
 
@@ -46,20 +46,22 @@
                             <div class="card shadow mb-4">
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-dark">
-                                    <button class="btn btn-primary" id="btnNovo">Novo</button>
+                                    
                                 </div>
                                 <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <div class="input-group">
-                                                <input type="search" class="form-control rounded"
-                                                    placeholder="Pesquisar" id="Termo" aria-label="Search"
-                                                    aria-describedby="search-addon" />
-                                                </input>
-                                                <button class="search_button" type="button" id="btnProcurar">
-                                                    <i class="fa fa-search"></i>
-                                                </button>
-                                            </div>
+                                    <div class="row align-items-end">
+                                        <div class="col-md-3 col-lg-3">
+                                            <label for="Termo" class="mb-0"> </label>
+                                            <input type="search" class="form-control rounded "
+                                                placeholder="Descrição do Produto" id="Termo" aria-label="Search"
+                                                aria-describedby="search-addon" />
+                                            </input>
+                                        </div>
+                                        <div class="col-md-2 col-lg-2">
+                                            <button class="btn btn-secondary btn-block btn-lg mb-1" id="btnProcurar"
+                                                type="submit">
+                                                <i class="fa fa-search"></i>
+                                            </button>
                                         </div>
                                     </div>
                                     <br>
