@@ -18,6 +18,31 @@ function getListaVendasAbertas() {
     });
 }
 
+function montarComboMes(obj) {
+    var html = "<select id='comboMes' class='form-control dropdown-toggle'>";
+    html += "<option value='0'>Selecione</option>"
+    if (obj.length > 0) {
+        for (var i in obj) {
+            html += "<option value=" + 01, 02; 03; 04; 05; 06; 07; 08; 09; 10; 11; 12; + ">" + obj[i].Janeiro; Fevereiro; Março; Abril; Maio; Junho; Julho; Agosto; Setembro; Outubro; Novembro; Dezembro + "</option>"
+        }
+    }
+    html += "</select>";
+    $("#comboMes").html(html);
+}
+
+function montarComboAno(obj) {
+    var html = "<select id='comboAno' class='form-control dropdown-toggle'>";
+    html += "<option value='0'>Selecione</option>"
+    if (obj.length > 0) {
+        for (var i in obj) {
+            html += "<option value=" + 2023 + ">" + 2022; 2021; 2020 + "</option>"
+        }
+    }
+    html += "</select>";
+    $("#comboAno").html(html);
+}
+
+
 function montaTabelaVendasAbertas(dados) {
     var tabela = '';
     tabela += '<table id="tabelaAbertas" class="table table-hover table-striped table-bordered table-white">';
@@ -35,7 +60,7 @@ function montaTabelaVendasAbertas(dados) {
     for (var i in dados) {
         tabela += "<tr class='preenche' id='" + i + "' onClick='javascript:recuperaDados(" + dados[i].codVenda + ")'>";
         tabela += "     <td>" + dados[i].codVenda + "</td>";
-        tabela += "     <td>(" + dados[i].nroDocumentoCliente+") " + dados[i].nmeCliente + "</td>";
+        tabela += "     <td>(" + dados[i].nroDocumentoCliente + ") " + dados[i].nmeCliente + "</td>";
         tabela += "     <td>" + dados[i].nmeVendedor + "</td>";
         tabela += "     <td>" + dados[i].dtaVenda + "</td>";
         tabela += "     <td>" + dados[i].vlrVenda + "</td>";

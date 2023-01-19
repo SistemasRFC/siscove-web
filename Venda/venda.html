@@ -45,14 +45,18 @@
                 <div id="content">
                     <div class="container-fluid">
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Cadastro</h1>
+                            <h1 class="h3 mb-0 text-gray-800">Movimentações</h1>
+                        </div>
+                        <div class="row" style="padding-left: 27px;">
+                            <div class="col-sm-12">
+                                <button class="btn btn-primary" id="btnNovoCliente"><i class="fa-solid fa-plus"></i>
+                                    Novo Cliente</button>
+                                <button class="btn btn-warning" id="btnVendasAbertas"> Vendas Abertas </button>
+                            </div>
                         </div>
                         <div class="card shadow">
                             <div class="card-header d-flex flex-row align-items-center justify-content-between bg-dark">
                                 <h6 class="m-0 font-weight-bold text-persian-dark">Cliente</h6>
-
-                                <button class="btn btn-primary" id="btnNovoCliente"><i class="fa-solid fa-plus"></i>
-                                    Novo Cliente</button>
                             </div>
                             <div id="modalCadCliente"></div>
                             <div class="card-body">
@@ -86,11 +90,6 @@
                             </div>
                         </div>
                         <br>
-                        <div class="row" style="padding-left: 27px;">
-                            <div class="col-sm-12">
-                                <button class="btn btn-warning" id="btnVendasAbertas"> Vendas Abertas </button>
-                            </div>
-                        </div>
                         <div class="card shadow mt-2 mb-4">
                             <div class="card-header d-flex flex-row align-items-center justify-content-between bg-dark">
                                 <input id="nroStatusVenda" name="nroStatusVenda" type="hidden" />
@@ -116,7 +115,7 @@
                                     </div>
                                 </div>
                                 <div class="row align-items-center">
-                                    <div class="col-md-12 col-lg-12">
+                                    <div class="col-md-7 col-lg-5">
                                         <label class="mb-0" for="dscVeiculo"><b>Veículo</b></label>
                                         <div class="input-group">
                                             <input id="dscVeiculo" name="dscVeiculo" type="text"
@@ -129,105 +128,106 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row align-items-center">
+                                        <div class="col-md-6 col-lg-6">
+                                            <label class="mb-0" for="nroPlaca"><b>Placa</b></label>
+                                            <input id="nroPlaca" name="nroPlaca" type="text"
+                                                class="form-control mt-0" />
+                                        </div>
+                                        <div class="col-md-6 col-lg-6">
+                                            <label class="mb-0" for="vlrKmRodado"><b>Km Rodado</b></label>
+                                            <input id="vlrKmRodado" name="vlrKmRodado" type="text"
+                                                class="form-control mt-0" />
+                                        </div>
+                                    </div>
                                     <div id="modalCadVeiculo"></div>
                                 </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col-md-12 col-lg-11 mx-3">
+                                    <label class="mb-0" for="txtObservacao"><b>Observação</b></label>
+                                    <textarea id="txtObservacao" name="txtObservacao" rows="3"
+                                        class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-lg-12 my-2">
+                                    <button class="btn btn-success btn-block" id="btnSalvar">Salvar</button>
+                                </div>
+                            </div>
+
+                            <p class="mb-0">
+                                <b style="color: #444;">Produtos</b>
+                                <button class="btn btn-link" id="btnAdicionais"><i class="fa-plus"></i>
+                                    Adicionar</button>
+                            </p>
+                            <hr class="mt-0" style="border-top: 2px solid #444;">
+                            <div id="divCodVenda">
+                                <input id="codProduto" name="codProduto" type="hidden" />
+                                <input id="nroSequencial" name="nroSequencial" type="hidden" />
+                                <input id="indEstoque" name="indEstoque" type="hidden" />
                                 <div class="row align-items-center">
-                                    <div class="col-md-5 col-lg-3">
-                                        <label class="mb-0" for="nroPlaca"><b>Placa</b></label>
-                                        <input id="nroPlaca" name="nroPlaca" type="text" class="form-control mt-0" />
+                                    <div class="col-md-12 col-lg-12">
+                                        <label class="mb-0" for="dscProduto"><b>Produto</b></label>
+                                        <div class="input-group">
+                                            <input id="dscProduto" name="dscProduto" type="text"
+                                                class="form-control pesquisaDinamicaAutoComplete mt-0" />
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary" id="btnNovoProduto">
+                                                    <i class="fa-solid fa-plus"></i>
+                                                    Novo Produto
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="modalCadProduto"></div>
+                                </div>
+                                <div class="row align-items-center">
+                                    <div class="col-md-4 col-lg-3 pr-0">
+                                        <label class="mb-0" for="qtdVendida"><b>Quantidade</b></label>
+                                        <input id="qtdVendida" name="qtdVendida" type="text"
+                                            class="form-control mt-0" />
                                     </div>
                                     <div class="col-md-4 col-lg-3">
-                                        <label class="mb-0" for="vlrKmRodado"><b>Km Rodado</b></label>
-                                        <input id="vlrKmRodado" name="vlrKmRodado" type="text"
+                                        <label class="mb-0" for="vlrVenda"><b>Valor</b></label>
+                                        <input id="vlrVenda" name="vlrVenda" type="text" class="form-control mt-0" />
+                                    </div>
+                                    <div class="col-md-2 col-lg-3">
+                                        <label class="mb-0" for="vlrDesconto"><b>Desconto</b></label>
+                                        <input id="vlrDesconto" name="vlrDesconto" type="text"
                                             class="form-control mt-0" />
+                                    </div>
+                                    <div class="col-md-2 col-lg-3">
+                                        <label class="mb-0" for="codFuncionario"><b>Funcionario</b></label>
+                                        <div id="comboFuncionarios"></div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 col-lg-12">
-                                        <label class="mb-0" for="txtObservacao"><b>Observação</b></label>
-                                        <textarea id="txtObservacao" name="txtObservacao" rows="3"
+                                        <label class="mb-0" for="txtObservacaoProd"><b>Observação</b></label>
+                                        <textarea id="txtObservacaoProd" name="txtObservacaoProd" rows="2"
                                             class="form-control"></textarea>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12 col-lg-12 my-2">
-                                        <button class="btn btn-success btn-block" id="btnSalvar">Salvar</button>
+                                <div class="row my-2">
+                                    <div class="col-12 btn-group">
+                                        <button class="btn btn-secondary" id="btnCancelar">
+                                            Cancelar </button>
+                                        <button class="btn btn-success" id="btnAdicionar">
+                                            Adicionar </button>
                                     </div>
                                 </div>
-
-                                <p class="mb-0">
-                                    <b style="color: #444;">Produtos</b>
-                                    <button class="btn btn-link" id="btnAdicionais"><i class="fa-plus"></i>
-                                        Adicionar</button>
-                                </p>
-                                <hr class="mt-0" style="border-top: 2px solid #444;">
-                                <div id="divCodVenda">
-                                    <input id="codProduto" name="codProduto" type="hidden" />
-                                    <input id="nroSequencial" name="nroSequencial" type="hidden" />
-                                    <input id="indEstoque" name="indEstoque" type="hidden" />
-                                    <div class="row align-items-center">
-                                        <div class="col-md-12 col-lg-12">
-                                            <label class="mb-0" for="dscProduto"><b>Produto</b></label>
-                                            <div class="input-group">
-                                                <input id="dscProduto" name="dscProduto" type="text"
-                                                    class="form-control pesquisaDinamicaAutoComplete mt-0" />
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-primary" id="btnNovoProduto">
-                                                        <i class="fa-solid fa-plus"></i>
-                                                        Novo Produto
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div id="modalCadProduto"></div>
-                                    </div>
-                                    <div class="row align-items-center">
-                                        <div class="col-md-4 col-lg-3 pr-0">
-                                            <label class="mb-0" for="qtdVendida"><b>Quantidade</b></label>
-                                            <input id="qtdVendida" name="qtdVendida" type="text"
-                                                class="form-control mt-0" />
-                                        </div>
-                                        <div class="col-md-4 col-lg-3">
-                                            <label class="mb-0" for="vlrVenda"><b>Valor</b></label>
-                                            <input id="vlrVenda" name="vlrVenda" type="text"
-                                                class="form-control mt-0" />
-                                        </div>
-                                        <div class="col-md-2 col-lg-3">
-                                            <label class="mb-0" for="vlrDesconto"><b>Desconto</b></label>
-                                            <input id="vlrDesconto" name="vlrDesconto" type="text"
-                                                class="form-control mt-0" />
-                                        </div>
-                                        <div class="col-md-2 col-lg-3">
-                                            <label class="mb-0" for="codFuncionario"><b>Funcionario</b></label>
-                                            <div id="comboFuncionarios"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12 col-lg-12">
-                                            <label class="mb-0" for="txtObservacaoProd"><b>Observação</b></label>
-                                            <textarea id="txtObservacaoProd" name="txtObservacaoProd" rows="2"
-                                                class="form-control"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="row my-2">
-                                        <div class="col-12 btn-group">
-                                            <button class="btn btn-secondary" id="btnCancelar">
-                                                Cancelar </button>
-                                            <button class="btn btn-success" id="btnAdicionar">
-                                                Adicionar </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-12">
-                                        <div id="divTabela"></div>
-                                    </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <div id="divTabela"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
         <div id="modalVendasAbertas"></div>
         <a class="scroll-to-top rounded" href="#page-top">

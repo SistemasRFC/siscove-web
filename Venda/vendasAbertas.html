@@ -4,11 +4,20 @@
         <div class="modal-content">
             <div class="modal-header bg-dark">
                 <h5 class="modal-title" id="exampleModalLabel">Vendas Abertas</h5>
+
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
+                <div class="col-md-2 col-lg-3">
+                    <label class="mb-0" for="mesVenda"><b>Mês</b></label>
+                    <div id="comboMes"></div>
+                </div>
+                <div class="col-md-2 col-lg-3">
+                    <label class="mb-0" for="anoVenda"><b>Ano</b></label>
+                    <div id="comboAno"></div>
+                </div>
                 <div id="tabelaVendasAbertas"></div>
             </div>
         </div>
