@@ -10,13 +10,29 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="col-md-2 col-lg-3">
-                    <label class="mb-0" for="mesVenda"><b>Mês</b></label>
-                    <div id="comboMes"></div>
-                </div>
-                <div class="col-md-2 col-lg-3">
-                    <label class="mb-0" for="anoVenda"><b>Ano</b></label>
-                    <div id="comboAno"></div>
+                <div class="row align-items-center">
+                    <div class="col-md-2 col-lg-3">
+                        <label class="mb-0" for="mesVenda"><b>Mês</b></label>
+                        <select id="comboMes" class="form-control">
+                            <option value="-1">Selecione o mês</option>
+                            <option value="1">Janeiro</option>
+                            <option value="2">Fevereiro</option>
+                            <option value="3">Março</option>
+                            <option value="4">Abril</option>
+                            <option value="5">Maio</option>
+                            <option value="6">Junho</option>
+                            <option value="7">Julho</option>
+                            <option value="8">Agosto</option>
+                            <option value="9">Setembro</option>
+                            <option value="10">Outubro</option>
+                            <option value="11">Novembro</option>
+                            <option value="12">Dezembro</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 col-lg-3">
+                        <label class="mb-0" for="anoVenda"><b>Ano</b></label>
+                        <div id="divComboAno"></div>
+                    </div>
                 </div>
                 <div id="tabelaVendasAbertas"></div>
             </div>

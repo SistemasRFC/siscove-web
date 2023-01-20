@@ -14,6 +14,9 @@ $(function () {
 
     $("#btnVendasAbertas").click(function () {
         getListaVendasAbertas();
+        montarComboAno();
+        var mes = new Date().getMonth()+1;
+        $("#comboMes").val(mes);
         swal({
 
             title: "Carregando Lista de Vendas Abertas!",

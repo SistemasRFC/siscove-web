@@ -18,28 +18,15 @@ function getListaVendasAbertas() {
     });
 }
 
-function montarComboMes(obj) {
-    var html = "<select id='comboMes' class='form-control dropdown-toggle'>";
-    html += "<option value='0'>Selecione</option>"
-    if (obj.length > 0) {
-        for (var i in obj) {
-            html += "<option value=" + 01, 02; 03; 04; 05; 06; 07; 08; 09; 10; 11; 12; + ">" + obj[i].Janeiro; Fevereiro; Março; Abril; Maio; Junho; Julho; Agosto; Setembro; Outubro; Novembro; Dezembro + "</option>"
-        }
-    }
-    html += "</select>";
-    $("#comboMes").html(html);
-}
 
-function montarComboAno(obj) {
+function montarComboAno() {
+    var ano = new Date().getFullYear();
     var html = "<select id='comboAno' class='form-control dropdown-toggle'>";
-    html += "<option value='0'>Selecione</option>"
-    if (obj.length > 0) {
-        for (var i in obj) {
-            html += "<option value=" + 2023 + ">" + 2022; 2021; 2020 + "</option>"
-        }
+    for (var i=ano; i>=ano-3; i--) {
+        html += "<option value=" + i + ">" + i + "</option>"
     }
     html += "</select>";
-    $("#comboAno").html(html);
+    $("#divComboAno").html(html);
 }
 
 
